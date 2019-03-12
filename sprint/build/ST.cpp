@@ -1,8 +1,13 @@
 #include "ST.h"
+#include "Variable.h"
 
+// ST(): lastOffset(0);
+
+// returns the Symbol if exists in the table, otherwise nullptr
 Symbol * ST::getSymbol(std::string name){
-    return table[name]; 
-    // Returns null if the symbol does not exist i.e. never been declared before ?
+    if (table.find(name)!=table.end())
+      return table.find(name)->second;
+    return nullptr;
 }
 
 /*
@@ -10,6 +15,11 @@ Symbol * ST::getSymbol(std::string name){
     Returns: the offset of the variable in the table
 */
 int ST::putVariable(std::string name, types type, bool initialized){
-    //TODO
-    return -1;
+    // to change size after (8 for now)
+    int size = 8;
+    lastOffset += size;
+    Variable * var = new Variable(name, type, initialized, size, lastOffset);
+    // here is the error, bcz of the pointer shit fck bitch
+    table.insert(std::make_pair<std::string,Symbol*>(name, var));
+    return lastOffset;
 }

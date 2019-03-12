@@ -1,5 +1,6 @@
-#include <map>
+#include <unordered_map>
 #include "Symbol.h"
+
 class ST{
     public:
         ST();
@@ -8,5 +9,6 @@ class ST{
         int putVariable(std::string name, types type, bool initialized);
 
     private:
-        std::map<std::string, Symbol*> table;
+        int lastOffset;
+        std::unordered_map<std::string, Symbol*> table;
 };

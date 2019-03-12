@@ -1,8 +1,8 @@
 
-// Generated from ./sprint/sprint.g4 by ANTLR 4.7.2
+// Generated from sprint.g4 by ANTLR 4.7.1
 
 
-#include "sprintListener.h"
+#include "sprintVisitor.h"
 
 #include "sprintParser.h"
 
@@ -50,16 +50,11 @@ size_t sprintParser::PrgContext::getRuleIndex() const {
   return sprintParser::RulePrg;
 }
 
-void sprintParser::PrgContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterPrg(this);
-}
-
-void sprintParser::PrgContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitPrg(this);
+antlrcpp::Any sprintParser::PrgContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitPrg(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::PrgContext* sprintParser::prg() {
@@ -123,16 +118,11 @@ size_t sprintParser::FuncDeclarationContext::getRuleIndex() const {
   return sprintParser::RuleFuncDeclaration;
 }
 
-void sprintParser::FuncDeclarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFuncDeclaration(this);
-}
-
-void sprintParser::FuncDeclarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFuncDeclaration(this);
+antlrcpp::Any sprintParser::FuncDeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitFuncDeclaration(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::FuncDeclarationContext* sprintParser::funcDeclaration() {
@@ -196,16 +186,11 @@ size_t sprintParser::FormalParametersContext::getRuleIndex() const {
   return sprintParser::RuleFormalParameters;
 }
 
-void sprintParser::FormalParametersContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFormalParameters(this);
-}
-
-void sprintParser::FormalParametersContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFormalParameters(this);
+antlrcpp::Any sprintParser::FormalParametersContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitFormalParameters(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::FormalParametersContext* sprintParser::formalParameters() {
@@ -262,16 +247,11 @@ size_t sprintParser::ParameterContext::getRuleIndex() const {
   return sprintParser::RuleParameter;
 }
 
-void sprintParser::ParameterContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterParameter(this);
-}
-
-void sprintParser::ParameterContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitParameter(this);
+antlrcpp::Any sprintParser::ParameterContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitParameter(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::ParameterContext* sprintParser::parameter() {
@@ -317,16 +297,11 @@ size_t sprintParser::BlockContext::getRuleIndex() const {
   return sprintParser::RuleBlock;
 }
 
-void sprintParser::BlockContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterBlock(this);
-}
-
-void sprintParser::BlockContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitBlock(this);
+antlrcpp::Any sprintParser::BlockContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitBlock(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::BlockContext* sprintParser::block() {
@@ -392,16 +367,11 @@ size_t sprintParser::StatementContext::getRuleIndex() const {
   return sprintParser::RuleStatement;
 }
 
-void sprintParser::StatementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStatement(this);
-}
-
-void sprintParser::StatementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStatement(this);
+antlrcpp::Any sprintParser::StatementContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitStatement(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::StatementContext* sprintParser::statement() {
@@ -471,16 +441,11 @@ size_t sprintParser::RetStatementContext::getRuleIndex() const {
   return sprintParser::RuleRetStatement;
 }
 
-void sprintParser::RetStatementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterRetStatement(this);
-}
-
-void sprintParser::RetStatementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitRetStatement(this);
+antlrcpp::Any sprintParser::RetStatementContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitRetStatement(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::RetStatementContext* sprintParser::retStatement() {
@@ -542,16 +507,11 @@ size_t sprintParser::DeclStatementContext::getRuleIndex() const {
   return sprintParser::RuleDeclStatement;
 }
 
-void sprintParser::DeclStatementContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterDeclStatement(this);
-}
-
-void sprintParser::DeclStatementContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitDeclStatement(this);
+antlrcpp::Any sprintParser::DeclStatementContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitDeclStatement(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::DeclStatementContext* sprintParser::declStatement() {
@@ -620,16 +580,11 @@ size_t sprintParser::VarDeclarationContext::getRuleIndex() const {
   return sprintParser::RuleVarDeclaration;
 }
 
-void sprintParser::VarDeclarationContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterVarDeclaration(this);
-}
-
-void sprintParser::VarDeclarationContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitVarDeclaration(this);
+antlrcpp::Any sprintParser::VarDeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitVarDeclaration(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::VarDeclarationContext* sprintParser::varDeclaration() {
@@ -686,16 +641,11 @@ size_t sprintParser::TypeContext::getRuleIndex() const {
   return sprintParser::RuleType;
 }
 
-void sprintParser::TypeContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterType(this);
-}
-
-void sprintParser::TypeContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<sprintListener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitType(this);
+antlrcpp::Any sprintParser::TypeContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<sprintVisitor*>(visitor))
+    return parserVisitor->visitType(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 sprintParser::TypeContext* sprintParser::type() {
