@@ -1,4 +1,4 @@
-grammar Sprint_2_;
+grammar sprint;
 
 
 prg : funcDeclaration+;

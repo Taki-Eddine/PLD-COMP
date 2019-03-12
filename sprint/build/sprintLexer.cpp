@@ -1,50 +1,50 @@
 
-// Generated from Sprint_2_.g4 by ANTLR 4.7.2
+// Generated from ./sprint/sprint.g4 by ANTLR 4.7.2
 
 
-#include "Sprint_2_Lexer.h"
+#include "sprintLexer.h"
 
 
 using namespace antlr4;
 
 
-Sprint_2_Lexer::Sprint_2_Lexer(CharStream *input) : Lexer(input) {
+sprintLexer::sprintLexer(CharStream *input) : Lexer(input) {
   _interpreter = new atn::LexerATNSimulator(this, _atn, _decisionToDFA, _sharedContextCache);
 }
 
-Sprint_2_Lexer::~Sprint_2_Lexer() {
+sprintLexer::~sprintLexer() {
   delete _interpreter;
 }
 
-std::string Sprint_2_Lexer::getGrammarFileName() const {
-  return "Sprint_2_.g4";
+std::string sprintLexer::getGrammarFileName() const {
+  return "sprint.g4";
 }
 
-const std::vector<std::string>& Sprint_2_Lexer::getRuleNames() const {
+const std::vector<std::string>& sprintLexer::getRuleNames() const {
   return _ruleNames;
 }
 
-const std::vector<std::string>& Sprint_2_Lexer::getChannelNames() const {
+const std::vector<std::string>& sprintLexer::getChannelNames() const {
   return _channelNames;
 }
 
-const std::vector<std::string>& Sprint_2_Lexer::getModeNames() const {
+const std::vector<std::string>& sprintLexer::getModeNames() const {
   return _modeNames;
 }
 
-const std::vector<std::string>& Sprint_2_Lexer::getTokenNames() const {
+const std::vector<std::string>& sprintLexer::getTokenNames() const {
   return _tokenNames;
 }
 
-dfa::Vocabulary& Sprint_2_Lexer::getVocabulary() const {
+dfa::Vocabulary& sprintLexer::getVocabulary() const {
   return _vocabulary;
 }
 
-const std::vector<uint16_t> Sprint_2_Lexer::getSerializedATN() const {
+const std::vector<uint16_t> sprintLexer::getSerializedATN() const {
   return _serializedATN;
 }
 
-const atn::ATN& Sprint_2_Lexer::getATN() const {
+const atn::ATN& sprintLexer::getATN() const {
   return _atn;
 }
 
@@ -52,42 +52,42 @@ const atn::ATN& Sprint_2_Lexer::getATN() const {
 
 
 // Static vars and initialization.
-std::vector<dfa::DFA> Sprint_2_Lexer::_decisionToDFA;
-atn::PredictionContextCache Sprint_2_Lexer::_sharedContextCache;
+std::vector<dfa::DFA> sprintLexer::_decisionToDFA;
+atn::PredictionContextCache sprintLexer::_sharedContextCache;
 
 // We own the ATN which in turn owns the ATN states.
-atn::ATN Sprint_2_Lexer::_atn;
-std::vector<uint16_t> Sprint_2_Lexer::_serializedATN;
+atn::ATN sprintLexer::_atn;
+std::vector<uint16_t> sprintLexer::_serializedATN;
 
-std::vector<std::string> Sprint_2_Lexer::_ruleNames = {
+std::vector<std::string> sprintLexer::_ruleNames = {
   u8"T__0", u8"T__1", u8"T__2", u8"T__3", u8"T__4", u8"T__5", u8"T__6", 
   u8"T__7", u8"T__8", u8"T__9", u8"T__10", u8"ID", u8"INT", u8"CHAR", u8"LETTER", 
   u8"DIGIT", u8"UNDER_SCORE", u8"INCLUDE", u8"WS"
 };
 
-std::vector<std::string> Sprint_2_Lexer::_channelNames = {
+std::vector<std::string> sprintLexer::_channelNames = {
   "DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 };
 
-std::vector<std::string> Sprint_2_Lexer::_modeNames = {
+std::vector<std::string> sprintLexer::_modeNames = {
   u8"DEFAULT_MODE"
 };
 
-std::vector<std::string> Sprint_2_Lexer::_literalNames = {
+std::vector<std::string> sprintLexer::_literalNames = {
   "", u8"'('", u8"')'", u8"','", u8"'{'", u8"'}'", u8"'return'", u8"';'", 
   u8"'='", u8"'char'", u8"'int'", u8"'void'", "", "", "", "", "", u8"'_'"
 };
 
-std::vector<std::string> Sprint_2_Lexer::_symbolicNames = {
+std::vector<std::string> sprintLexer::_symbolicNames = {
   "", "", "", "", "", "", "", "", "", "", "", "", u8"ID", u8"INT", u8"CHAR", 
   u8"LETTER", u8"DIGIT", u8"UNDER_SCORE", u8"INCLUDE", u8"WS"
 };
 
-dfa::Vocabulary Sprint_2_Lexer::_vocabulary(_literalNames, _symbolicNames);
+dfa::Vocabulary sprintLexer::_vocabulary(_literalNames, _symbolicNames);
 
-std::vector<std::string> Sprint_2_Lexer::_tokenNames;
+std::vector<std::string> sprintLexer::_tokenNames;
 
-Sprint_2_Lexer::Initializer::Initializer() {
+sprintLexer::Initializer::Initializer() {
   // This code could be in a static initializer lambda, but VS doesn't allow access to private class members from there.
 	for (size_t i = 0; i < _symbolicNames.size(); ++i) {
 		std::string name = _vocabulary.getLiteralName(i);
@@ -211,4 +211,4 @@ Sprint_2_Lexer::Initializer::Initializer() {
   }
 }
 
-Sprint_2_Lexer::Initializer Sprint_2_Lexer::_init;
+sprintLexer::Initializer sprintLexer::_init;

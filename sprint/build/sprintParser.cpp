@@ -1,66 +1,70 @@
 
-// Generated from Sprint_2_.g4 by ANTLR 4.7.2
+// Generated from ./sprint/sprint.g4 by ANTLR 4.7.2
 
 
-#include "Sprint_2_Visitor.h"
+#include "sprintListener.h"
 
-#include "Sprint_2_Parser.h"
+#include "sprintParser.h"
 
 
 using namespace antlrcpp;
 using namespace antlr4;
 
-Sprint_2_Parser::Sprint_2_Parser(TokenStream *input) : Parser(input) {
+sprintParser::sprintParser(TokenStream *input) : Parser(input) {
   _interpreter = new atn::ParserATNSimulator(this, _atn, _decisionToDFA, _sharedContextCache);
 }
 
-Sprint_2_Parser::~Sprint_2_Parser() {
+sprintParser::~sprintParser() {
   delete _interpreter;
 }
 
-std::string Sprint_2_Parser::getGrammarFileName() const {
-  return "Sprint_2_.g4";
+std::string sprintParser::getGrammarFileName() const {
+  return "sprint.g4";
 }
 
-const std::vector<std::string>& Sprint_2_Parser::getRuleNames() const {
+const std::vector<std::string>& sprintParser::getRuleNames() const {
   return _ruleNames;
 }
 
-dfa::Vocabulary& Sprint_2_Parser::getVocabulary() const {
+dfa::Vocabulary& sprintParser::getVocabulary() const {
   return _vocabulary;
 }
 
 
 //----------------- PrgContext ------------------------------------------------------------------
 
-Sprint_2_Parser::PrgContext::PrgContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::PrgContext::PrgContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<Sprint_2_Parser::FuncDeclarationContext *> Sprint_2_Parser::PrgContext::funcDeclaration() {
-  return getRuleContexts<Sprint_2_Parser::FuncDeclarationContext>();
+std::vector<sprintParser::FuncDeclarationContext *> sprintParser::PrgContext::funcDeclaration() {
+  return getRuleContexts<sprintParser::FuncDeclarationContext>();
 }
 
-Sprint_2_Parser::FuncDeclarationContext* Sprint_2_Parser::PrgContext::funcDeclaration(size_t i) {
-  return getRuleContext<Sprint_2_Parser::FuncDeclarationContext>(i);
-}
-
-
-size_t Sprint_2_Parser::PrgContext::getRuleIndex() const {
-  return Sprint_2_Parser::RulePrg;
+sprintParser::FuncDeclarationContext* sprintParser::PrgContext::funcDeclaration(size_t i) {
+  return getRuleContext<sprintParser::FuncDeclarationContext>(i);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::PrgContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitPrg(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::PrgContext::getRuleIndex() const {
+  return sprintParser::RulePrg;
 }
 
-Sprint_2_Parser::PrgContext* Sprint_2_Parser::prg() {
+void sprintParser::PrgContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterPrg(this);
+}
+
+void sprintParser::PrgContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitPrg(this);
+}
+
+sprintParser::PrgContext* sprintParser::prg() {
   PrgContext *_localctx = _tracker.createInstance<PrgContext>(_ctx, getState());
-  enterRule(_localctx, 0, Sprint_2_Parser::RulePrg);
+  enterRule(_localctx, 0, sprintParser::RulePrg);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -78,9 +82,9 @@ Sprint_2_Parser::PrgContext* Sprint_2_Parser::prg() {
       _errHandler->sync(this);
       _la = _input->LA(1);
     } while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Sprint_2_Parser::T__8)
-      | (1ULL << Sprint_2_Parser::T__9)
-      | (1ULL << Sprint_2_Parser::T__10))) != 0));
+      ((1ULL << _la) & ((1ULL << sprintParser::T__8)
+      | (1ULL << sprintParser::T__9)
+      | (1ULL << sprintParser::T__10))) != 0));
    
   }
   catch (RecognitionException &e) {
@@ -94,42 +98,46 @@ Sprint_2_Parser::PrgContext* Sprint_2_Parser::prg() {
 
 //----------------- FuncDeclarationContext ------------------------------------------------------------------
 
-Sprint_2_Parser::FuncDeclarationContext::FuncDeclarationContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::FuncDeclarationContext::FuncDeclarationContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-Sprint_2_Parser::TypeContext* Sprint_2_Parser::FuncDeclarationContext::type() {
-  return getRuleContext<Sprint_2_Parser::TypeContext>(0);
+sprintParser::TypeContext* sprintParser::FuncDeclarationContext::type() {
+  return getRuleContext<sprintParser::TypeContext>(0);
 }
 
-tree::TerminalNode* Sprint_2_Parser::FuncDeclarationContext::ID() {
-  return getToken(Sprint_2_Parser::ID, 0);
+tree::TerminalNode* sprintParser::FuncDeclarationContext::ID() {
+  return getToken(sprintParser::ID, 0);
 }
 
-Sprint_2_Parser::BlockContext* Sprint_2_Parser::FuncDeclarationContext::block() {
-  return getRuleContext<Sprint_2_Parser::BlockContext>(0);
+sprintParser::BlockContext* sprintParser::FuncDeclarationContext::block() {
+  return getRuleContext<sprintParser::BlockContext>(0);
 }
 
-Sprint_2_Parser::FormalParametersContext* Sprint_2_Parser::FuncDeclarationContext::formalParameters() {
-  return getRuleContext<Sprint_2_Parser::FormalParametersContext>(0);
-}
-
-
-size_t Sprint_2_Parser::FuncDeclarationContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleFuncDeclaration;
+sprintParser::FormalParametersContext* sprintParser::FuncDeclarationContext::formalParameters() {
+  return getRuleContext<sprintParser::FormalParametersContext>(0);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::FuncDeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitFuncDeclaration(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::FuncDeclarationContext::getRuleIndex() const {
+  return sprintParser::RuleFuncDeclaration;
 }
 
-Sprint_2_Parser::FuncDeclarationContext* Sprint_2_Parser::funcDeclaration() {
+void sprintParser::FuncDeclarationContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterFuncDeclaration(this);
+}
+
+void sprintParser::FuncDeclarationContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitFuncDeclaration(this);
+}
+
+sprintParser::FuncDeclarationContext* sprintParser::funcDeclaration() {
   FuncDeclarationContext *_localctx = _tracker.createInstance<FuncDeclarationContext>(_ctx, getState());
-  enterRule(_localctx, 2, Sprint_2_Parser::RuleFuncDeclaration);
+  enterRule(_localctx, 2, sprintParser::RuleFuncDeclaration);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -140,22 +148,22 @@ Sprint_2_Parser::FuncDeclarationContext* Sprint_2_Parser::funcDeclaration() {
     setState(25);
     type();
     setState(26);
-    match(Sprint_2_Parser::ID);
+    match(sprintParser::ID);
     setState(27);
-    match(Sprint_2_Parser::T__0);
+    match(sprintParser::T__0);
     setState(29);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
     if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Sprint_2_Parser::T__8)
-      | (1ULL << Sprint_2_Parser::T__9)
-      | (1ULL << Sprint_2_Parser::T__10))) != 0)) {
+      ((1ULL << _la) & ((1ULL << sprintParser::T__8)
+      | (1ULL << sprintParser::T__9)
+      | (1ULL << sprintParser::T__10))) != 0)) {
       setState(28);
       formalParameters();
     }
     setState(31);
-    match(Sprint_2_Parser::T__1);
+    match(sprintParser::T__1);
     setState(32);
     block();
    
@@ -171,34 +179,38 @@ Sprint_2_Parser::FuncDeclarationContext* Sprint_2_Parser::funcDeclaration() {
 
 //----------------- FormalParametersContext ------------------------------------------------------------------
 
-Sprint_2_Parser::FormalParametersContext::FormalParametersContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::FormalParametersContext::FormalParametersContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<Sprint_2_Parser::ParameterContext *> Sprint_2_Parser::FormalParametersContext::parameter() {
-  return getRuleContexts<Sprint_2_Parser::ParameterContext>();
+std::vector<sprintParser::ParameterContext *> sprintParser::FormalParametersContext::parameter() {
+  return getRuleContexts<sprintParser::ParameterContext>();
 }
 
-Sprint_2_Parser::ParameterContext* Sprint_2_Parser::FormalParametersContext::parameter(size_t i) {
-  return getRuleContext<Sprint_2_Parser::ParameterContext>(i);
-}
-
-
-size_t Sprint_2_Parser::FormalParametersContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleFormalParameters;
+sprintParser::ParameterContext* sprintParser::FormalParametersContext::parameter(size_t i) {
+  return getRuleContext<sprintParser::ParameterContext>(i);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::FormalParametersContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitFormalParameters(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::FormalParametersContext::getRuleIndex() const {
+  return sprintParser::RuleFormalParameters;
 }
 
-Sprint_2_Parser::FormalParametersContext* Sprint_2_Parser::formalParameters() {
+void sprintParser::FormalParametersContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterFormalParameters(this);
+}
+
+void sprintParser::FormalParametersContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitFormalParameters(this);
+}
+
+sprintParser::FormalParametersContext* sprintParser::formalParameters() {
   FormalParametersContext *_localctx = _tracker.createInstance<FormalParametersContext>(_ctx, getState());
-  enterRule(_localctx, 4, Sprint_2_Parser::RuleFormalParameters);
+  enterRule(_localctx, 4, sprintParser::RuleFormalParameters);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -211,9 +223,9 @@ Sprint_2_Parser::FormalParametersContext* Sprint_2_Parser::formalParameters() {
     setState(39);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == Sprint_2_Parser::T__2) {
+    while (_la == sprintParser::T__2) {
       setState(35);
-      match(Sprint_2_Parser::T__2);
+      match(sprintParser::T__2);
       setState(36);
       parameter();
       setState(41);
@@ -233,34 +245,38 @@ Sprint_2_Parser::FormalParametersContext* Sprint_2_Parser::formalParameters() {
 
 //----------------- ParameterContext ------------------------------------------------------------------
 
-Sprint_2_Parser::ParameterContext::ParameterContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::ParameterContext::ParameterContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-Sprint_2_Parser::TypeContext* Sprint_2_Parser::ParameterContext::type() {
-  return getRuleContext<Sprint_2_Parser::TypeContext>(0);
+sprintParser::TypeContext* sprintParser::ParameterContext::type() {
+  return getRuleContext<sprintParser::TypeContext>(0);
 }
 
-tree::TerminalNode* Sprint_2_Parser::ParameterContext::ID() {
-  return getToken(Sprint_2_Parser::ID, 0);
-}
-
-
-size_t Sprint_2_Parser::ParameterContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleParameter;
+tree::TerminalNode* sprintParser::ParameterContext::ID() {
+  return getToken(sprintParser::ID, 0);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::ParameterContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitParameter(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::ParameterContext::getRuleIndex() const {
+  return sprintParser::RuleParameter;
 }
 
-Sprint_2_Parser::ParameterContext* Sprint_2_Parser::parameter() {
+void sprintParser::ParameterContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterParameter(this);
+}
+
+void sprintParser::ParameterContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitParameter(this);
+}
+
+sprintParser::ParameterContext* sprintParser::parameter() {
   ParameterContext *_localctx = _tracker.createInstance<ParameterContext>(_ctx, getState());
-  enterRule(_localctx, 6, Sprint_2_Parser::RuleParameter);
+  enterRule(_localctx, 6, sprintParser::RuleParameter);
 
   auto onExit = finally([=] {
     exitRule();
@@ -270,7 +286,7 @@ Sprint_2_Parser::ParameterContext* Sprint_2_Parser::parameter() {
     setState(42);
     type();
     setState(43);
-    match(Sprint_2_Parser::ID);
+    match(sprintParser::ID);
    
   }
   catch (RecognitionException &e) {
@@ -284,34 +300,38 @@ Sprint_2_Parser::ParameterContext* Sprint_2_Parser::parameter() {
 
 //----------------- BlockContext ------------------------------------------------------------------
 
-Sprint_2_Parser::BlockContext::BlockContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::BlockContext::BlockContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<Sprint_2_Parser::StatementContext *> Sprint_2_Parser::BlockContext::statement() {
-  return getRuleContexts<Sprint_2_Parser::StatementContext>();
+std::vector<sprintParser::StatementContext *> sprintParser::BlockContext::statement() {
+  return getRuleContexts<sprintParser::StatementContext>();
 }
 
-Sprint_2_Parser::StatementContext* Sprint_2_Parser::BlockContext::statement(size_t i) {
-  return getRuleContext<Sprint_2_Parser::StatementContext>(i);
-}
-
-
-size_t Sprint_2_Parser::BlockContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleBlock;
+sprintParser::StatementContext* sprintParser::BlockContext::statement(size_t i) {
+  return getRuleContext<sprintParser::StatementContext>(i);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::BlockContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitBlock(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::BlockContext::getRuleIndex() const {
+  return sprintParser::RuleBlock;
 }
 
-Sprint_2_Parser::BlockContext* Sprint_2_Parser::block() {
+void sprintParser::BlockContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterBlock(this);
+}
+
+void sprintParser::BlockContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitBlock(this);
+}
+
+sprintParser::BlockContext* sprintParser::block() {
   BlockContext *_localctx = _tracker.createInstance<BlockContext>(_ctx, getState());
-  enterRule(_localctx, 8, Sprint_2_Parser::RuleBlock);
+  enterRule(_localctx, 8, sprintParser::RuleBlock);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -320,16 +340,16 @@ Sprint_2_Parser::BlockContext* Sprint_2_Parser::block() {
   try {
     enterOuterAlt(_localctx, 1);
     setState(45);
-    match(Sprint_2_Parser::T__3);
+    match(sprintParser::T__3);
     setState(49);
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Sprint_2_Parser::T__3)
-      | (1ULL << Sprint_2_Parser::T__5)
-      | (1ULL << Sprint_2_Parser::T__8)
-      | (1ULL << Sprint_2_Parser::T__9)
-      | (1ULL << Sprint_2_Parser::T__10))) != 0)) {
+      ((1ULL << _la) & ((1ULL << sprintParser::T__3)
+      | (1ULL << sprintParser::T__5)
+      | (1ULL << sprintParser::T__8)
+      | (1ULL << sprintParser::T__9)
+      | (1ULL << sprintParser::T__10))) != 0)) {
       setState(46);
       statement();
       setState(51);
@@ -337,7 +357,7 @@ Sprint_2_Parser::BlockContext* Sprint_2_Parser::block() {
       _la = _input->LA(1);
     }
     setState(52);
-    match(Sprint_2_Parser::T__4);
+    match(sprintParser::T__4);
    
   }
   catch (RecognitionException &e) {
@@ -351,38 +371,42 @@ Sprint_2_Parser::BlockContext* Sprint_2_Parser::block() {
 
 //----------------- StatementContext ------------------------------------------------------------------
 
-Sprint_2_Parser::StatementContext::StatementContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::StatementContext::StatementContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-Sprint_2_Parser::BlockContext* Sprint_2_Parser::StatementContext::block() {
-  return getRuleContext<Sprint_2_Parser::BlockContext>(0);
+sprintParser::BlockContext* sprintParser::StatementContext::block() {
+  return getRuleContext<sprintParser::BlockContext>(0);
 }
 
-Sprint_2_Parser::DeclStatementContext* Sprint_2_Parser::StatementContext::declStatement() {
-  return getRuleContext<Sprint_2_Parser::DeclStatementContext>(0);
+sprintParser::DeclStatementContext* sprintParser::StatementContext::declStatement() {
+  return getRuleContext<sprintParser::DeclStatementContext>(0);
 }
 
-Sprint_2_Parser::RetStatementContext* Sprint_2_Parser::StatementContext::retStatement() {
-  return getRuleContext<Sprint_2_Parser::RetStatementContext>(0);
-}
-
-
-size_t Sprint_2_Parser::StatementContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleStatement;
+sprintParser::RetStatementContext* sprintParser::StatementContext::retStatement() {
+  return getRuleContext<sprintParser::RetStatementContext>(0);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::StatementContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitStatement(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::StatementContext::getRuleIndex() const {
+  return sprintParser::RuleStatement;
 }
 
-Sprint_2_Parser::StatementContext* Sprint_2_Parser::statement() {
+void sprintParser::StatementContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterStatement(this);
+}
+
+void sprintParser::StatementContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitStatement(this);
+}
+
+sprintParser::StatementContext* sprintParser::statement() {
   StatementContext *_localctx = _tracker.createInstance<StatementContext>(_ctx, getState());
-  enterRule(_localctx, 10, Sprint_2_Parser::RuleStatement);
+  enterRule(_localctx, 10, sprintParser::RuleStatement);
 
   auto onExit = finally([=] {
     exitRule();
@@ -391,23 +415,23 @@ Sprint_2_Parser::StatementContext* Sprint_2_Parser::statement() {
     setState(57);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case Sprint_2_Parser::T__3: {
+      case sprintParser::T__3: {
         enterOuterAlt(_localctx, 1);
         setState(54);
         block();
         break;
       }
 
-      case Sprint_2_Parser::T__8:
-      case Sprint_2_Parser::T__9:
-      case Sprint_2_Parser::T__10: {
+      case sprintParser::T__8:
+      case sprintParser::T__9:
+      case sprintParser::T__10: {
         enterOuterAlt(_localctx, 2);
         setState(55);
         declStatement();
         break;
       }
 
-      case Sprint_2_Parser::T__5: {
+      case sprintParser::T__5: {
         enterOuterAlt(_localctx, 3);
         setState(56);
         retStatement();
@@ -430,34 +454,38 @@ Sprint_2_Parser::StatementContext* Sprint_2_Parser::statement() {
 
 //----------------- RetStatementContext ------------------------------------------------------------------
 
-Sprint_2_Parser::RetStatementContext::RetStatementContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::RetStatementContext::RetStatementContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* Sprint_2_Parser::RetStatementContext::ID() {
-  return getToken(Sprint_2_Parser::ID, 0);
+tree::TerminalNode* sprintParser::RetStatementContext::ID() {
+  return getToken(sprintParser::ID, 0);
 }
 
-tree::TerminalNode* Sprint_2_Parser::RetStatementContext::INT() {
-  return getToken(Sprint_2_Parser::INT, 0);
-}
-
-
-size_t Sprint_2_Parser::RetStatementContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleRetStatement;
+tree::TerminalNode* sprintParser::RetStatementContext::INT() {
+  return getToken(sprintParser::INT, 0);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::RetStatementContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitRetStatement(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::RetStatementContext::getRuleIndex() const {
+  return sprintParser::RuleRetStatement;
 }
 
-Sprint_2_Parser::RetStatementContext* Sprint_2_Parser::retStatement() {
+void sprintParser::RetStatementContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterRetStatement(this);
+}
+
+void sprintParser::RetStatementContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitRetStatement(this);
+}
+
+sprintParser::RetStatementContext* sprintParser::retStatement() {
   RetStatementContext *_localctx = _tracker.createInstance<RetStatementContext>(_ctx, getState());
-  enterRule(_localctx, 12, Sprint_2_Parser::RuleRetStatement);
+  enterRule(_localctx, 12, sprintParser::RuleRetStatement);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -466,12 +494,12 @@ Sprint_2_Parser::RetStatementContext* Sprint_2_Parser::retStatement() {
   try {
     enterOuterAlt(_localctx, 1);
     setState(59);
-    match(Sprint_2_Parser::T__5);
+    match(sprintParser::T__5);
     setState(60);
     _la = _input->LA(1);
-    if (!(_la == Sprint_2_Parser::ID
+    if (!(_la == sprintParser::ID
 
-    || _la == Sprint_2_Parser::INT)) {
+    || _la == sprintParser::INT)) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -479,7 +507,7 @@ Sprint_2_Parser::RetStatementContext* Sprint_2_Parser::retStatement() {
       consume();
     }
     setState(61);
-    match(Sprint_2_Parser::T__6);
+    match(sprintParser::T__6);
    
   }
   catch (RecognitionException &e) {
@@ -493,38 +521,42 @@ Sprint_2_Parser::RetStatementContext* Sprint_2_Parser::retStatement() {
 
 //----------------- DeclStatementContext ------------------------------------------------------------------
 
-Sprint_2_Parser::DeclStatementContext::DeclStatementContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::DeclStatementContext::DeclStatementContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-Sprint_2_Parser::TypeContext* Sprint_2_Parser::DeclStatementContext::type() {
-  return getRuleContext<Sprint_2_Parser::TypeContext>(0);
+sprintParser::TypeContext* sprintParser::DeclStatementContext::type() {
+  return getRuleContext<sprintParser::TypeContext>(0);
 }
 
-std::vector<Sprint_2_Parser::VarDeclarationContext *> Sprint_2_Parser::DeclStatementContext::varDeclaration() {
-  return getRuleContexts<Sprint_2_Parser::VarDeclarationContext>();
+std::vector<sprintParser::VarDeclarationContext *> sprintParser::DeclStatementContext::varDeclaration() {
+  return getRuleContexts<sprintParser::VarDeclarationContext>();
 }
 
-Sprint_2_Parser::VarDeclarationContext* Sprint_2_Parser::DeclStatementContext::varDeclaration(size_t i) {
-  return getRuleContext<Sprint_2_Parser::VarDeclarationContext>(i);
-}
-
-
-size_t Sprint_2_Parser::DeclStatementContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleDeclStatement;
+sprintParser::VarDeclarationContext* sprintParser::DeclStatementContext::varDeclaration(size_t i) {
+  return getRuleContext<sprintParser::VarDeclarationContext>(i);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::DeclStatementContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitDeclStatement(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::DeclStatementContext::getRuleIndex() const {
+  return sprintParser::RuleDeclStatement;
 }
 
-Sprint_2_Parser::DeclStatementContext* Sprint_2_Parser::declStatement() {
+void sprintParser::DeclStatementContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterDeclStatement(this);
+}
+
+void sprintParser::DeclStatementContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitDeclStatement(this);
+}
+
+sprintParser::DeclStatementContext* sprintParser::declStatement() {
   DeclStatementContext *_localctx = _tracker.createInstance<DeclStatementContext>(_ctx, getState());
-  enterRule(_localctx, 14, Sprint_2_Parser::RuleDeclStatement);
+  enterRule(_localctx, 14, sprintParser::RuleDeclStatement);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -539,9 +571,9 @@ Sprint_2_Parser::DeclStatementContext* Sprint_2_Parser::declStatement() {
     setState(69);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (_la == Sprint_2_Parser::T__2) {
+    while (_la == sprintParser::T__2) {
       setState(65);
-      match(Sprint_2_Parser::T__2);
+      match(sprintParser::T__2);
       setState(66);
       varDeclaration();
       setState(71);
@@ -549,7 +581,7 @@ Sprint_2_Parser::DeclStatementContext* Sprint_2_Parser::declStatement() {
       _la = _input->LA(1);
     }
     setState(72);
-    match(Sprint_2_Parser::T__6);
+    match(sprintParser::T__6);
    
   }
   catch (RecognitionException &e) {
@@ -563,42 +595,46 @@ Sprint_2_Parser::DeclStatementContext* Sprint_2_Parser::declStatement() {
 
 //----------------- VarDeclarationContext ------------------------------------------------------------------
 
-Sprint_2_Parser::VarDeclarationContext::VarDeclarationContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::VarDeclarationContext::VarDeclarationContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<tree::TerminalNode *> Sprint_2_Parser::VarDeclarationContext::ID() {
-  return getTokens(Sprint_2_Parser::ID);
+std::vector<tree::TerminalNode *> sprintParser::VarDeclarationContext::ID() {
+  return getTokens(sprintParser::ID);
 }
 
-tree::TerminalNode* Sprint_2_Parser::VarDeclarationContext::ID(size_t i) {
-  return getToken(Sprint_2_Parser::ID, i);
+tree::TerminalNode* sprintParser::VarDeclarationContext::ID(size_t i) {
+  return getToken(sprintParser::ID, i);
 }
 
-tree::TerminalNode* Sprint_2_Parser::VarDeclarationContext::INT() {
-  return getToken(Sprint_2_Parser::INT, 0);
+tree::TerminalNode* sprintParser::VarDeclarationContext::INT() {
+  return getToken(sprintParser::INT, 0);
 }
 
-tree::TerminalNode* Sprint_2_Parser::VarDeclarationContext::CHAR() {
-  return getToken(Sprint_2_Parser::CHAR, 0);
-}
-
-
-size_t Sprint_2_Parser::VarDeclarationContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleVarDeclaration;
+tree::TerminalNode* sprintParser::VarDeclarationContext::CHAR() {
+  return getToken(sprintParser::CHAR, 0);
 }
 
 
-antlrcpp::Any Sprint_2_Parser::VarDeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitVarDeclaration(this);
-  else
-    return visitor->visitChildren(this);
+size_t sprintParser::VarDeclarationContext::getRuleIndex() const {
+  return sprintParser::RuleVarDeclaration;
 }
 
-Sprint_2_Parser::VarDeclarationContext* Sprint_2_Parser::varDeclaration() {
+void sprintParser::VarDeclarationContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterVarDeclaration(this);
+}
+
+void sprintParser::VarDeclarationContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitVarDeclaration(this);
+}
+
+sprintParser::VarDeclarationContext* sprintParser::varDeclaration() {
   VarDeclarationContext *_localctx = _tracker.createInstance<VarDeclarationContext>(_ctx, getState());
-  enterRule(_localctx, 16, Sprint_2_Parser::RuleVarDeclaration);
+  enterRule(_localctx, 16, sprintParser::RuleVarDeclaration);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -607,20 +643,20 @@ Sprint_2_Parser::VarDeclarationContext* Sprint_2_Parser::varDeclaration() {
   try {
     enterOuterAlt(_localctx, 1);
     setState(74);
-    match(Sprint_2_Parser::ID);
+    match(sprintParser::ID);
     setState(77);
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (_la == Sprint_2_Parser::T__7) {
+    if (_la == sprintParser::T__7) {
       setState(75);
-      match(Sprint_2_Parser::T__7);
+      match(sprintParser::T__7);
       setState(76);
       _la = _input->LA(1);
       if (!((((_la & ~ 0x3fULL) == 0) &&
-        ((1ULL << _la) & ((1ULL << Sprint_2_Parser::ID)
-        | (1ULL << Sprint_2_Parser::INT)
-        | (1ULL << Sprint_2_Parser::CHAR))) != 0))) {
+        ((1ULL << _la) & ((1ULL << sprintParser::ID)
+        | (1ULL << sprintParser::INT)
+        | (1ULL << sprintParser::CHAR))) != 0))) {
       _errHandler->recoverInline(this);
       }
       else {
@@ -641,26 +677,30 @@ Sprint_2_Parser::VarDeclarationContext* Sprint_2_Parser::varDeclaration() {
 
 //----------------- TypeContext ------------------------------------------------------------------
 
-Sprint_2_Parser::TypeContext::TypeContext(ParserRuleContext *parent, size_t invokingState)
+sprintParser::TypeContext::TypeContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t Sprint_2_Parser::TypeContext::getRuleIndex() const {
-  return Sprint_2_Parser::RuleType;
+size_t sprintParser::TypeContext::getRuleIndex() const {
+  return sprintParser::RuleType;
 }
 
-
-antlrcpp::Any Sprint_2_Parser::TypeContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Sprint_2_Visitor*>(visitor))
-    return parserVisitor->visitType(this);
-  else
-    return visitor->visitChildren(this);
+void sprintParser::TypeContext::enterRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->enterType(this);
 }
 
-Sprint_2_Parser::TypeContext* Sprint_2_Parser::type() {
+void sprintParser::TypeContext::exitRule(tree::ParseTreeListener *listener) {
+  auto parserListener = dynamic_cast<sprintListener *>(listener);
+  if (parserListener != nullptr)
+    parserListener->exitType(this);
+}
+
+sprintParser::TypeContext* sprintParser::type() {
   TypeContext *_localctx = _tracker.createInstance<TypeContext>(_ctx, getState());
-  enterRule(_localctx, 18, Sprint_2_Parser::RuleType);
+  enterRule(_localctx, 18, sprintParser::RuleType);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -671,9 +711,9 @@ Sprint_2_Parser::TypeContext* Sprint_2_Parser::type() {
     setState(79);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Sprint_2_Parser::T__8)
-      | (1ULL << Sprint_2_Parser::T__9)
-      | (1ULL << Sprint_2_Parser::T__10))) != 0))) {
+      ((1ULL << _la) & ((1ULL << sprintParser::T__8)
+      | (1ULL << sprintParser::T__9)
+      | (1ULL << sprintParser::T__10))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -692,33 +732,33 @@ Sprint_2_Parser::TypeContext* Sprint_2_Parser::type() {
 }
 
 // Static vars and initialization.
-std::vector<dfa::DFA> Sprint_2_Parser::_decisionToDFA;
-atn::PredictionContextCache Sprint_2_Parser::_sharedContextCache;
+std::vector<dfa::DFA> sprintParser::_decisionToDFA;
+atn::PredictionContextCache sprintParser::_sharedContextCache;
 
 // We own the ATN which in turn owns the ATN states.
-atn::ATN Sprint_2_Parser::_atn;
-std::vector<uint16_t> Sprint_2_Parser::_serializedATN;
+atn::ATN sprintParser::_atn;
+std::vector<uint16_t> sprintParser::_serializedATN;
 
-std::vector<std::string> Sprint_2_Parser::_ruleNames = {
+std::vector<std::string> sprintParser::_ruleNames = {
   "prg", "funcDeclaration", "formalParameters", "parameter", "block", "statement", 
   "retStatement", "declStatement", "varDeclaration", "type"
 };
 
-std::vector<std::string> Sprint_2_Parser::_literalNames = {
+std::vector<std::string> sprintParser::_literalNames = {
   "", "'('", "')'", "','", "'{'", "'}'", "'return'", "';'", "'='", "'char'", 
   "'int'", "'void'", "", "", "", "", "", "'_'"
 };
 
-std::vector<std::string> Sprint_2_Parser::_symbolicNames = {
+std::vector<std::string> sprintParser::_symbolicNames = {
   "", "", "", "", "", "", "", "", "", "", "", "", "ID", "INT", "CHAR", "LETTER", 
   "DIGIT", "UNDER_SCORE", "INCLUDE", "WS"
 };
 
-dfa::Vocabulary Sprint_2_Parser::_vocabulary(_literalNames, _symbolicNames);
+dfa::Vocabulary sprintParser::_vocabulary(_literalNames, _symbolicNames);
 
-std::vector<std::string> Sprint_2_Parser::_tokenNames;
+std::vector<std::string> sprintParser::_tokenNames;
 
-Sprint_2_Parser::Initializer::Initializer() {
+sprintParser::Initializer::Initializer() {
 	for (size_t i = 0; i < _symbolicNames.size(); ++i) {
 		std::string name = _vocabulary.getLiteralName(i);
 		if (name.empty()) {
@@ -798,4 +838,4 @@ Sprint_2_Parser::Initializer::Initializer() {
   }
 }
 
-Sprint_2_Parser::Initializer Sprint_2_Parser::_init;
+sprintParser::Initializer sprintParser::_init;
