@@ -1,14 +1,16 @@
 #include <unordered_map>
-#include "Symbol.h"
+#include "Variable.h"
 
 class ST{
     public:
         ST();
         ~ST(){};
-        Symbol* getSymbol(std::string name);
-        int putVariable(std::string name, types type, bool initialized);
+        int getOffset(std::string name);
+        int putVariable(std::string name);
+        int putDummyVariable();
 
     private:
         int lastOffset;
-        std::unordered_map<std::string, Symbol*> table;
+        int dummyVariables;
+        std::unordered_map<std::string, Variable*> table;
 };

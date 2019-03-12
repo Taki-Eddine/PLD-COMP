@@ -22,7 +22,7 @@ ${EXEC}: $(OBJ)
 .PHONY: all assembly clean mrproper
 
 clean:
-	@rm -rf *.o *.out
+	@rm -rf *.o *.out *.s
 
 mrproper: clean
 	@rm -rf $(EXEC)

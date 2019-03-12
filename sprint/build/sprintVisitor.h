@@ -1,5 +1,5 @@
 
-// Generated from sprint.g4 by ANTLR 4.7.1
+// Generated from sprint.g4 by ANTLR 4.7.2
 
 #pragma once
 
@@ -35,7 +35,13 @@ public:
 
     virtual antlrcpp::Any visitDeclStatement(sprintParser::DeclStatementContext *context) = 0;
 
-    virtual antlrcpp::Any visitVarDeclaration(sprintParser::VarDeclarationContext *context) = 0;
+    virtual antlrcpp::Any visitInitializedDec(sprintParser::InitializedDecContext *context) = 0;
+
+    virtual antlrcpp::Any visitNonInitDec(sprintParser::NonInitDecContext *context) = 0;
+
+    virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitNUM_EXPR(sprintParser::NUM_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitType(sprintParser::TypeContext *context) = 0;
 

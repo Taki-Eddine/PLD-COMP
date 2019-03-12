@@ -1,5 +1,5 @@
 
-// Generated from sprint.g4 by ANTLR 4.7.1
+// Generated from sprint.g4 by ANTLR 4.7.2
 
 #pragma once
 
@@ -47,7 +47,19 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVarDeclaration(sprintParser::VarDeclarationContext *ctx) override {
+  virtual antlrcpp::Any visitInitializedDec(sprintParser::InitializedDecContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitNonInitDec(sprintParser::NonInitDecContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitNUM_EXPR(sprintParser::NUM_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 

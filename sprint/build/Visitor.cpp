@@ -6,21 +6,44 @@
 
 using namespace std;
 
-// antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext *ctx){
-//   cout<<"Hi!"<<endl;
-// }
+Visitor::Visitor(){};
+Visitor::~Visitor(){};
 
-antlrcpp::Any Visitor::visitVarDeclaration(sprintParser::VarDeclarationContext *ctx) {
-  if(ctx->ID().size()==1){
-    if(ctx->INT()!=0){
-      // int x = 1;
-      cout<<"enter x=1"<<endl;
-    } else {
-      // int x;
-      cout<<"enter x"<<endl;
-    }
-  } else {
-    // int x = y;
-    cout<<"enter x=y"<<endl;
-  }
-}
+antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext *ctx){
+  cout << ".text" << endl;
+  cout << ".global main" << endl;
+  cout << "main:" << endl;
+  cout << "pushq  %rbp" << endl;;
+  cout << "movq %rsp, %rbp" << endl;
+  return visitChildren(ctx);
+};
+
+antlrcpp::Any Visitor::visitInitializedDec(sprintParser::InitializedDecContext *ctx){
+  int rOffset = visit(ctx -> expr());
+  int lOffset = st.putVariable(ctx -> ID() -> getText());
+  cout << "movl -" << to_string(rOffset) << "(%rbp), %eax" <<endl;
+  cout << "movl %eax, -" << to_string(lOffset) << "(%rbp)" << endl;
+  return nullptr;
+};
+antlrcpp::Any Visitor::visitNonInitDec(sprintParser::NonInitDecContext *ctx){
+  st.putVariable(ctx -> ID() -> getText());
+  return nullptr;
+};
+
+antlrcpp::Any Visitor::visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx){
+  return st.getOffset(ctx -> ID() -> getText());
+};
+
+antlrcpp::Any Visitor::visitNUM_EXPR(sprintParser::NUM_EXPRContext *ctx){
+  int dummyOffeset = st.putDummyVariable();
+  cout << "movl $" << ctx -> INT() -> getText() << ", -" << to_string(dummyOffeset) << "(%rbp)" << endl;
+  return dummyOffeset;
+};
+
+antlrcpp::Any Visitor::visitRetStatement(sprintParser::RetStatementContext *ctx){
+  int offset = visit(ctx -> expr());
+  cout << "movl -" << to_string(offset) << "(%rbp), %eax" <<endl;
+  cout << "popq %rbp" << endl;
+  cout << "ret" << endl;
+  return nullptr;
+};

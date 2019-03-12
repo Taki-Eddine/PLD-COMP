@@ -13,13 +13,20 @@ block : '{' statement* '}';
 statement : block
             | declStatement
             | retStatement
+            | expr
             ;
 
-retStatement : 'return' (ID|INT) ';';
+retStatement : 'return' expr ';';
 declStatement: type varDeclaration (',' varDeclaration)* ';';
-varDeclaration : ID ('=' (ID | INT | CHAR))?;
+varDeclaration : ID '=' expr #InitializedDec
+                | ID #nonInitDec
+                ;
+                
+expr : ID #VAR_EXPR
+        | INT #NUM_EXPR
+        ;
 
-type : 'char' | 'int' | 'void';
+type : 'int';
 
 ID  :   LETTER (LETTER|DIGIT|UNDER_SCORE)*;
 INT : DIGIT+;

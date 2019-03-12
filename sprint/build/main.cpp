@@ -15,13 +15,7 @@ int main(int argc, const char* argv[]) {
   sprintParser parser(&tokens);
 
   tree::ParseTree *tree = parser.prg();
-
-  // std::cout<<"Pizda masii";
-
-  Visitor v;
-  v.visit(tree);
-
-  std::cout<<"After visit";
-
+  Visitor visitor;
+  visitor.visit(tree);
   return 0;
 }
