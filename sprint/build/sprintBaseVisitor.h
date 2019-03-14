@@ -55,11 +55,31 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override {
+  virtual antlrcpp::Any visitMULT_EXPR(sprintParser::MULT_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitNUM_EXPR(sprintParser::NUM_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 

@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <inttypes.h>
 int main(){
-	int N = 128, M = 256;
-    int i = N;
-	return i;
+    int i = 1, j = 2, k;
+	k = -1;
+	k = k + i * j - 3;
+	return k + 71;
 }

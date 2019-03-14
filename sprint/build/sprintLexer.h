@@ -13,8 +13,8 @@ class  sprintLexer : public antlr4::Lexer {
 public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    T__7 = 8, T__8 = 9, ID = 10, INT = 11, CHAR = 12, LETTER = 13, DIGIT = 14, 
-    UNDER_SCORE = 15, INCLUDE = 16, WS = 17
+    T__7 = 8, T__8 = 9, T__9 = 10, ID = 11, INT = 12, CHAR = 13, PLUS_MINUS = 14, 
+    LETTER = 15, DIGIT = 16, UNDER_SCORE = 17, INCLUDE = 18, WS = 19
   };
 
   sprintLexer(antlr4::CharStream *input);

@@ -13,8 +13,8 @@ class  sprintParser : public antlr4::Parser {
 public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    T__7 = 8, T__8 = 9, ID = 10, INT = 11, CHAR = 12, LETTER = 13, DIGIT = 14, 
-    UNDER_SCORE = 15, INCLUDE = 16, WS = 17
+    T__7 = 8, T__8 = 9, T__9 = 10, ID = 11, INT = 12, CHAR = 13, PLUS_MINUS = 14, 
+    LETTER = 15, DIGIT = 16, UNDER_SCORE = 17, INCLUDE = 18, WS = 19
   };
 
   enum {
@@ -208,11 +208,61 @@ public:
    
   };
 
+  class  MULT_EXPRContext : public ExprContext {
+  public:
+    MULT_EXPRContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
   class  NUM_EXPRContext : public ExprContext {
   public:
     NUM_EXPRContext(ExprContext *ctx);
 
     antlr4::tree::TerminalNode *INT();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ADD_MINUS_EXPRContext : public ExprContext {
+  public:
+    ADD_MINUS_EXPRContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    antlr4::tree::TerminalNode *PLUS_MINUS();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  UNARY_EXPRContext : public ExprContext {
+  public:
+    UNARY_EXPRContext(ExprContext *ctx);
+
+    antlr4::tree::TerminalNode *PLUS_MINUS();
+    ExprContext *expr();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  PAREN_EXPRContext : public ExprContext {
+  public:
+    PAREN_EXPRContext(ExprContext *ctx);
+
+    ExprContext *expr();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  AFFECT_EXPRContext : public ExprContext {
+  public:
+    AFFECT_EXPRContext(ExprContext *ctx);
+
+    antlr4::tree::TerminalNode *ID();
+    ExprContext *expr();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -227,7 +277,7 @@ public:
   };
 
   ExprContext* expr();
-
+  ExprContext* expr(int precedence);
   class  TypeContext : public antlr4::ParserRuleContext {
   public:
     TypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -240,6 +290,9 @@ public:
 
   TypeContext* type();
 
+
+  virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
+  bool exprSempred(ExprContext *_localctx, size_t predicateIndex);
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;

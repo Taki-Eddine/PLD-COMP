@@ -39,9 +39,19 @@ public:
 
     virtual antlrcpp::Any visitNonInitDec(sprintParser::NonInitDecContext *context) = 0;
 
-    virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *context) = 0;
+    virtual antlrcpp::Any visitMULT_EXPR(sprintParser::MULT_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitNUM_EXPR(sprintParser::NUM_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitType(sprintParser::TypeContext *context) = 0;
 

@@ -7,29 +7,33 @@ ST::ST(){
 }
 
 // returns the Symbol if exists in the table, otherwise nullptr
-int ST::getOffset(std::string name){
+Variable* ST::getVariable(std::string name){
     if (table.find(name) != table.end()){
-      return table[name] -> getOffset();
+      return table[name];
     }
     else{
-      return -1;
+      return nullptr;
     }
+}
+// Return true if the corresponding variable was initialized 
+bool ST::isInitialized(std::string name){
+  return table[name] ->isInitialized();
 }
 
 /*
     Add a variable symbol to the ST, make sure to manage offsets in terms of the given type
     Returns: the offset of the variable in the table
 */
-int ST::putVariable(std::string name){
+int ST::allocateVariable(std::string name, bool initialized){
     int size = 8;
     lastOffset += size;
-    Variable * variable = new Variable(name, lastOffset);
+    Variable * variable = new Variable(name, lastOffset, initialized);
     // here is the error, bcz of the pointer shit fck bitch
     table.insert(std::make_pair(name, variable));
     return lastOffset;
 }
 
-int ST::putDummyVariable(){
+int ST::allocateDummy(){
     int size = 8;
     lastOffset += size;
     dummyVariables += size;

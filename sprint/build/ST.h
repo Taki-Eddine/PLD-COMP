@@ -5,9 +5,10 @@ class ST{
     public:
         ST();
         ~ST(){};
-        int getOffset(std::string name);
-        int putVariable(std::string name);
-        int putDummyVariable();
+        Variable* getVariable(std::string name);
+        bool isInitialized(std::string name);
+        int allocateVariable(std::string name, bool initialized);
+        int allocateDummy();
 
     private:
         int lastOffset;

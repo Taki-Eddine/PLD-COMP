@@ -13,7 +13,7 @@ block : '{' statement* '}';
 statement : block
             | declStatement
             | retStatement
-            | expr
+            | expr ';'
             ;
 
 retStatement : 'return' expr ';';
@@ -22,7 +22,12 @@ varDeclaration : ID '=' expr #InitializedDec
                 | ID #nonInitDec
                 ;
                 
-expr : ID #VAR_EXPR
+expr :    PLUS_MINUS expr #UNARY_EXPR
+        | expr '*' expr #MULT_EXPR
+        | expr PLUS_MINUS expr #ADD_MINUS_EXPR
+        | '(' expr ')' #PAREN_EXPR
+        | ID '=' expr #AFFECT_EXPR
+        | ID #VAR_EXPR
         | INT #NUM_EXPR
         ;
 
@@ -31,7 +36,7 @@ type : 'int';
 ID  :   LETTER (LETTER|DIGIT|UNDER_SCORE)*;
 INT : DIGIT+;
 CHAR : '\'' ('\u0000' .. '\u007F') '\''; //TODO: manage escaped characters as [']
-
+PLUS_MINUS : '+' | '-';
 LETTER : [a-zA-Z];
 DIGIT : [0-9];
 UNDER_SCORE : '_';

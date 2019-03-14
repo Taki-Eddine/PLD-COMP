@@ -17,5 +17,5 @@ int main(int argc, const char* argv[]) {
   tree::ParseTree *tree = parser.prg();
   Visitor visitor;
   visitor.visit(tree);
-  return 0;
-}
+return 0;
+};
