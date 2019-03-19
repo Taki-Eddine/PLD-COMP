@@ -3,7 +3,6 @@
 #include <fstream>
 #include "antlr4-runtime.h"
 #include "sprintBaseVisitor.h"
-#include "ST.h"
 
 class Visitor : public sprintBaseVisitor {
   public:
@@ -21,18 +20,8 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx) override;
     antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) override;
     antlrcpp::Any visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx) override;
-    //---------------------------------------------------------------------------------------
-    void writePrologue();
-    void writeBinaryOP(int offset, int rOffset, int lOffset, std::string op);
-    void writeUnaryOP(int offset, int exprOffsetn, std::string op);
-    void writeAffectExpr(int lOffset, int rOffset);
-    void writeRetStmt(int offset);
-  private:
-    ST st;
   public:
-    std::ofstream assembly;
-    std::stringstream tempo_ss;
-    bool error;
+    CFG cfg;
 
 
 };

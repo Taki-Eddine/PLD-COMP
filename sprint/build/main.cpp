@@ -15,7 +15,7 @@ int main(int argc, const char* argv[]) {
   sprintParser parser(&tokens);
 
   tree::ParseTree *tree = parser.prg();
-  Visitor visitor;
-  visitor.visit(tree);
+  //Visitor visitor;
+  //visitor.visit(tree);
 return 0;
 };

@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
-class Variable{
+class Symbol{
 
     public:
-        Variable(std::string name, int offset, bool initialized);
+        Symbol(std::string name, int offset, bool initialized);
         int getOffset();
         bool isInitialized();
         void setInitialized();
