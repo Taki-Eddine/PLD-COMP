@@ -12,7 +12,6 @@ public:
     void gen_asm(ostream &o) override;
 
 private:
-  BasicBlock* m_bb;
   string m_dest;
   string m_op1;
   string m_op2;

@@ -3,6 +3,7 @@
 #include <fstream>
 #include "antlr4-runtime.h"
 #include "sprintBaseVisitor.h"
+#include "IR/IR.h"
 
 class Visitor : public sprintBaseVisitor {
   public:
@@ -21,7 +22,8 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) override;
     antlrcpp::Any visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx) override;
   public:
-    CFG cfg;
+    CFG * cfg;
+    BasicBlock * current_BB;
 
 
 };

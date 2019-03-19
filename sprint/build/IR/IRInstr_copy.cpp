@@ -1,6 +1,7 @@
 #include "IRInstr_copy.h"
 
 IRInstr_copy::IRInstr_copy(BasicBlock* bb_, string dest, string source)
+: IRInstr(bb_)
 {
 	m_dest = dest;
 	m_source = source;

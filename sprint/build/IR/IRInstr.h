@@ -15,6 +15,6 @@ class IRInstr {
      virtual void gen_asm(ostream &o); /**< x86 assembly code generation for this IR instruction */
      virtual void print(ostream &o); /** print IR instruction */
  protected:
-	   BasicBlock* bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
+	   BasicBlock* m_bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
 
 };

@@ -12,7 +12,7 @@ class BasicBlock {
 	BasicBlock(CFG* cfg, string entry_label);
 	void gen_asm(ostream &o); /**< x86 assembly code generation for this basic block (very simple) */
 
-	void add_IRInstr(IRInstr instr); 
+	void add_IRInstr(IRInstr * instr); 
 
 	BasicBlock* exit_true;  /**< pointer to the next basic block, true branch. If nullptr, return from procedure */ 
 	BasicBlock* exit_false; /**< pointer to the next basic block, false branch. If null_ptr, the basic block ends with an unconditional jump */

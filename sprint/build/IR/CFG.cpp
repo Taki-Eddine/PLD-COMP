@@ -32,3 +32,9 @@ int CFG::get_var_index(string name){
 bool CFG::isInit(string name){
     return table[name] -> isInitialized();
 }
+
+string CFG::new_BB_name(){
+    // to change
+    return nullptr;
+}
+

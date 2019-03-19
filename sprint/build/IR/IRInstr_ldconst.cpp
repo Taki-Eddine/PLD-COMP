@@ -1,6 +1,7 @@
 #include "IRInstr_ldconst.h"
 
 IRInstr_ldconst::IRInstr_ldconst(BasicBlock* bb_, string dest, string cst)
+: IRInstr(bb_)
 {
 	m_dest = dest;
 	m_cst = cst;

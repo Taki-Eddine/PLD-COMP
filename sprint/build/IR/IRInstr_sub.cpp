@@ -1,11 +1,11 @@
 #include "IRInstr_sub.h"
 
 IRInstr_sub::IRInstr_sub(BasicBlock* bb_, string dest, string op1, string op2)
+: IRInstr(bb_)
 {
 	m_dest = dest;
 	m_op1 = op1;
-	m_op2 = op_2;
-	m_bb = bb_;
+	m_op2 = op2;
 }
 
 IRInstr_sub::~IRInstr_sub(){}

@@ -9,4 +9,5 @@
 #include "IRInstr_mult.h"
 #include "IRInstr_sub.h"
 #include "IRInstr_unaryminus.h"
+#include "IRInstr_ret.h"
 #include "Symbol.h"
