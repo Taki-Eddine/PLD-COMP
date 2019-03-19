@@ -4,10 +4,15 @@
 using namespace std;
 
 class IRInstr_copy : public IRInstr{
+
 public:
     IRInstr_copy(BasicBlock* bb_, string dest, string source);
     ~IRInstr_copy();
+
     void gen_asm(ostream &o) override;
+
+private:
+      BasicBlock* m_bb;
+      string m_dest;
+      string m_source;
 };
-
-

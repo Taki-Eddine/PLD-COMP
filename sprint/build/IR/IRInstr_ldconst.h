@@ -4,10 +4,15 @@
 using namespace std;
 
 class IRInstr_ldconst : public IRInstr{
+
 public:
     IRInstr_ldconst(BasicBlock* bb_, string dest, string cst);
     ~IRInstr_ldconst();
+
     void gen_asm(ostream &o) override;
+
+private:
+    BasicBlock* m_bb;
+    string m_dest;
+    string m_cst;
 };
-
-
