@@ -20,3 +20,8 @@ void IRInstr_sub::gen_asm(ostream &o)
 	o << "subl -" << r_offset << "(%rbp), %eax" << endl;
 	o << "movl %eax, -" << dest_offset << "(%rbp)" << endl;
 }
+
+void IRInstr_sub::print(ostream &o)
+{
+	o << "sub " << m_dest << " " << m_op1 << " " << m_op2 << endl;
+}

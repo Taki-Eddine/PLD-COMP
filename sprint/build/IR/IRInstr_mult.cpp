@@ -20,3 +20,8 @@ void IRInstr_mult::gen_asm(ostream &o)
 	o << "imul -" << r_offset << "(%rbp), %eax" << endl;
 	o << "movl %eax, -" << dest_offset << "(%rbp)" << endl;
 }
+
+void IRInstr_mult::print(ostream &o)
+{
+	o << "mul " << m_dest << " " << m_op1 << " " << m_op2 << endl;
+}

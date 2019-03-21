@@ -1,0 +1,9 @@
+ldconst !tmp32 3
+copy c !tmp32
+ldconst !tmp40 5
+copy a !tmp40
+ldconst !tmp48 11
+copy b !tmp48
+uminus !tmp56 a
+add !tmp64 !tmp56 b
+ret !tmp64

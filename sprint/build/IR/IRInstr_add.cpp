@@ -20,3 +20,8 @@ void IRInstr_add::gen_asm(ostream &o)
 	o << "addl -" << r_offset << "(%rbp), %eax" << endl;
 	o << "movl %eax, -" << dest_offset << "(%rbp)" << endl;
 }
+
+void IRInstr_add::print(ostream &o)
+{
+	o << "add " << m_dest << " " << m_op1 << " " << m_op2 << endl;
+}

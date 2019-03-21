@@ -18,3 +18,10 @@ void IRInstr_unaryminus::gen_asm(ostream &o)
   o << "negl %eax"<< endl;
   o << "movl %eax, -" << dest_offset << "(%rbp)" << endl;
 }
+
+
+
+void IRInstr_unaryminus::print(ostream &o)
+{
+  o << "uminus " << m_dest << " " << m_source << endl; 
+}

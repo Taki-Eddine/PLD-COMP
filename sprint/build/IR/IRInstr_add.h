@@ -10,6 +10,7 @@ public:
     ~IRInstr_add();
 
     void gen_asm(ostream &o) override;
+    void print(ostream &o) override;
 
 private:
     string m_dest;

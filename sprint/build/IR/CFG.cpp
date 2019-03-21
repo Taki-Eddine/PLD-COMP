@@ -1,9 +1,14 @@
 #include "CFG.h"
 
 
-CFG::CFG(){
+CFG::CFG(string funName){
     this->nextBBnumber = 0;
     this->lastOffset = 0;
+    this -> funName = funName;
+};
+
+void CFG::add_BB(BasicBlock* bb){
+    bbs.push_back(bb);
 };
 
 void CFG::add_to_symbol_table(string name, bool initialized){
@@ -34,7 +39,31 @@ bool CFG::isInit(string name){
 }
 
 string CFG::new_BB_name(){
-    // to change
-    return nullptr;
+    return to_string(nextBBnumber++);
+}
+
+void CFG::gen_asm_prologue(ostream& o){
+    o << ".text" << endl;
+    o << ".global " << funName << endl;
+    o << funName << ":" << endl;
+    o << "pushq %rbp" << endl;
+    o << "movq  %rsp, %rbp" << endl;
+};
+
+void CFG::gen_asm_epilogue(ostream& o){
+    o << "prologue_" << funName << ":" << endl;
+    o << "popq  %rbp" << endl;
+    o << "ret" << endl;
+};
+
+void CFG::gen_asm(ostream& o){
+    this -> gen_asm_prologue(o);
+        cout << bbs.size();
+
+    for (int i = 0; i < bbs.size(); i++){
+        bbs[i] -> gen_asm(o);
+    }
+    this -> gen_asm_epilogue(o);
+
 }
 

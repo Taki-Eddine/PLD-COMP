@@ -17,3 +17,8 @@ void IRInstr_copy::gen_asm(ostream &o)
   o << "movl -" << source_offset << "(%rbp), %eax" << endl;
   o << "movl %eax, -" << dest_offset << "(%rbp)" << endl;
 }
+
+void IRInstr_copy::print(ostream &o)
+{
+	o << "copy " << m_dest << " " << m_source << endl;
+}

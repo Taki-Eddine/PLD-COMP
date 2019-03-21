@@ -1,10 +1,25 @@
 #include "Visitor.h"
 
+Visitor::Visitor(){
+};
+Visitor::~Visitor(){};
+
+antlrcpp::Any Visitor::visitPrg(sprintParser::PrgContext *ctx){
+    visitChildren(ctx);
+    ofstream assembly, interm;
+    assembly.open("assembly.s");
+    interm.open("interm.ir");
+    current_BB -> print(interm);
+    cfg -> gen_asm(assembly);
+}
 antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext *ctx){
-    cfg =  new CFG();
+    cfg =  new CFG(ctx -> ID() -> getText());
     string current_BB_name = cfg -> new_BB_name();
     current_BB = new BasicBlock(cfg, current_BB_name);
     cfg -> current_bb = current_BB;
+    cfg -> add_BB(current_BB);
+    visitChildren(ctx);
+    return nullptr;    
 };
 
 antlrcpp::Any Visitor::visitInitializedDec(sprintParser::InitializedDecContext *ctx){
