@@ -1,7 +1,7 @@
 #include "IRInstr_ldconst.h"
 
 IRInstr_ldconst::IRInstr_ldconst(BasicBlock* bb_, string dest, string cst)
-: IRInstr(bb_)
+: IRInstr(bb_, ldconst)
 {
 	m_dest = dest;
 	m_cst = cst;
@@ -18,5 +18,5 @@ void IRInstr_ldconst::gen_asm(ostream &o)
 
 void IRInstr_ldconst::print(ostream &o)
 {
-	o << "ldconst " << m_dest << " " << m_cst << endl;
+	o <<  m_dest << " <- " << m_cst << endl;
 }

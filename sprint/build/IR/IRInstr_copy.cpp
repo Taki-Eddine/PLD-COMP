@@ -1,7 +1,7 @@
 #include "IRInstr_copy.h"
 
 IRInstr_copy::IRInstr_copy(BasicBlock* bb_, string dest, string source)
-: IRInstr(bb_)
+: IRInstr(bb_, iri_type::copy)
 {
 	m_dest = dest;
 	m_source = source;
@@ -20,5 +20,5 @@ void IRInstr_copy::gen_asm(ostream &o)
 
 void IRInstr_copy::print(ostream &o)
 {
-	o << "copy " << m_dest << " " << m_source << endl;
+	o << m_dest << " <- " << m_source << endl;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <unordered_map>
 #include "antlr4-runtime.h"
 #include "sprintBaseVisitor.h"
 #include "IR/IR.h"
@@ -21,7 +22,18 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx) override;
     antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) override;
     antlrcpp::Any visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx) override;
-  public:
+    antlrcpp::Any visitCMPLtGt(sprintParser::CMPLtGtContext *ctx) override;
+    antlrcpp::Any visitCMPEqNeq(sprintParser::CMPEqNeqContext *ctx) override;
+    antlrcpp::Any visitIfElse(sprintParser::IfElseContext *ctx) override;
+    antlrcpp::Any visitIf(sprintParser::IfContext *ctx) override;
+    antlrcpp::Any visitAND(sprintParser::ANDContext *ctx) override;
+    antlrcpp::Any visitOR(sprintParser::ORContext *ctx) override;
+    antlrcpp::Any visitNOT(sprintParser::NOTContext *ctx) override;
+    antlrcpp::Any visitPAREN_BOOLE(sprintParser::PAREN_BOOLEContext *ctx) override;
+    antlrcpp::Any visitWhileDo(sprintParser::WhileDoContext *ctx) override;
+    antlrcpp::Any visitDoWhile(sprintParser::DoWhileContext *ctx) override;
+    antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx);
+    //--------||
     CFG * cfg;
     BasicBlock * current_BB;
 

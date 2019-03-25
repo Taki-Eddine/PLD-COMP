@@ -1,7 +1,7 @@
 #include "IRInstr_unaryminus.h"
 
 IRInstr_unaryminus::IRInstr_unaryminus(BasicBlock* bb_, string dest, string source)
-: IRInstr(bb_)
+: IRInstr(bb_, uminus)
 {
 	m_dest = dest;
 	m_source = source;
@@ -23,5 +23,5 @@ void IRInstr_unaryminus::gen_asm(ostream &o)
 
 void IRInstr_unaryminus::print(ostream &o)
 {
-  o << "uminus " << m_dest << " " << m_source << endl; 
+  o << m_dest << " <- " << "-" << m_source << endl; 
 }
