@@ -13,14 +13,17 @@ class  sprintParser : public antlr4::Parser {
 public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    T__7 = 8, T__8 = 9, T__9 = 10, ID = 11, INT = 12, CHAR = 13, PLUS_MINUS = 14, 
-    LETTER = 15, DIGIT = 16, UNDER_SCORE = 17, INCLUDE = 18, WS = 19
+    T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
+    T__14 = 15, T__15 = 16, T__16 = 17, ID = 18, INT = 19, CHAR = 20, PLUS_MINUS = 21, 
+    LT_GT = 22, EQ_NEQ = 23, LETTER = 24, DIGIT = 25, UNDER_SCORE = 26, 
+    INCLUDE = 27, WS = 28
   };
 
   enum {
     RulePrg = 0, RuleFuncDeclaration = 1, RuleFormalParameters = 2, RuleParameter = 3, 
     RuleBlock = 4, RuleStatement = 5, RuleRetStatement = 6, RuleDeclStatement = 7, 
-    RuleVarDeclaration = 8, RuleExpr = 9, RuleType = 10
+    RuleIfStatement = 8, RuleVarDeclaration = 9, RuleExpr = 10, RuleBoolE = 11, 
+    RuleType = 12
   };
 
   sprintParser(antlr4::TokenStream *input);
@@ -41,8 +44,10 @@ public:
   class StatementContext;
   class RetStatementContext;
   class DeclStatementContext;
+  class IfStatementContext;
   class VarDeclarationContext;
   class ExprContext;
+  class BoolEContext;
   class TypeContext; 
 
   class  PrgContext : public antlr4::ParserRuleContext {
@@ -125,6 +130,7 @@ public:
     DeclStatementContext *declStatement();
     RetStatementContext *retStatement();
     ExprContext *expr();
+    IfStatementContext *ifStatement();
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -160,6 +166,74 @@ public:
   };
 
   DeclStatementContext* declStatement();
+
+  class  IfStatementContext : public antlr4::ParserRuleContext {
+  public:
+    IfStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    IfStatementContext() = default;
+    void copyFrom(IfStatementContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  DoWhileContext : public IfStatementContext {
+  public:
+    DoWhileContext(IfStatementContext *ctx);
+
+    BlockContext *block();
+    BoolEContext *boolE();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  WhileDoContext : public IfStatementContext {
+  public:
+    WhileDoContext(IfStatementContext *ctx);
+
+    BoolEContext *boolE();
+    BlockContext *block();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  IfContext : public IfStatementContext {
+  public:
+    IfContext(IfStatementContext *ctx);
+
+    BoolEContext *boolE();
+    BlockContext *block();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  IfElseContext : public IfStatementContext {
+  public:
+    IfElseContext(IfStatementContext *ctx);
+
+    BoolEContext *boolE();
+    std::vector<BlockContext *> block();
+    BlockContext* block(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  IfElseIfElseContext : public IfStatementContext {
+  public:
+    IfElseIfElseContext(IfStatementContext *ctx);
+
+    std::vector<BoolEContext *> boolE();
+    BoolEContext* boolE(size_t i);
+    std::vector<BlockContext *> block();
+    BlockContext* block(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  IfStatementContext* ifStatement();
 
   class  VarDeclarationContext : public antlr4::ParserRuleContext {
   public:
@@ -278,6 +352,81 @@ public:
 
   ExprContext* expr();
   ExprContext* expr(int precedence);
+  class  BoolEContext : public antlr4::ParserRuleContext {
+  public:
+    BoolEContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    BoolEContext() = default;
+    void copyFrom(BoolEContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  NOTContext : public BoolEContext {
+  public:
+    NOTContext(BoolEContext *ctx);
+
+    BoolEContext *boolE();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ORContext : public BoolEContext {
+  public:
+    ORContext(BoolEContext *ctx);
+
+    std::vector<BoolEContext *> boolE();
+    BoolEContext* boolE(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  PAREN_BOOLEContext : public BoolEContext {
+  public:
+    PAREN_BOOLEContext(BoolEContext *ctx);
+
+    BoolEContext *boolE();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ANDContext : public BoolEContext {
+  public:
+    ANDContext(BoolEContext *ctx);
+
+    std::vector<BoolEContext *> boolE();
+    BoolEContext* boolE(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  CMPLtGtContext : public BoolEContext {
+  public:
+    CMPLtGtContext(BoolEContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    antlr4::tree::TerminalNode *LT_GT();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  CMPEqNeqContext : public BoolEContext {
+  public:
+    CMPEqNeqContext(BoolEContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    antlr4::tree::TerminalNode *EQ_NEQ();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  BoolEContext* boolE();
+  BoolEContext* boolE(int precedence);
   class  TypeContext : public antlr4::ParserRuleContext {
   public:
     TypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -293,6 +442,7 @@ public:
 
   virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
   bool exprSempred(ExprContext *_localctx, size_t predicateIndex);
+  bool boolESempred(BoolEContext *_localctx, size_t predicateIndex);
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;

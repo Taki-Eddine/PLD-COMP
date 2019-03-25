@@ -1,10 +1,10 @@
 #include "CFG.h"
 
 
-CFG::CFG(string funName){
+CFG::CFG(string cfgName){
     this->nextBBnumber = 0;
     this->lastOffset = 0;
-    this -> funName = funName;
+    this -> cfgName = cfgName;
 };
 
 void CFG::add_BB(BasicBlock* bb){
@@ -44,21 +44,20 @@ string CFG::new_BB_name(){
 
 void CFG::gen_asm_prologue(ostream& o){
     o << ".text" << endl;
-    o << ".global " << funName << endl;
-    o << funName << ":" << endl;
+    o << ".global " << cfgName << endl;
+    o << cfgName << ":" << endl;
     o << "pushq %rbp" << endl;
     o << "movq  %rsp, %rbp" << endl;
 };
 
 void CFG::gen_asm_epilogue(ostream& o){
-    o << "prologue_" << funName << ":" << endl;
+    o << ".epilo_" << cfgName << ":" << endl;
     o << "popq  %rbp" << endl;
     o << "ret" << endl;
 };
 
 void CFG::gen_asm(ostream& o){
     this -> gen_asm_prologue(o);
-        cout << bbs.size();
 
     for (int i = 0; i < bbs.size(); i++){
         bbs[i] -> gen_asm(o);
@@ -66,4 +65,13 @@ void CFG::gen_asm(ostream& o){
     this -> gen_asm_epilogue(o);
 
 }
+
+void CFG::print(ostream& o){
+    for (int i = 0; i < bbs.size(); i++){
+        bbs[i] -> print(o);
+    }
+
+}
+
+
 

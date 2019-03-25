@@ -1,7 +1,7 @@
 #include "IRInstr_mult.h"
 
 IRInstr_mult::IRInstr_mult(BasicBlock* bb_, string dest, string op1, string op2)
-: IRInstr(bb_)
+:IRInstr(bb_, mul)
 {
 	m_dest = dest;
 	m_op1 = op1;
@@ -23,5 +23,5 @@ void IRInstr_mult::gen_asm(ostream &o)
 
 void IRInstr_mult::print(ostream &o)
 {
-	o << "mul " << m_dest << " " << m_op1 << " " << m_op2 << endl;
+	o << m_dest << " <- " << m_op1 << " * " << m_op2 << endl;
 }

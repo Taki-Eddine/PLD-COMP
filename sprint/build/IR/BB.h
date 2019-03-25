@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "CFG.h"
+#include "IRInstr.h"
 
 using namespace std;
 class CFG;

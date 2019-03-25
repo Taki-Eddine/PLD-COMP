@@ -1,7 +1,7 @@
 #include "IRInstr_sub.h"
 
 IRInstr_sub::IRInstr_sub(BasicBlock* bb_, string dest, string op1, string op2)
-: IRInstr(bb_)
+: IRInstr(bb_, sub)
 {
 	m_dest = dest;
 	m_op1 = op1;
@@ -23,5 +23,5 @@ void IRInstr_sub::gen_asm(ostream &o)
 
 void IRInstr_sub::print(ostream &o)
 {
-	o << "sub " << m_dest << " " << m_op1 << " " << m_op2 << endl;
+	o << m_dest << " <- " << m_op1 << " - " << m_op2 << endl;
 }

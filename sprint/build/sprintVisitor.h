@@ -35,6 +35,16 @@ public:
 
     virtual antlrcpp::Any visitDeclStatement(sprintParser::DeclStatementContext *context) = 0;
 
+    virtual antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *context) = 0;
+
+    virtual antlrcpp::Any visitIf(sprintParser::IfContext *context) = 0;
+
+    virtual antlrcpp::Any visitIfElse(sprintParser::IfElseContext *context) = 0;
+
+    virtual antlrcpp::Any visitWhileDo(sprintParser::WhileDoContext *context) = 0;
+
+    virtual antlrcpp::Any visitDoWhile(sprintParser::DoWhileContext *context) = 0;
+
     virtual antlrcpp::Any visitInitializedDec(sprintParser::InitializedDecContext *context) = 0;
 
     virtual antlrcpp::Any visitNonInitDec(sprintParser::NonInitDecContext *context) = 0;
@@ -52,6 +62,18 @@ public:
     virtual antlrcpp::Any visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitNOT(sprintParser::NOTContext *context) = 0;
+
+    virtual antlrcpp::Any visitOR(sprintParser::ORContext *context) = 0;
+
+    virtual antlrcpp::Any visitPAREN_BOOLE(sprintParser::PAREN_BOOLEContext *context) = 0;
+
+    virtual antlrcpp::Any visitAND(sprintParser::ANDContext *context) = 0;
+
+    virtual antlrcpp::Any visitCMPLtGt(sprintParser::CMPLtGtContext *context) = 0;
+
+    virtual antlrcpp::Any visitCMPEqNeq(sprintParser::CMPEqNeqContext *context) = 0;
 
     virtual antlrcpp::Any visitType(sprintParser::TypeContext *context) = 0;
 

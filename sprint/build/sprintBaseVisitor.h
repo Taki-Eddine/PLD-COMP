@@ -47,6 +47,26 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitIf(sprintParser::IfContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitIfElse(sprintParser::IfElseContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitWhileDo(sprintParser::WhileDoContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDoWhile(sprintParser::DoWhileContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitInitializedDec(sprintParser::InitializedDecContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -80,6 +100,30 @@ public:
   }
 
   virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitNOT(sprintParser::NOTContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitOR(sprintParser::ORContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitPAREN_BOOLE(sprintParser::PAREN_BOOLEContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitAND(sprintParser::ANDContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitCMPLtGt(sprintParser::CMPLtGtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitCMPEqNeq(sprintParser::CMPEqNeqContext *ctx) override {
     return visitChildren(ctx);
   }
 
