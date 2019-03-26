@@ -30,7 +30,7 @@ class CFG {
 	string new_BB_name();
 	string cfgName;
  protected:
-	std::unordered_map<std::string, Symbol*> table;
+	unordered_map<string, Symbol*> table;
 	int nextBBnumber; /**< just for naming */	
 	int lastOffset;
 	vector <BasicBlock*> bbs; /**< all the basic blocks of this CFG*/

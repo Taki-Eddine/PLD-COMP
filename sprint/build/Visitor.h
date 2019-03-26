@@ -32,10 +32,12 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitPAREN_BOOLE(sprintParser::PAREN_BOOLEContext *ctx) override;
     antlrcpp::Any visitWhileDo(sprintParser::WhileDoContext *ctx) override;
     antlrcpp::Any visitDoWhile(sprintParser::DoWhileContext *ctx) override;
-    antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx);
+    antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx) override;
+    antlrcpp::Any visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx) override;
     //--------||
     CFG * cfg;
     BasicBlock * current_BB;
+    ofstream assembly, interm;
 
 
 };

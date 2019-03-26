@@ -1,4 +1,5 @@
 #include "CFG.h"
+#include <unordered_map>
 
 
 CFG::CFG(string cfgName){
@@ -6,6 +7,17 @@ CFG::CFG(string cfgName){
     this->lastOffset = 0;
     this -> cfgName = cfgName;
 };
+
+CFG::~CFG(){
+    for (unsigned int i=0; i<bbs.size(); i++){
+        delete(bbs[i]);
+    }
+    unordered_map<string, Symbol*>::iterator it;
+    for (it=table.begin(); it!=table.end(); it++){
+        delete(it->second);
+    }
+    table.clear();
+}
 
 
 void CFG::add_BB(BasicBlock* bb){
@@ -62,7 +74,7 @@ void CFG::gen_asm_epilogue(ostream& o){
 void CFG::gen_asm(ostream& o){
     this -> gen_asm_prologue(o);
 
-    for (int i = 0; i < bbs.size(); i++){
+    for (unsigned int i = 0; i < bbs.size(); i++){
         bbs[i] -> gen_asm(o);
     }
     this -> gen_asm_epilogue(o);
@@ -70,7 +82,7 @@ void CFG::gen_asm(ostream& o){
 }
 
 void CFG::print(ostream& o){
-    for (int i = 0; i < bbs.size(); i++){
+    for (unsigned int i = 0; i < bbs.size(); i++){
         bbs[i] -> print(o);
     }
 

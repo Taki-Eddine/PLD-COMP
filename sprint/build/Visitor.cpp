@@ -5,16 +5,14 @@ Visitor::Visitor(){
 Visitor::~Visitor(){};
 
 antlrcpp::Any Visitor::visitPrg(sprintParser::PrgContext *ctx){
-    visitChildren(ctx);
-    ofstream assembly, interm;
     assembly.open("assembly.s");
     interm.open("interm.ir");
-    cfg -> print(interm);
-    cfg -> gen_asm(assembly);
+    visitChildren(ctx);
     interm.close();
     assembly.close();
     return nullptr;
 }
+
 antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext *ctx){
 
     cfg =  new CFG(ctx -> ID() -> getText());
@@ -22,8 +20,24 @@ antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext
     current_BB = new BasicBlock(cfg, current_BB_name);
     cfg -> add_BB(current_BB);
     visitChildren(ctx);
+    cfg -> gen_asm(assembly);
+    cfg -> print(interm);
+    delete(cfg);
     return nullptr;    
 };
+
+antlrcpp::Any Visitor::visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx){
+    vector<sprintParser::ExprContext *> vectExpr = ctx->arguments()->expr();
+    string label = ctx->ID()->getText();
+    string destination = cfg -> create_new_tempvar();
+    vector<string> ops;
+    for (unsigned int i=0; i<vectExpr.size(); i++){
+        ops.push_back(visit(vectExpr[i]));
+    }
+    current_BB->add_IRInstr(new IRInstr_call(current_BB, label, 
+        destination, ops));
+    return destination;
+}
 
 antlrcpp::Any Visitor::visitInitializedDec(sprintParser::InitializedDecContext *ctx){
     string left = ctx -> ID() -> getText();

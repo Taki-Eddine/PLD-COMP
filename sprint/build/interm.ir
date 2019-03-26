@@ -1,18 +1,24 @@
-BB_0 {
-!tmp16 <- 1
-i <- !tmp16
-!tmp32 <- 2
-j <- !tmp32
-!tmp48 <- 1
-!tmp56 <- -!tmp48
-k <- !tmp56
-!tmp64 <- i * j
-!tmp72 <- k + !tmp64
-!tmp80 <- 3
-!tmp88 <- !tmp72 - !tmp80
-k <- !tmp88
-!tmp96 <- 71
-!tmp104 <- k + !tmp96
-return !tmp104
+dbl_BB_0 {
+tmp <- x
+!tmp16 <- 2
+!tmp24 <- !tmp16 * tmp
+return !tmp24
+jmp: epilog
+}
+trpl_BB_0 {
+!tmp8 <- 3
+!tmp16 <- !tmp8 * x
+return !tmp16
+jmp: epilog
+}
+main_BB_0 {
+!tmp24 <- 3
+!tmp32 <- 4
+!tmp48 <- 2
+!tmp56 <- 20
+!tmp40 <- triple(!tmp48, !tmp56)
+!tmp16 <- dbl(!tmp24, !tmp32, x, !tmp40)
+x <- !tmp16
+return x
 jmp: epilog
 }
