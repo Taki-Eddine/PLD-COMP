@@ -29,14 +29,17 @@ ifStatement : 'if' '(' boolE ')' block ('else' 'if' '(' boolE ')' block)* ('else
 varDeclaration : ID '=' expr #InitializedDec
                 | ID #nonInitDec
                 ;
-                
-expr :  '(' expr ')' #PAREN_EXPR  
+
+arguments: expr (',' expr)*;
+    
+expr :     ID '(' arguments? ')' #CALL_EXPR
+        | '(' expr ')' #PAREN_EXPR  
         | PLUS_MINUS expr #UNARY_EXPR
         | expr '*' expr #MULT_EXPR
         | expr PLUS_MINUS expr #ADD_MINUS_EXPR 
         | ID '=' expr #AFFECT_EXPR
         | ID #VAR_EXPR
-        | INT #NUM_EXPR      
+        | INT #NUM_EXPR
         ;
 
 boolE:  '!' boolE #NOT
@@ -48,6 +51,8 @@ boolE:  '!' boolE #NOT
         ;
 type : 'int';
 
+
+//------------------------------------------------------------------------------------
 ID  :   LETTER (LETTER|DIGIT|UNDER_SCORE)*;
 INT : DIGIT+;
 CHAR : '\'' ('\u0000' .. '\u007F') '\''; //TODO: manage escaped characters as [']

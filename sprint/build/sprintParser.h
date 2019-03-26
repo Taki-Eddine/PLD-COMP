@@ -22,8 +22,8 @@ public:
   enum {
     RulePrg = 0, RuleFuncDeclaration = 1, RuleFormalParameters = 2, RuleParameter = 3, 
     RuleBlock = 4, RuleStatement = 5, RuleRetStatement = 6, RuleDeclStatement = 7, 
-    RuleIfStatement = 8, RuleVarDeclaration = 9, RuleExpr = 10, RuleBoolE = 11, 
-    RuleType = 12
+    RuleIfStatement = 8, RuleVarDeclaration = 9, RuleArguments = 10, RuleExpr = 11, 
+    RuleBoolE = 12, RuleType = 13
   };
 
   sprintParser(antlr4::TokenStream *input);
@@ -46,6 +46,7 @@ public:
   class DeclStatementContext;
   class IfStatementContext;
   class VarDeclarationContext;
+  class ArgumentsContext;
   class ExprContext;
   class BoolEContext;
   class TypeContext; 
@@ -269,6 +270,20 @@ public:
 
   VarDeclarationContext* varDeclaration();
 
+  class  ArgumentsContext : public antlr4::ParserRuleContext {
+  public:
+    ArgumentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ArgumentsContext* arguments();
+
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
     ExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -318,6 +333,16 @@ public:
 
     antlr4::tree::TerminalNode *PLUS_MINUS();
     ExprContext *expr();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  CALL_EXPRContext : public ExprContext {
+  public:
+    CALL_EXPRContext(ExprContext *ctx);
+
+    antlr4::tree::TerminalNode *ID();
+    ArgumentsContext *arguments();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };

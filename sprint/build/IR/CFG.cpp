@@ -7,6 +7,7 @@ CFG::CFG(string cfgName){
     this -> cfgName = cfgName;
 };
 
+
 void CFG::add_BB(BasicBlock* bb){
     bbs.push_back(bb);
 };
@@ -38,6 +39,7 @@ bool CFG::isInit(string name){
     return table[name] -> isInitialized();
 }
 
+
 string CFG::new_BB_name(){
     return to_string(nextBBnumber++);
 }
@@ -48,11 +50,12 @@ void CFG::gen_asm_prologue(ostream& o){
     o << cfgName << ":" << endl;
     o << "pushq %rbp" << endl;
     o << "movq  %rsp, %rbp" << endl;
+    o << "subq  $" << lastOffset << ",  %rsp" <<endl;
 };
 
 void CFG::gen_asm_epilogue(ostream& o){
     o << ".epilo_" << cfgName << ":" << endl;
-    o << "popq  %rbp" << endl;
+    o << "leave" << endl;
     o << "ret" << endl;
 };
 

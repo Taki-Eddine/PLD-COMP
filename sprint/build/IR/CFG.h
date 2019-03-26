@@ -11,7 +11,8 @@ using namespace std;
 class BasicBlock;
 class CFG {
  public:
-	CFG(string cfgName);	
+	CFG(string cfgName);
+	virtual ~CFG();	
 	//void add_bb(BasicBlock* bb); 
 
 	// x86 code generation: could be encapsulated in a processor class in a retargetable compiler
