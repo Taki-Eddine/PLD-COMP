@@ -1,17 +1,10 @@
 BB_0 {
-!tmp16 <- 5
-i <- !tmp16
-!tmp32 <- 0
-!tmp24 <- i == !tmp32
-jmp True: 2
-jmp False: 1
-}
-BB_1 {
-return i
+!tmp32 <- 3
+c <- !tmp32
+b <- c
+a <- b
+!tmp40 <- 2
+!tmp48 <- a * !tmp40
+return !tmp48
 jmp: epilog
-}
-BB_2 {
-!tmp40 <- 1
-i <- !tmp40
-jmp: 1
 }

@@ -38,6 +38,10 @@ bool CFG::isInit(string name){
     return table[name] -> isInitialized();
 }
 
+void CFG::setInit(string name){
+    return table[name] -> setInitialized();
+}
+
 string CFG::new_BB_name(){
     return to_string(nextBBnumber++);
 }

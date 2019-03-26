@@ -111,6 +111,12 @@ antlrcpp::Any Visitor::visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx){
     return left;
 };
 
+antlrcpp::Any Visitor::visitAFFECT_STMT(sprintParser::AFFECT_STMTContext *ctx){
+    string left = ctx -> ID() -> getText();
+    string right = visit(ctx -> expr());
+    current_BB->add_IRInstr(new IRInstr_copy(current_BB,left,right));
+    return left;
+}
 antlrcpp::Any Visitor::visitCMPLtGt(sprintParser::CMPLtGtContext *ctx){
     string boolVal = cfg -> create_new_tempvar(); 
     string left = visit(ctx -> expr(0));
