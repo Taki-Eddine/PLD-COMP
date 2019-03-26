@@ -63,7 +63,7 @@ void CFG::gen_asm_epilogue(ostream& o){
 void CFG::gen_asm(ostream& o){
     this -> gen_asm_prologue(o);
 
-    for (int i = 0; i < bbs.size(); i++){
+    for (unsigned int i = 0; i < bbs.size(); i++){
         bbs[i] -> gen_asm(o);
     }
     this -> gen_asm_epilogue(o);
@@ -71,7 +71,7 @@ void CFG::gen_asm(ostream& o){
 }
 
 void CFG::print(ostream& o){
-    for (int i = 0; i < bbs.size(); i++){
+    for (unsigned int i = 0; i < bbs.size(); i++){
         bbs[i] -> print(o);
     }
 

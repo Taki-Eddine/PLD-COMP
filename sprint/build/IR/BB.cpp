@@ -13,7 +13,7 @@ void BasicBlock::add_IRInstr(IRInstr * instr){
 
 void BasicBlock::print(ostream &o){
     o << "BB_" << label << " {" << endl; 
-    for (int i = 0; i < instrs.size(); i++){
+    for (unsigned int i = 0; i < instrs.size(); i++){
         instrs[i] -> print(o);
     }
     
@@ -30,11 +30,11 @@ void BasicBlock::print(ostream &o){
 }
 
 void BasicBlock::gen_asm(ostream &o){
-    int instrs_size = instrs.size();
+    unsigned int instrs_size = instrs.size();
     
         o << ".BB_" << label << ":" << endl;
 
-    for (int i = 0; i < instrs.size(); i++){
+    for (unsigned int i = 0; i < instrs_size; i++){
         instrs[i] -> gen_asm(o);
     }
 

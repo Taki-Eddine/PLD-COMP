@@ -311,9 +311,9 @@ antlrcpp::Any Visitor::visitDoWhile(sprintParser::DoWhileContext *ctx){
 antlrcpp::Any Visitor::visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx){
     BasicBlock* continueBB = new BasicBlock(cfg, cfg -> new_BB_name());
     cfg -> add_BB(continueBB);
-    int numberOfBoolEs = ctx -> boolE().size();
+    unsigned int numberOfBoolEs = ctx -> boolE().size();
     bool elsePresent = numberOfBoolEs < (ctx -> block().size());
-    int currentBoolE = 0;
+    unsigned int currentBoolE = 0;
     //--------------------------------------------------------------------
     continueBB -> exit_true = current_BB -> exit_true;
     continueBB -> exit_false = current_BB -> exit_false;
