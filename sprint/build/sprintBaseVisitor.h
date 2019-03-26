@@ -47,6 +47,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitAFFECT_STMT(sprintParser::AFFECT_STMTContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx) override {
     return visitChildren(ctx);
   }

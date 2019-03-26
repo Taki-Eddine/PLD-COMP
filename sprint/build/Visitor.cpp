@@ -111,6 +111,12 @@ antlrcpp::Any Visitor::visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx){
     return left;
 };
 
+antlrcpp::Any Visitor::visitAFFECT_STMT(sprintParser::AFFECT_STMTContext *ctx){
+    string left = ctx -> ID() -> getText();
+    string right = visit(ctx -> expr());
+    current_BB->add_IRInstr(new IRInstr_copy(current_BB,left,right));
+    return left;
+}
 antlrcpp::Any Visitor::visitCMPLtGt(sprintParser::CMPLtGtContext *ctx){
     string boolVal = cfg -> create_new_tempvar(); 
     string left = visit(ctx -> expr(0));
@@ -305,9 +311,9 @@ antlrcpp::Any Visitor::visitDoWhile(sprintParser::DoWhileContext *ctx){
 antlrcpp::Any Visitor::visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx){
     BasicBlock* continueBB = new BasicBlock(cfg, cfg -> new_BB_name());
     cfg -> add_BB(continueBB);
-    int numberOfBoolEs = ctx -> boolE().size();
+    unsigned int numberOfBoolEs = ctx -> boolE().size();
     bool elsePresent = numberOfBoolEs < (ctx -> block().size());
-    int currentBoolE = 0;
+    unsigned int currentBoolE = 0;
     //--------------------------------------------------------------------
     continueBB -> exit_true = current_BB -> exit_true;
     continueBB -> exit_false = current_BB -> exit_false;

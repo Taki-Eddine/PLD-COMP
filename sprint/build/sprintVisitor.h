@@ -35,6 +35,8 @@ public:
 
     virtual antlrcpp::Any visitDeclStatement(sprintParser::DeclStatementContext *context) = 0;
 
+    virtual antlrcpp::Any visitAFFECT_STMT(sprintParser::AFFECT_STMTContext *context) = 0;
+
     virtual antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *context) = 0;
 
     virtual antlrcpp::Any visitIf(sprintParser::IfContext *context) = 0;

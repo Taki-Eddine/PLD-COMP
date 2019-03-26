@@ -13,18 +13,22 @@ block : '{' statement* '}';
 statement : block
             | declStatement
             | retStatement
-            | expr ';' 
+            | affectStatement
             | ifStatement
+            | whileDoStatement
+            | doWhileStatement
             ;
 
 retStatement : 'return' expr ';';
 declStatement: type varDeclaration (',' varDeclaration)* ';';
+affectStatement: ID '=' expr ';' #AFFECT_STMT;
 ifStatement : 'if' '(' boolE ')' block ('else' 'if' '(' boolE ')' block)* ('else' block)? #ifElseIfElse
             | 'if' '(' boolE ')' block #if
             | 'if' '(' boolE ')' block 'else' block #ifElse
-            | 'while' '(' boolE ')' block #whileDo
-            | 'do' block 'while' '(' boolE ')' ';' #doWhile 
             ;
+
+whileDoStatement: 'while' '(' boolE ')' block #whileDo;
+doWhileStatement: 'do' block 'while' '(' boolE ')' ';' #doWhile ;
 
 varDeclaration : ID '=' expr #InitializedDec
                 | ID #nonInitDec
@@ -50,7 +54,6 @@ type : 'int';
 
 ID  :   LETTER (LETTER|DIGIT|UNDER_SCORE)*;
 INT : DIGIT+;
-CHAR : '\'' ('\u0000' .. '\u007F') '\''; //TODO: manage escaped characters as [']
 PLUS_MINUS : '+' | '-';
 LT_GT : '<' | '<=' | '>' | '>=';
 EQ_NEQ : '==' | '!=';
@@ -58,5 +61,8 @@ LETTER : [a-zA-Z];
 DIGIT : [0-9];
 UNDER_SCORE : '_';
 
+
+INLINE_COMMENT : '//'(.)*? [\r\n] -> skip;
+MULTILINE_COMMENT: '/*' (.)*? '*/' -> skip;
 INCLUDE : '#' [ \t]* 'include' [ \t]* '<' (~[> \t])*? '>' -> skip;
 WS : [ \t\r\n]+ -> skip;
