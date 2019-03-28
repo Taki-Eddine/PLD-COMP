@@ -14,9 +14,9 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, ID = 18, INT = 19, CHAR = 20, PLUS_MINUS = 21, 
-    LT_GT = 22, EQ_NEQ = 23, LETTER = 24, DIGIT = 25, UNDER_SCORE = 26, 
-    INCLUDE = 27, WS = 28
+    T__14 = 15, T__15 = 16, T__16 = 17, ID = 18, INT = 19, PLUS_MINUS = 20, 
+    LT_GT = 21, EQ_NEQ = 22, LETTER = 23, DIGIT = 24, UNDER_SCORE = 25, 
+    INLINE_COMMENT = 26, MULTILINE_COMMENT = 27, INCLUDE = 28, WS = 29
   };
 
   sprintLexer(antlr4::CharStream *input);

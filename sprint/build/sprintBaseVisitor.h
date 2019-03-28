@@ -47,6 +47,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitAFFECT_STMT(sprintParser::AFFECT_STMTContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -75,10 +79,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitArguments(sprintParser::ArgumentsContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitMULT_EXPR(sprintParser::MULT_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -92,10 +92,6 @@ public:
   }
 
   virtual antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 

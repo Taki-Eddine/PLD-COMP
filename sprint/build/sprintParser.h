@@ -14,16 +14,17 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, ID = 18, INT = 19, CHAR = 20, PLUS_MINUS = 21, 
-    LT_GT = 22, EQ_NEQ = 23, LETTER = 24, DIGIT = 25, UNDER_SCORE = 26, 
-    INCLUDE = 27, WS = 28
+    T__14 = 15, T__15 = 16, T__16 = 17, ID = 18, INT = 19, PLUS_MINUS = 20, 
+    LT_GT = 21, EQ_NEQ = 22, LETTER = 23, DIGIT = 24, UNDER_SCORE = 25, 
+    INLINE_COMMENT = 26, MULTILINE_COMMENT = 27, INCLUDE = 28, WS = 29
   };
 
   enum {
     RulePrg = 0, RuleFuncDeclaration = 1, RuleFormalParameters = 2, RuleParameter = 3, 
     RuleBlock = 4, RuleStatement = 5, RuleRetStatement = 6, RuleDeclStatement = 7, 
-    RuleIfStatement = 8, RuleVarDeclaration = 9, RuleArguments = 10, RuleExpr = 11, 
-    RuleBoolE = 12, RuleType = 13
+    RuleAffectStatement = 8, RuleIfStatement = 9, RuleWhileDoStatement = 10, 
+    RuleDoWhileStatement = 11, RuleVarDeclaration = 12, RuleExpr = 13, RuleBoolE = 14, 
+    RuleType = 15
   };
 
   sprintParser(antlr4::TokenStream *input);
@@ -44,9 +45,11 @@ public:
   class StatementContext;
   class RetStatementContext;
   class DeclStatementContext;
+  class AffectStatementContext;
   class IfStatementContext;
+  class WhileDoStatementContext;
+  class DoWhileStatementContext;
   class VarDeclarationContext;
-  class ArgumentsContext;
   class ExprContext;
   class BoolEContext;
   class TypeContext; 
@@ -130,8 +133,10 @@ public:
     BlockContext *block();
     DeclStatementContext *declStatement();
     RetStatementContext *retStatement();
-    ExprContext *expr();
+    AffectStatementContext *affectStatement();
     IfStatementContext *ifStatement();
+    WhileDoStatementContext *whileDoStatement();
+    DoWhileStatementContext *doWhileStatement();
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -168,6 +173,31 @@ public:
 
   DeclStatementContext* declStatement();
 
+  class  AffectStatementContext : public antlr4::ParserRuleContext {
+  public:
+    AffectStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    AffectStatementContext() = default;
+    void copyFrom(AffectStatementContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  AFFECT_STMTContext : public AffectStatementContext {
+  public:
+    AFFECT_STMTContext(AffectStatementContext *ctx);
+
+    antlr4::tree::TerminalNode *ID();
+    ExprContext *expr();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  AffectStatementContext* affectStatement();
+
   class  IfStatementContext : public antlr4::ParserRuleContext {
   public:
     IfStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -179,26 +209,6 @@ public:
     virtual size_t getRuleIndex() const override;
 
    
-  };
-
-  class  DoWhileContext : public IfStatementContext {
-  public:
-    DoWhileContext(IfStatementContext *ctx);
-
-    BlockContext *block();
-    BoolEContext *boolE();
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  WhileDoContext : public IfStatementContext {
-  public:
-    WhileDoContext(IfStatementContext *ctx);
-
-    BoolEContext *boolE();
-    BlockContext *block();
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   class  IfContext : public IfStatementContext {
@@ -236,6 +246,56 @@ public:
 
   IfStatementContext* ifStatement();
 
+  class  WhileDoStatementContext : public antlr4::ParserRuleContext {
+  public:
+    WhileDoStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    WhileDoStatementContext() = default;
+    void copyFrom(WhileDoStatementContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  WhileDoContext : public WhileDoStatementContext {
+  public:
+    WhileDoContext(WhileDoStatementContext *ctx);
+
+    BoolEContext *boolE();
+    BlockContext *block();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  WhileDoStatementContext* whileDoStatement();
+
+  class  DoWhileStatementContext : public antlr4::ParserRuleContext {
+  public:
+    DoWhileStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    DoWhileStatementContext() = default;
+    void copyFrom(DoWhileStatementContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  DoWhileContext : public DoWhileStatementContext {
+  public:
+    DoWhileContext(DoWhileStatementContext *ctx);
+
+    BlockContext *block();
+    BoolEContext *boolE();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  DoWhileStatementContext* doWhileStatement();
+
   class  VarDeclarationContext : public antlr4::ParserRuleContext {
   public:
     VarDeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -269,20 +329,6 @@ public:
   };
 
   VarDeclarationContext* varDeclaration();
-
-  class  ArgumentsContext : public antlr4::ParserRuleContext {
-  public:
-    ArgumentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    std::vector<ExprContext *> expr();
-    ExprContext* expr(size_t i);
-
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  ArgumentsContext* arguments();
 
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
@@ -333,16 +379,6 @@ public:
 
     antlr4::tree::TerminalNode *PLUS_MINUS();
     ExprContext *expr();
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  CALL_EXPRContext : public ExprContext {
-  public:
-    CALL_EXPRContext(ExprContext *ctx);
-
-    antlr4::tree::TerminalNode *ID();
-    ArgumentsContext *arguments();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
