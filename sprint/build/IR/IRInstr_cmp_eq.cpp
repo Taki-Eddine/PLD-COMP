@@ -17,8 +17,8 @@ void IRInstr_cmp_eq::gen_asm(ostream &o){
 
 	o << "movl -" << l_offset << "(%rbp),  %eax" << endl;
 	o << "cmpl -" << r_offset << "(%rbp), %eax" << endl;
-	o << "jne .BB_" << m_bb -> exit_false -> label << endl;
-	o << "jmp .BB_" << m_bb -> exit_true -> label << endl;
+	o << "jne ." << m_bb->cfg->cfgName << "_BB_" << m_bb -> exit_false -> label << endl;
+	o << "jmp ." << m_bb->cfg->cfgName << "_BB_" << m_bb -> exit_true -> label << endl;
 };
 void IRInstr_cmp_eq::print(ostream &o){
     o << m_dest << " <- " << m_op1 << " == " << m_op2 << endl;

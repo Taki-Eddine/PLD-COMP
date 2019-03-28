@@ -11,17 +11,23 @@ parameter : type ID;
 block : '{' statement* '}';
 
 statement : block
-            | declStatement
-            | retStatement
-            | affectStatement
+            | declaration ';'
+            | ret ';'
+            | assignment ';'
+            | call ';'
             | ifStatement
             | whileDoStatement
             | doWhileStatement
             ;
 
-retStatement : 'return' expr ';';
-declStatement: type varDeclaration (',' varDeclaration)* ';';
-affectStatement: ID '=' expr ';' #AFFECT_STMT;
+ret : 'return' expr;
+
+declaration: type varDeclaration (',' varDeclaration)*;
+
+assignment: ID '=' expr #ASSIGNMENT;
+
+call : ID '(' arguments? ')' #CALL;
+
 ifStatement : 'if' '(' boolE ')' block ('else' 'if' '(' boolE ')' block)* ('else' block)? #ifElseIfElse
             | 'if' '(' boolE ')' block #if
             | 'if' '(' boolE ')' block 'else' block #ifElse
@@ -33,12 +39,14 @@ doWhileStatement: 'do' block 'while' '(' boolE ')' ';' #doWhile ;
 varDeclaration : ID '=' expr #InitializedDec
                 | ID #nonInitDec
                 ;
-                
-expr :  '(' expr ')' #PAREN_EXPR  
+arguments : expr (',' expr)*;
+
+expr :    call #CALL_EXPR
+        | '(' expr ')' #PAREN_EXPR  
         | PLUS_MINUS expr #UNARY_EXPR
         | expr '*' expr #MULT_EXPR
         | expr PLUS_MINUS expr #ADD_MINUS_EXPR 
-        | ID '=' expr #AFFECT_EXPR
+        | assignment #ASSIGNMENT_EXPR
         | ID #VAR_EXPR
         | INT #NUM_EXPR      
         ;
