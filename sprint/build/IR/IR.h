@@ -10,6 +10,7 @@
 #include "IRInstr_sub.h"
 #include "IRInstr_unaryminus.h"
 #include "IRInstr_ret.h"
+#include "IRInstr_call.h"
 #include "IRInstr_cmp_lt.h"
 #include "IRInstr_cmp_gt.h"
 #include "IRInstr_cmp_le.h"

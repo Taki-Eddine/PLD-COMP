@@ -13,6 +13,7 @@ typedef enum {
 		sub,
 		mul,
 		uminus,
+		call,
 		cmp_lt,
 		cmp_gt,
 		cmp_le,

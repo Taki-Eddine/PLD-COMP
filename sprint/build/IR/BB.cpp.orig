@@ -18,7 +18,11 @@ void BasicBlock::add_IRInstr(IRInstr * instr){
 }
 
 void BasicBlock::print(ostream &o){
+<<<<<<< HEAD
+    o << "BB_" << label << " {" << endl; 
+=======
     o << cfg->cfgName << "_BB_" << label << " {" << endl;
+>>>>>>> functionCalls
     for (unsigned int i = 0; i < instrs.size(); i++){
         instrs[i] -> print(o);
     }
@@ -36,9 +40,17 @@ void BasicBlock::print(ostream &o){
 }
 
 void BasicBlock::gen_asm(ostream &o){
+<<<<<<< HEAD
+    unsigned int instrs_size = instrs.size();
+    
+        o << ".BB_" << label << ":" << endl;
+
+    for (unsigned int i = 0; i < instrs_size; i++){
+=======
     o << "." << cfg->cfgName << "_BB_" << label << ":" << endl;
 
     for (unsigned int i = 0; i < instrs.size(); i++){
+>>>>>>> functionCalls
         instrs[i] -> gen_asm(o);
     }
 
