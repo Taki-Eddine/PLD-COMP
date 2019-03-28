@@ -5,6 +5,7 @@ IRInstr::IRInstr(BasicBlock* bb_, iri_type itype){
     this -> itype = itype;
 };
 
+IRInstr::~IRInstr(){};
 void IRInstr::gen_asm(ostream &o){
 
 };

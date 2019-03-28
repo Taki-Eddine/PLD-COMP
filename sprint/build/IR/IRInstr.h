@@ -27,6 +27,7 @@ class IRInstr {
 
   public:
 	IRInstr(BasicBlock* bb_, iri_type itype);
+	virtual ~IRInstr();
 	/** Actual code generation */
      virtual void gen_asm(ostream &o); /**< x86 assembly code generation for this IR instruction */
 	 virtual void print(ostream &o); /**< print IR instruction **/

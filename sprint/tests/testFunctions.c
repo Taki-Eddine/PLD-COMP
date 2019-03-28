@@ -1,13 +1,9 @@
-int dbl(int x){
-    int tmp = x;
-    return 2 * tmp;
-}
 
-int trpl(int x){
-    return 3 * x;
+int sum(int i){
+    return 2 * i;
 }
-
 int main(){
-    int x = 5;
-    int y;
+    int x = 5,y;
+    y = sum(sum(x));
+return y;
 }

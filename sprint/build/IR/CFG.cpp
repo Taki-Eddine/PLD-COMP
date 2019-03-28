@@ -5,6 +5,8 @@ CFG::CFG(string cfgName){
     this->nextBBnumber = 0;
     this->lastOffset = 0;
     this -> cfgName = cfgName;
+
+
 };
 
 CFG::~CFG(){
@@ -22,6 +24,13 @@ CFG::~CFG(){
 void CFG::add_BB(BasicBlock* bb){
     bbs.push_back(bb);
 };
+
+
+void CFG::setFormalParams(vector<string> formalParams){
+    for (unsigned int idx=0; idx<formalParams.size(); idx++){
+		this -> formalParams.push_back(formalParams[idx]);
+	}
+}
 
 void CFG::add_to_symbol_table(string name, bool initialized){
     lastOffset += 8;
@@ -64,7 +73,17 @@ void CFG::gen_asm_prologue(ostream& o){
     o << cfgName << ":" << endl;
     o << "pushq %rbp" << endl;
     o << "movq  %rsp, %rbp" << endl;
-    o << "subq  $" << lastOffset << ",  %rsp" <<endl;
+    o << "subq  $" << lastOffset + (-lastOffset % 16) << ",  %rsp" <<endl;
+
+    //-----------------------------------------------------
+    string regs[6] = {"edi","esi","edx","ecx","r8d","r9d"};
+    for (unsigned int idx = 0; idx < formalParams.size(); idx++){
+        int paramOffset = get_var_index(formalParams[idx]);
+        o << "movl %" << regs[idx] << ", -" << paramOffset << "(%rbp)" << endl;
+        
+    }
+    
+
 };
 
 void CFG::gen_asm_epilogue(ostream& o){

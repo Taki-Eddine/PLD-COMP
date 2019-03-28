@@ -24,7 +24,7 @@ void BasicBlock::print(ostream &o){
     }
     
     if(exit_true == nullptr && exit_false == nullptr){
-        o << "jmp: epilog" << endl;
+        o << "jmp: epilog_" << cfg -> cfgName << endl;
     }else if (exit_true != nullptr && exit_false == nullptr) {
         o << "jmp: " << exit_true->label << endl;
     }else{

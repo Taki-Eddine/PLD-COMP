@@ -14,19 +14,31 @@ antlrcpp::Any Visitor::visitPrg(sprintParser::PrgContext *ctx){
 }
 
 antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext *ctx){
-
-    cfg =  new CFG(ctx -> ID() -> getText());
-    string current_BB_name = cfg -> new_BB_name();
-    current_BB = new BasicBlock(cfg, current_BB_name);
+    string funcName = ctx -> ID() -> getText();
+    cfg =  new CFG(funcName);
+    current_BB = new BasicBlock(cfg, cfg -> new_BB_name());
     cfg -> add_BB(current_BB);
+    //-------------------------------------------------------------
+    vector<string> formalParams;
+    if (ctx -> formalParameters() != nullptr){
+        std::vector<sprintParser::ParameterContext*> paramsCtx = ctx -> formalParameters() -> parameter();
+        for (unsigned int idx = 0; idx < paramsCtx.size(); idx++){
+            string paramName = paramsCtx[idx] -> ID() -> getText();
+            formalParams.push_back(paramName);
+            cfg -> add_to_symbol_table(paramName, true);
+        }          
+    }
+    cfg -> setFormalParams(formalParams);
+    //-------------------------------------------------------------
     visitChildren(ctx);
+    //-------------------------------------------------------------
     cfg -> gen_asm(assembly);
     cfg -> print(interm);
     delete(cfg);
     return nullptr;    
 };
 
-antlrcpp::Any Visitor::visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx){
+antlrcpp::Any Visitor::visitCALL(sprintParser::CALLContext *ctx) {
     vector<sprintParser::ExprContext *> vectExpr = ctx->arguments()->expr();
     string label = ctx->ID()->getText();
     string destination = cfg -> create_new_tempvar();
@@ -36,7 +48,12 @@ antlrcpp::Any Visitor::visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx){
     }
     current_BB->add_IRInstr(new IRInstr_call(current_BB, label, 
         destination, ops));
+    
     return destination;
+};
+
+antlrcpp::Any Visitor::visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx){
+    return visit(ctx -> call());
 }
 
 antlrcpp::Any Visitor::visitInitializedDec(sprintParser::InitializedDecContext *ctx){
@@ -53,12 +70,12 @@ antlrcpp::Any Visitor::visitNonInitDec(sprintParser::NonInitDecContext *ctx){
     return left;
 };
 
-antlrcpp::Any Visitor::visitRetStatement(sprintParser::RetStatementContext *ctx){
+
+antlrcpp::Any Visitor::visitRet(sprintParser::RetContext *ctx) {
     string ret_value = visit(ctx->expr());
     current_BB->add_IRInstr(new IRInstr_ret(current_BB,ret_value));
     return ret_value;
 };
-
 antlrcpp::Any Visitor::visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx){
     return ctx -> ID() -> getText();
 };
@@ -118,19 +135,17 @@ antlrcpp::Any Visitor::visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) {
     return visit(ctx->expr());
 };
 
-antlrcpp::Any Visitor::visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx){
+antlrcpp::Any Visitor::visitASSIGNMENT(sprintParser::ASSIGNMENTContext *ctx){
     string left = ctx -> ID() -> getText();
     string right = visit(ctx -> expr());
     current_BB->add_IRInstr(new IRInstr_copy(current_BB,left,right));
     return left;
 };
 
-antlrcpp::Any Visitor::visitAFFECT_STMT(sprintParser::AFFECT_STMTContext *ctx){
-    string left = ctx -> ID() -> getText();
-    string right = visit(ctx -> expr());
-    current_BB->add_IRInstr(new IRInstr_copy(current_BB,left,right));
-    return left;
-}
+antlrcpp::Any Visitor::visitASSIGNMENT_EXPR(sprintParser::ASSIGNMENT_EXPRContext *ctx) {
+  return visit(ctx -> assignment());  
+};
+
 antlrcpp::Any Visitor::visitCMPLtGt(sprintParser::CMPLtGtContext *ctx){
     string boolVal = cfg -> create_new_tempvar(); 
     string left = visit(ctx -> expr(0));
