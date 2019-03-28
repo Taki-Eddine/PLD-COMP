@@ -22,6 +22,7 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx) override;
     antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) override;
     antlrcpp::Any visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx) override;
+    antlrcpp::Any visitAFFECT_STMT(sprintParser::AFFECT_STMTContext *ctx) override;
     antlrcpp::Any visitCMPLtGt(sprintParser::CMPLtGtContext *ctx) override;
     antlrcpp::Any visitCMPEqNeq(sprintParser::CMPEqNeqContext *ctx) override;
     antlrcpp::Any visitIfElse(sprintParser::IfElseContext *ctx) override;

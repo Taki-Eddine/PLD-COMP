@@ -26,6 +26,7 @@ class CFG {
 	string create_new_tempvar();
 	int get_var_index(string name);
 	bool isInit(string name);
+	void setInit(string name);
 	// basic block management
 	string new_BB_name();
 	string cfgName;
