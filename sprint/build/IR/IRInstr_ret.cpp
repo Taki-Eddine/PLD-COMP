@@ -11,7 +11,7 @@ void IRInstr_ret::gen_asm(ostream &o)
 {
 	int source_offset = m_bb->cfg->get_var_index(m_source);
 
-  o << "movl -" << source_offset << "(%rbp), %eax" << endl;
+  o << "movl " << -source_offset << "(%rbp), %eax" << endl;
   o << "jmp .epilo_" << m_bb -> cfg -> cfgName << endl;
 }
 

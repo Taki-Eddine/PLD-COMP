@@ -79,7 +79,7 @@ void CFG::gen_asm_prologue(ostream& o){
     string regs[6] = {"edi","esi","edx","ecx","r8d","r9d"};
     for (unsigned int idx = 0; idx < formalParams.size(); idx++){
         int paramOffset = get_var_index(formalParams[idx]);
-        o << "movl %" << regs[idx] << ", -" << paramOffset << "(%rbp)" << endl;
+        o << "movl %" << regs[idx] << ", " << -paramOffset << "(%rbp)" << endl;
         
     }
     
