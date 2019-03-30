@@ -13,7 +13,7 @@ void IRInstr_ldconst::gen_asm(ostream &o)
 {
 	int dest_offset = m_bb->cfg->get_var_index(m_dest);
 
-  o << "movl $" << m_cst << ", -" << dest_offset << "(%rbp)" << endl;
+  o << "movl $" << m_cst << ", " << -dest_offset << "(%rbp)" << endl;
 }
 
 void IRInstr_ldconst::print(ostream &o)
