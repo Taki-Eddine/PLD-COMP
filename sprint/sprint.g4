@@ -22,11 +22,9 @@ statement : block
 
 ret : 'return' expr;
 
-declaration: | type varDeclaration (',' varDeclaration)*
-             ;
-assignment:  ID '=' expr #SCALAR_ASSIGNMENT
-            |ID '[' expr ']' '=' expr #ARR_ASSIGNMENT;
-        
+declaration: type varDeclaration (',' varDeclaration)*;
+
+assignment: ID '=' expr #ASSIGNMENT;
 
 call : ID '(' arguments? ')' #CALL;
 
@@ -40,20 +38,17 @@ doWhileStatement: 'do' block 'while' '(' boolE ')' ';' #doWhile ;
 
 varDeclaration : ID '=' expr #InitializedDec
                 | ID #nonInitDec
-                | ID '[' (INT)? ']' '=' ('{' expr (',' expr)* '}'| '{' '}') #InitializedArrDec
-                | ID '[' INT ']' #nonInitArrDec
                 ;
 arguments : expr (',' expr)*;
 
 expr :    call #CALL_EXPR
-        | ID '[' expr ']' #ARR_EXPR
         | '(' expr ')' #PAREN_EXPR  
         | PLUS_MINUS expr #UNARY_EXPR
         | expr '*' expr #MULT_EXPR
         | expr PLUS_MINUS expr #ADD_MINUS_EXPR 
         | assignment #ASSIGNMENT_EXPR
         | ID #VAR_EXPR
-        | INT #NUM_EXPR
+        | INT #NUM_EXPR      
         ;
 
 boolE:  '!' boolE #NOT
