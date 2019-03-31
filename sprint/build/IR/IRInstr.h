@@ -9,6 +9,8 @@ using namespace std;
 typedef enum {
 		ldconst,
 		copy,
+		wmem,
+		rmem,
 		add,
 		sub,
 		mul,

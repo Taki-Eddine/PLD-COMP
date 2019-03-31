@@ -1,14 +1,15 @@
 #pragma once
 #include <string>
+#include "../types.h"
 class Symbol{
 
     public:
-        Symbol(std::string name, int offset, bool initialized);
+        Symbol(std::string name, int offset, types type);
         int getOffset();
-        bool isInitialized();
-        void setInitialized();
+        void setOffset(int offset);
+        types getType();
     private:
         std::string name;
-        bool initialized;
+        types type;
         int offset;
 };

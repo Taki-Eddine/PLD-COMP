@@ -1,15 +1,15 @@
 sum_BB_0 {
-!tmp16 <- 2
-!tmp24 <- !tmp16 * i
-return !tmp24
+!tmp8 <- 2
+!tmp12 <- !tmp8 * i
+return !tmp12
 jmp: epilog_sum
 }
 main_BB_0 {
-!tmp16 <- 5
-x <- !tmp16
-!tmp40 <- sum(x)
-!tmp32 <- sum(!tmp40)
-y <- !tmp32
+!tmp8 <- 5
+x <- !tmp8
+!tmp20 <- sum(x)
+!tmp16 <- sum(!tmp20)
+y <- !tmp16
 return y
 jmp: epilog_main
 }

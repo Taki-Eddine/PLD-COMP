@@ -13,7 +13,9 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitPrg(sprintParser::PrgContext *ctx) override;
     antlrcpp::Any visitFuncDeclaration(sprintParser::FuncDeclarationContext *ctx) override;
     antlrcpp::Any visitInitializedDec(sprintParser::InitializedDecContext *ctx) override;
+    antlrcpp::Any visitInitializedArrDec(sprintParser::InitializedArrDecContext *ctx) override;
     antlrcpp::Any visitNonInitDec(sprintParser::NonInitDecContext *ctx) override;
+    antlrcpp::Any visitNonInitArrDec(sprintParser::NonInitArrDecContext *ctx) override;
     antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override;
     antlrcpp::Any visitNUM_EXPR(sprintParser::NUM_EXPRContext *ctx) override;
     antlrcpp::Any visitRet(sprintParser::RetContext *ctx) override;
@@ -21,8 +23,10 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *ctx) override;
     antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx) override;
     antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) override;
+    antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *ctx) override;
     antlrcpp::Any visitASSIGNMENT_EXPR(sprintParser::ASSIGNMENT_EXPRContext *ctx) override;
-    antlrcpp::Any visitASSIGNMENT(sprintParser::ASSIGNMENTContext *ctx) override;
+    antlrcpp::Any visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNMENTContext *ctx) override;
+    antlrcpp::Any visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *ctx) override;
     antlrcpp::Any visitCMPLtGt(sprintParser::CMPLtGtContext *ctx) override;
     antlrcpp::Any visitCMPEqNeq(sprintParser::CMPEqNeqContext *ctx) override;
     antlrcpp::Any visitIfElse(sprintParser::IfElseContext *ctx) override;

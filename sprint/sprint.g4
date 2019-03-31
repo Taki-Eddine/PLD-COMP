@@ -2,11 +2,11 @@ grammar sprint;
 
 
 prg : funcDeclaration+;
-funcDeclaration : type ID '(' formalParameters? ')' block;
+funcDeclaration : TYPE ID '(' formalParameters? ')' block;
 
 formalParameters : parameter (',' parameter)*;
 
-parameter : type ID;
+parameter : TYPE ID;
 
 block : '{' statement* '}';
 
@@ -22,8 +22,9 @@ statement : block
 
 ret : 'return' expr;
 
-declaration: | type varDeclaration (',' varDeclaration)*
+declaration: TYPE varDeclaration (',' varDeclaration)* #DECLARATION
              ;
+
 assignment:  ID '=' expr #SCALAR_ASSIGNMENT
             |ID '[' expr ']' '=' expr #ARR_ASSIGNMENT;
         
@@ -63,9 +64,9 @@ boolE:  '!' boolE #NOT
         | boolE '&&' boolE #AND
         | boolE '||' boolE #OR
         ;
-type : 'int';
+TYPE : 'int';
 
-ID  :   LETTER (LETTER|DIGIT|UNDER_SCORE)*;
+ID  : LETTER (LETTER|DIGIT|UNDER_SCORE)*;
 INT : DIGIT+;
 PLUS_MINUS : '+' | '-';
 LT_GT : '<' | '<=' | '>' | '>=';

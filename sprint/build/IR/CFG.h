@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "BB.h"
 #include "Symbol.h"
+#include "../types.h"
 
 using namespace std;
 class BasicBlock;
@@ -22,7 +23,9 @@ class CFG {
 	void gen_asm_epilogue(ostream& o);
 	void add_BB(BasicBlock* bb);
 	// symbol table methods
-	void add_to_symbol_table(string name, bool initialized);
+	void add_simpleVar_to_symbol_table(string name, types type);
+	void add_arr_to_symbol_table(string name, types type, int numberOfElmnts);
+	types getType(string name);
 	string create_new_tempvar();
 	int get_var_index(string name);
 	bool isInit(string name);

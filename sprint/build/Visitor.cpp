@@ -24,8 +24,13 @@ antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext
         std::vector<sprintParser::ParameterContext*> paramsCtx = ctx -> formalParameters() -> parameter();
         for (unsigned int idx = 0; idx < paramsCtx.size(); idx++){
             string paramName = paramsCtx[idx] -> ID() -> getText();
+            string typeToken = paramsCtx[idx] -> TYPE() -> getText();
+            types type;
+            if (typeToken == "int"){
+                type = types::INT;
+            }
             formalParams.push_back(paramName);
-            cfg -> add_to_symbol_table(paramName, true);
+            cfg -> add_simpleVar_to_symbol_table(paramName, type);
         }          
     }
     cfg -> setFormalParams(formalParams);
@@ -57,19 +62,89 @@ antlrcpp::Any Visitor::visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx){
 }
 
 antlrcpp::Any Visitor::visitInitializedDec(sprintParser::InitializedDecContext *ctx){
+   
+    sprintParser::DECLARATIONContext* parent = dynamic_cast<sprintParser::DECLARATIONContext*> (ctx -> parent);
+   
+    string typeToken = parent -> TYPE() -> getText();
+    types type;
+    //---------------------------------------------------------------
+    if (typeToken == "int"){
+        type = types::INT;
+    }
+    //---------------------------------------------------------------
     string left = ctx -> ID() -> getText();
-    cfg->add_to_symbol_table(left,true);
+    cfg->add_simpleVar_to_symbol_table(left, type);
     string right = visit(ctx->expr());
     current_BB->add_IRInstr(new IRInstr_copy(current_BB,left,right));
     return left;
 };
 
 antlrcpp::Any Visitor::visitNonInitDec(sprintParser::NonInitDecContext *ctx){
+    sprintParser::DECLARATIONContext* parent = dynamic_cast<sprintParser::DECLARATIONContext*> (ctx -> parent);
+   
+    string typeToken = parent -> TYPE() -> getText();
+    types type;
+    //---------------------------------------------------------------
+    if (typeToken == "int"){
+        type = types::INT;
+    }
+
     string left = ctx -> ID() -> getText();
-    cfg->add_to_symbol_table(left,false);
+    cfg->add_simpleVar_to_symbol_table(left,type);
     return left;
 };
 
+antlrcpp::Any Visitor::visitNonInitArrDec(sprintParser::NonInitArrDecContext *ctx){
+    sprintParser::DECLARATIONContext* parent = dynamic_cast<sprintParser::DECLARATIONContext*> (ctx -> parent);
+    string typeToken = parent -> TYPE() -> getText();
+    types type;
+    if (typeToken == "int"){
+        type = types::INT;
+    }
+    //---------------------------------------------------------------
+    string id = ctx -> ID() -> getText();
+    int numberOfElmnts = stoi((string )ctx -> INT() -> getText());
+    cfg -> add_arr_to_symbol_table(id, type, numberOfElmnts);
+
+    return id;
+};
+
+antlrcpp::Any Visitor::visitInitializedArrDec(sprintParser::InitializedArrDecContext *ctx){
+    sprintParser::DECLARATIONContext* parent = dynamic_cast<sprintParser::DECLARATIONContext*> (ctx -> parent);
+    string typeToken = parent -> TYPE() -> getText();
+    types type;
+    int size;
+    if (typeToken == "int"){
+        type = types::INT;
+        size = 4;
+    }
+    //------------------------------------------------------------
+    string id = ctx -> ID() -> getText();
+    int numberOfExprs = ctx -> expr().size();
+    int numberOfElements = ctx -> INT() == nullptr ? numberOfExprs : stoi(ctx -> INT() -> getText());
+    cfg -> add_arr_to_symbol_table(id, type, numberOfElements);
+    int offset = cfg -> get_var_index(id);
+    string tempo = cfg -> create_new_tempvar();
+
+
+    //-----------------------------------------------------------------------------------
+    for (int idx = 0; idx < numberOfExprs; idx++){
+        string src = visit(ctx -> expr(idx));
+        current_BB -> add_IRInstr(new IRInstr_ldconst(current_BB, tempo, to_string(offset + idx * size)));
+        current_BB -> add_IRInstr(new IRInstr_wmem(current_BB, tempo, src));
+    }
+    //----------------------------------------------------------------------------------------------
+    string zeroCst = cfg -> create_new_tempvar();
+    if (numberOfExprs < numberOfElements)
+        current_BB -> add_IRInstr(new IRInstr_ldconst(current_BB, zeroCst, "0"));
+    //----------------------------------------------------------------------------------------------
+    for (int idx = numberOfExprs; idx < numberOfElements; idx ++){
+        current_BB -> add_IRInstr(new IRInstr_ldconst(current_BB, tempo, to_string(offset + idx * size)));
+        current_BB -> add_IRInstr(new IRInstr_wmem(current_BB, tempo, zeroCst));
+    }
+
+    return id;
+};
 
 antlrcpp::Any Visitor::visitRet(sprintParser::RetContext *ctx) {
     string ret_value = visit(ctx->expr());
@@ -131,11 +206,32 @@ antlrcpp::Any Visitor::visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx){
     return old_var;
 };
 
+antlrcpp::Any Visitor::visitARR_EXPR(sprintParser::ARR_EXPRContext *ctx) {
+    int idOffset = cfg -> get_var_index(ctx -> ID() -> getText());
+    string tempo = cfg -> create_new_tempvar();
+    string offset = cfg -> create_new_tempvar();
+    string dest = cfg -> create_new_tempvar();
+    //-------------------------------------------------------------------------------------
+    switch (cfg -> getType(ctx -> ID() -> getText()))
+    {
+        case types::INT:
+            current_BB -> add_IRInstr(new IRInstr_ldconst(current_BB, tempo, "4"));
+            break;
+    }
+    string index = visit(ctx -> expr());
+    current_BB -> add_IRInstr(new IRInstr_mult(current_BB, tempo, tempo, index));
+    current_BB -> add_IRInstr(new IRInstr_ldconst(current_BB, offset, to_string(idOffset)));
+    current_BB -> add_IRInstr(new IRInstr_add(current_BB, tempo, offset, tempo));
+    //------------------------------------------------------------------------------------
+    current_BB -> add_IRInstr(new IRInstr_rmem(current_BB, tempo, dest));
+    return dest;
+};
+
 antlrcpp::Any Visitor::visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) {
     return visit(ctx->expr());
 };
 
-antlrcpp::Any Visitor::visitASSIGNMENT(sprintParser::ASSIGNMENTContext *ctx){
+antlrcpp::Any Visitor::visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNMENTContext *ctx){
     string left = ctx -> ID() -> getText();
     string right = visit(ctx -> expr());
     current_BB->add_IRInstr(new IRInstr_copy(current_BB,left,right));
@@ -146,6 +242,28 @@ antlrcpp::Any Visitor::visitASSIGNMENT_EXPR(sprintParser::ASSIGNMENT_EXPRContext
   return visit(ctx -> assignment());  
 };
 
+antlrcpp::Any Visitor::visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *ctx){
+  
+    int idOffset = cfg -> get_var_index(ctx -> ID() -> getText());
+    string tempo = cfg -> create_new_tempvar();
+    string offset = cfg -> create_new_tempvar();
+    //-------------------------------------------------------------------------------------
+    switch (cfg -> getType(ctx -> ID() -> getText()))
+    {
+        case types::INT:
+            current_BB -> add_IRInstr(new IRInstr_ldconst(current_BB, tempo, "4"));
+            break;
+    }
+    string index = visit(ctx -> expr(0));
+    current_BB -> add_IRInstr(new IRInstr_mult(current_BB, tempo, tempo, index));
+    current_BB -> add_IRInstr(new IRInstr_ldconst(current_BB, offset, to_string(idOffset)));
+    current_BB -> add_IRInstr(new IRInstr_add(current_BB, tempo, offset, tempo));
+    //------------------------------------------------------------------------------------
+    string src = visit(ctx -> expr(1));
+    current_BB -> add_IRInstr(new IRInstr_wmem(current_BB, tempo, src));
+    return src;
+    
+}
 antlrcpp::Any Visitor::visitCMPLtGt(sprintParser::CMPLtGtContext *ctx){
     string boolVal = cfg -> create_new_tempvar(); 
     string left = visit(ctx -> expr(0));
