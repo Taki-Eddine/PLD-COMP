@@ -1,23 +1,28 @@
 main_BB_0 {
-!tmp8 <- 65
-i <- !tmp8
+!tmp8 <- 0
+sum <- !tmp8
 !tmp16 <- 0
-sum <- !tmp16
-jmp: 1
+i <- !tmp16
+!tmp24 <- 10
+j <- !tmp24
+jmp: 2
 }
 main_BB_1 {
-!tmp24 <- 67
-!tmp20 <- i <= !tmp24
-jmp True: 2
-jmp False: 3
+!tmp32 <- 1
+!tmp36 <- sum + !tmp32
+sum <- !tmp36
+!tmp40 <- 1
+!tmp44 <- i + !tmp40
+i <- !tmp44
+!tmp48 <- 1
+!tmp52 <- j - !tmp48
+j <- !tmp52
+jmp: 2
 }
 main_BB_2 {
-!tmp28 <- sum + i
-sum <- !tmp28
-!tmp32 <- 1
-!tmp36 <- i + !tmp32
-i <- !tmp36
-jmp: 1
+!tmp28 <- i < j
+jmp True: 1
+jmp False: 3
 }
 main_BB_3 {
 return sum

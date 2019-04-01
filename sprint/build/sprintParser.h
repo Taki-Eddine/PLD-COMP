@@ -14,18 +14,19 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, TYPE = 19, ID = 20, 
-    INT = 21, PLUS_MINUS = 22, LT_GT = 23, EQ_NEQ = 24, LETTER = 25, DIGIT = 26, 
-    UNDER_SCORE = 27, CHAR = 28, INLINE_COMMENT = 29, MULTILINE_COMMENT = 30, 
-    INCLUDE = 31, WS = 32
+    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, TYPE = 20, 
+    ID = 21, INT = 22, PLUS_MINUS = 23, LT_GT = 24, EQ_NEQ = 25, LETTER = 26, 
+    DIGIT = 27, UNDER_SCORE = 28, CHAR = 29, INLINE_COMMENT = 30, MULTILINE_COMMENT = 31, 
+    INCLUDE = 32, WS = 33
   };
 
   enum {
     RulePrg = 0, RuleFuncDeclaration = 1, RuleFormalParameters = 2, RuleParameter = 3, 
     RuleBlock = 4, RuleStatement = 5, RuleRet = 6, RuleDeclaration = 7, 
     RuleAssignment = 8, RuleCall = 9, RuleIfStatement = 10, RuleWhileDoStatement = 11, 
-    RuleDoWhileStatement = 12, RuleVarDeclaration = 13, RuleArguments = 14, 
-    RuleExpr = 15, RuleBoolE = 16
+    RuleDoWhileStatement = 12, RuleForStatement = 13, RuleInit_statement = 14, 
+    RuleIteration_expr = 15, RuleVarDeclaration = 16, RuleArguments = 17, 
+    RuleExpr = 18, RuleBoolE = 19
   };
 
   sprintParser(antlr4::TokenStream *input);
@@ -51,6 +52,9 @@ public:
   class IfStatementContext;
   class WhileDoStatementContext;
   class DoWhileStatementContext;
+  class ForStatementContext;
+  class Init_statementContext;
+  class Iteration_exprContext;
   class VarDeclarationContext;
   class ArgumentsContext;
   class ExprContext;
@@ -140,6 +144,7 @@ public:
     IfStatementContext *ifStatement();
     WhileDoStatementContext *whileDoStatement();
     DoWhileStatementContext *doWhileStatement();
+    ForStatementContext *forStatement();
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -345,6 +350,72 @@ public:
   };
 
   DoWhileStatementContext* doWhileStatement();
+
+  class  ForStatementContext : public antlr4::ParserRuleContext {
+  public:
+    ForStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    ForStatementContext() = default;
+    void copyFrom(ForStatementContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  FORContext : public ForStatementContext {
+  public:
+    FORContext(ForStatementContext *ctx);
+
+    Init_statementContext *init_statement();
+    BoolEContext *boolE();
+    Iteration_exprContext *iteration_expr();
+    BlockContext *block();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  ForStatementContext* forStatement();
+
+  class  Init_statementContext : public antlr4::ParserRuleContext {
+  public:
+    Init_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    DeclarationContext *declaration();
+    Iteration_exprContext *iteration_expr();
+
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Init_statementContext* init_statement();
+
+  class  Iteration_exprContext : public antlr4::ParserRuleContext {
+  public:
+    Iteration_exprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Iteration_exprContext() = default;
+    void copyFrom(Iteration_exprContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  ITERATION_EXPRContext : public Iteration_exprContext {
+  public:
+    ITERATION_EXPRContext(Iteration_exprContext *ctx);
+
+    std::vector<AssignmentContext *> assignment();
+    AssignmentContext* assignment(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  Iteration_exprContext* iteration_expr();
 
   class  VarDeclarationContext : public antlr4::ParserRuleContext {
   public:

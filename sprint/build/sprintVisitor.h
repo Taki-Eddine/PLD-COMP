@@ -51,6 +51,12 @@ public:
 
     virtual antlrcpp::Any visitDoWhile(sprintParser::DoWhileContext *context) = 0;
 
+    virtual antlrcpp::Any visitFOR(sprintParser::FORContext *context) = 0;
+
+    virtual antlrcpp::Any visitInit_statement(sprintParser::Init_statementContext *context) = 0;
+
+    virtual antlrcpp::Any visitITERATION_EXPR(sprintParser::ITERATION_EXPRContext *context) = 0;
+
     virtual antlrcpp::Any visitInitializedDec(sprintParser::InitializedDecContext *context) = 0;
 
     virtual antlrcpp::Any visitNonInitDec(sprintParser::NonInitDecContext *context) = 0;
