@@ -79,6 +79,18 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitFOR(sprintParser::FORContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitInit_statement(sprintParser::Init_statementContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitITERATION_EXPR(sprintParser::ITERATION_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitInitializedDec(sprintParser::InitializedDecContext *ctx) override {
     return visitChildren(ctx);
   }

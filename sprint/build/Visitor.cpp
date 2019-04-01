@@ -522,6 +522,60 @@ antlrcpp::Any Visitor::visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx)
     return nullptr; 
 };
 
+antlrcpp::Any Visitor::visitITERATION_EXPR(sprintParser::ITERATION_EXPRContext *ctx){
+    std::vector<sprintParser::AssignmentContext *> assignments = ctx -> assignment();
+    for (unsigned int idx = 0; idx < assignments.size(); idx++){
+        visit(assignments[idx]);
+    }
+
+    return nullptr;
+};
+
+antlrcpp::Any Visitor::visitInit_statement(sprintParser::Init_statementContext *ctx){
+    if (ctx -> declaration() != nullptr){
+        visit(ctx -> declaration());
+    }
+    else{
+        visit(ctx -> iteration_expr());
+    }
+    return nullptr;
+};
+
+antlrcpp::Any Visitor::visitFOR(sprintParser::FORContext *ctx) {
+    BasicBlock* bodyBB = new BasicBlock(cfg, cfg -> new_BB_name());
+    BasicBlock* testBB = new BasicBlock(cfg, cfg -> new_BB_name());
+    BasicBlock* continueBB = new BasicBlock(cfg, cfg -> new_BB_name());
+    cfg -> add_BB(bodyBB);
+    cfg -> add_BB(testBB);
+    cfg -> add_BB(continueBB);
+    //------------------------------------------------------------------------
+    continueBB -> exit_true = current_BB -> exit_true;
+    continueBB -> exit_false = current_BB -> exit_false;
+    //------------------------------------------------------------------------
+    current_BB -> exit_true = testBB;
+    current_BB -> exit_false = nullptr;
+    //------------------------------------------------------------------------
+    testBB -> exit_true = bodyBB;
+    testBB -> exit_false = continueBB;
+    //------------------------------------------------------------------------
+    bodyBB -> exit_true = testBB;
+    //------------------------------------------------------------------------
+    visit(ctx -> init_statement());
+    //------------------------------------------------------------------------
+    current_BB = testBB;
+    visit(ctx -> boolE());
+    //------------------------------------------------------------------------
+    current_BB = bodyBB;
+    visit(ctx -> block());
+    visit(ctx -> iteration_expr());
+    //------------------------------------------------------------------------
+    current_BB = continueBB;
+
+    return nullptr;
+    };
+
+
+
 
 
 //-------------------*HELPERS*---------------------------------------------------

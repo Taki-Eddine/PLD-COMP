@@ -18,6 +18,7 @@ statement : block
             | ifStatement
             | whileDoStatement
             | doWhileStatement
+            | forStatement
             ;
 
 ret : 'return' expr;
@@ -38,6 +39,15 @@ ifStatement : 'if' '(' boolE ')' block ('else' 'if' '(' boolE ')' block)* ('else
 
 whileDoStatement: 'while' '(' boolE ')' block #whileDo;
 doWhileStatement: 'do' block 'while' '(' boolE ')' ';' #doWhile ;
+
+
+forStatement: 'for' '(' init_statement ';' boolE ';' iteration_expr ')' block #FOR;
+
+init_statement : declaration 
+                | iteration_expr
+                ;
+
+iteration_expr : assignment (',' assignment)* #ITERATION_EXPR;
 
 varDeclaration : ID '=' expr #InitializedDec
                 | ID #nonInitDec

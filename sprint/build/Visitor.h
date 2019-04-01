@@ -41,6 +41,9 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx) override;
     antlrcpp::Any visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx) override;
     antlrcpp::Any visitCALL(sprintParser::CALLContext *ctx) override;
+    antlrcpp::Any visitITERATION_EXPR(sprintParser::ITERATION_EXPRContext *ctx) override;
+    antlrcpp::Any visitInit_statement(sprintParser::Init_statementContext *ctx) override;
+    antlrcpp::Any visitFOR(sprintParser::FORContext *ctx) override;
     //----------------HELPERS-------------
     int char_value(string &chr);
     //--------||
