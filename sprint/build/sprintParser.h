@@ -14,9 +14,10 @@ public:
   enum {
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, ID = 18, INT = 19, PLUS_MINUS = 20, 
-    LT_GT = 21, EQ_NEQ = 22, LETTER = 23, DIGIT = 24, UNDER_SCORE = 25, 
-    INLINE_COMMENT = 26, MULTILINE_COMMENT = 27, INCLUDE = 28, WS = 29
+    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, TYPE = 19, ID = 20, 
+    INT = 21, PLUS_MINUS = 22, LT_GT = 23, EQ_NEQ = 24, LETTER = 25, DIGIT = 26, 
+    UNDER_SCORE = 27, CHAR = 28, INLINE_COMMENT = 29, MULTILINE_COMMENT = 30, 
+    INCLUDE = 31, WS = 32
   };
 
   enum {
@@ -24,7 +25,7 @@ public:
     RuleBlock = 4, RuleStatement = 5, RuleRet = 6, RuleDeclaration = 7, 
     RuleAssignment = 8, RuleCall = 9, RuleIfStatement = 10, RuleWhileDoStatement = 11, 
     RuleDoWhileStatement = 12, RuleVarDeclaration = 13, RuleArguments = 14, 
-    RuleExpr = 15, RuleBoolE = 16, RuleType = 17
+    RuleExpr = 15, RuleBoolE = 16
   };
 
   sprintParser(antlr4::TokenStream *input);
@@ -53,8 +54,7 @@ public:
   class VarDeclarationContext;
   class ArgumentsContext;
   class ExprContext;
-  class BoolEContext;
-  class TypeContext; 
+  class BoolEContext; 
 
   class  PrgContext : public antlr4::ParserRuleContext {
   public:
@@ -74,7 +74,7 @@ public:
   public:
     FuncDeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    TypeContext *type();
+    antlr4::tree::TerminalNode *TYPE();
     antlr4::tree::TerminalNode *ID();
     BlockContext *block();
     FormalParametersContext *formalParameters();
@@ -104,7 +104,7 @@ public:
   public:
     ParameterContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    TypeContext *type();
+    antlr4::tree::TerminalNode *TYPE();
     antlr4::tree::TerminalNode *ID();
 
 
@@ -164,14 +164,25 @@ public:
   class  DeclarationContext : public antlr4::ParserRuleContext {
   public:
     DeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    DeclarationContext() = default;
+    void copyFrom(DeclarationContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
     virtual size_t getRuleIndex() const override;
-    TypeContext *type();
+
+   
+  };
+
+  class  DECLARATIONContext : public DeclarationContext {
+  public:
+    DECLARATIONContext(DeclarationContext *ctx);
+
+    antlr4::tree::TerminalNode *TYPE();
     std::vector<VarDeclarationContext *> varDeclaration();
     VarDeclarationContext* varDeclaration(size_t i);
 
-
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
   };
 
   DeclarationContext* declaration();
@@ -189,9 +200,20 @@ public:
    
   };
 
-  class  ASSIGNMENTContext : public AssignmentContext {
+  class  ARR_ASSIGNMENTContext : public AssignmentContext {
   public:
-    ASSIGNMENTContext(AssignmentContext *ctx);
+    ARR_ASSIGNMENTContext(AssignmentContext *ctx);
+
+    antlr4::tree::TerminalNode *ID();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  SCALAR_ASSIGNMENTContext : public AssignmentContext {
+  public:
+    SCALAR_ASSIGNMENTContext(AssignmentContext *ctx);
 
     antlr4::tree::TerminalNode *ID();
     ExprContext *expr();
@@ -346,6 +368,28 @@ public:
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
+  class  InitializedArrDecContext : public VarDeclarationContext {
+  public:
+    InitializedArrDecContext(VarDeclarationContext *ctx);
+
+    antlr4::tree::TerminalNode *ID();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    antlr4::tree::TerminalNode *INT();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  NonInitArrDecContext : public VarDeclarationContext {
+  public:
+    NonInitArrDecContext(VarDeclarationContext *ctx);
+
+    antlr4::tree::TerminalNode *ID();
+    antlr4::tree::TerminalNode *INT();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
   class  InitializedDecContext : public VarDeclarationContext {
   public:
     InitializedDecContext(VarDeclarationContext *ctx);
@@ -411,6 +455,25 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     antlr4::tree::TerminalNode *PLUS_MINUS();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  CHAR_EXPRContext : public ExprContext {
+  public:
+    CHAR_EXPRContext(ExprContext *ctx);
+
+    antlr4::tree::TerminalNode *CHAR();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ARR_EXPRContext : public ExprContext {
+  public:
+    ARR_EXPRContext(ExprContext *ctx);
+
+    antlr4::tree::TerminalNode *ID();
+    ExprContext *expr();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -538,18 +601,6 @@ public:
 
   BoolEContext* boolE();
   BoolEContext* boolE(int precedence);
-  class  TypeContext : public antlr4::ParserRuleContext {
-  public:
-    TypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  TypeContext* type();
-
 
   virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
   bool exprSempred(ExprContext *_localctx, size_t predicateIndex);

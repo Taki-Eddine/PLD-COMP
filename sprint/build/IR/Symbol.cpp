@@ -1,8 +1,8 @@
 #include "Symbol.h"
 
-Symbol::Symbol(std::string name, int offset, bool initialized)
+Symbol::Symbol(std::string name, int offset, types type)
 {
-    this -> initialized = initialized;
+    this -> type = type;
     this -> offset = offset;
     this -> name = name;
 };
@@ -11,10 +11,10 @@ int Symbol::getOffset(){
     return offset;
 };
 
-bool Symbol::isInitialized(){
-    return initialized;
+types Symbol::getType(){
+    return type;
 }
 
-void Symbol::setInitialized(){
-    initialized = true;
+void Symbol::setOffset(int offset){
+    this -> offset = offset;
 }

@@ -1,15 +1,25 @@
-sum_BB_0 {
-!tmp16 <- 2
-!tmp24 <- !tmp16 * i
-return !tmp24
-jmp: epilog_sum
-}
 main_BB_0 {
-!tmp16 <- 5
-x <- !tmp16
-!tmp40 <- sum(x)
-!tmp32 <- sum(!tmp40)
-y <- !tmp32
-return y
+!tmp8 <- 65
+i <- !tmp8
+!tmp16 <- 0
+sum <- !tmp16
+jmp: 1
+}
+main_BB_1 {
+!tmp24 <- 67
+!tmp20 <- i <= !tmp24
+jmp True: 2
+jmp False: 3
+}
+main_BB_2 {
+!tmp28 <- sum + i
+sum <- !tmp28
+!tmp32 <- 1
+!tmp36 <- i + !tmp32
+i <- !tmp36
+jmp: 1
+}
+main_BB_3 {
+return sum
 jmp: epilog_main
 }

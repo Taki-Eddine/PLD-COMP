@@ -2,7 +2,7 @@
 
 IRInstr_call::IRInstr_call(BasicBlock* bb_, string funName, 
 	string destination, vector<string> ops)
-: IRInstr(bb_, sub)
+: IRInstr(bb_, iri_type::call)
 {
 	m_funName = funName;
 	m_destination = destination;

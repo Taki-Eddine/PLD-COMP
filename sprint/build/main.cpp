@@ -21,6 +21,5 @@ int main(int argc, const char* argv[]) {
       Visitor visitor;
       visitor.visit(tree);
   }
-  
 return 0;
 };

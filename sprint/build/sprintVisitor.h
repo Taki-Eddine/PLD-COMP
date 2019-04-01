@@ -33,9 +33,11 @@ public:
 
     virtual antlrcpp::Any visitRet(sprintParser::RetContext *context) = 0;
 
-    virtual antlrcpp::Any visitDeclaration(sprintParser::DeclarationContext *context) = 0;
+    virtual antlrcpp::Any visitDECLARATION(sprintParser::DECLARATIONContext *context) = 0;
 
-    virtual antlrcpp::Any visitASSIGNMENT(sprintParser::ASSIGNMENTContext *context) = 0;
+    virtual antlrcpp::Any visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNMENTContext *context) = 0;
+
+    virtual antlrcpp::Any visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *context) = 0;
 
     virtual antlrcpp::Any visitCALL(sprintParser::CALLContext *context) = 0;
 
@@ -53,6 +55,10 @@ public:
 
     virtual antlrcpp::Any visitNonInitDec(sprintParser::NonInitDecContext *context) = 0;
 
+    virtual antlrcpp::Any visitInitializedArrDec(sprintParser::InitializedArrDecContext *context) = 0;
+
+    virtual antlrcpp::Any visitNonInitArrDec(sprintParser::NonInitArrDecContext *context) = 0;
+
     virtual antlrcpp::Any visitArguments(sprintParser::ArgumentsContext *context) = 0;
 
     virtual antlrcpp::Any visitMULT_EXPR(sprintParser::MULT_EXPRContext *context) = 0;
@@ -60,6 +66,10 @@ public:
     virtual antlrcpp::Any visitNUM_EXPR(sprintParser::NUM_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *context) = 0;
 
@@ -82,8 +92,6 @@ public:
     virtual antlrcpp::Any visitCMPLtGt(sprintParser::CMPLtGtContext *context) = 0;
 
     virtual antlrcpp::Any visitCMPEqNeq(sprintParser::CMPEqNeqContext *context) = 0;
-
-    virtual antlrcpp::Any visitType(sprintParser::TypeContext *context) = 0;
 
 
 };

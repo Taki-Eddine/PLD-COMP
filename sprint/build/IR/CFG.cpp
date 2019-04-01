@@ -32,16 +32,33 @@ void CFG::setFormalParams(vector<string> formalParams){
 	}
 }
 
-void CFG::add_to_symbol_table(string name, bool initialized){
-    lastOffset += 8;
-    Symbol* symbol = new Symbol(name, lastOffset, initialized);
+void CFG::add_simpleVar_to_symbol_table(string name, types type){
+    switch (type)
+    {
+        case types::INT : 
+            lastOffset += 4;
+        break;
+    }
+
+    Symbol* symbol = new Symbol(name, lastOffset, type);
     table.insert(make_pair(name, symbol));
 };
 
+void CFG::add_arr_to_symbol_table(string name, types type, int numberOfElmnts){
+    switch (type)
+    {
+       case types::INT:
+        lastOffset += 4 * numberOfElmnts;
+    }
+    Symbol* symbol = new Symbol(name, lastOffset, type);
+    table.insert(make_pair(name, symbol));
+
+};
+
 string CFG::create_new_tempvar(){
-    lastOffset += 8;
+    lastOffset += 4;
     string name = "!tmp" + to_string(lastOffset);
-    Symbol* symbol = new Symbol(name, lastOffset, true);
+    Symbol* symbol = new Symbol(name, lastOffset, types::INT);
     table.insert(make_pair(name, symbol));
     return name;
 };
@@ -55,18 +72,16 @@ int CFG::get_var_index(string name){
     }
 };
 
-bool CFG::isInit(string name){
-    return table[name] -> isInitialized();
-}
-
-void CFG::setInit(string name){
-    return table[name] -> setInitialized();
-}
-
 string CFG::new_BB_name(){
     return to_string(nextBBnumber++);
 }
 
+types CFG::getType(string name){
+    return table[name] -> getType();
+}
+
+
+//-----------------------------------------------
 void CFG::gen_asm_prologue(ostream& o){
     o << ".text" << endl;
     o << ".global " << cfgName << endl;

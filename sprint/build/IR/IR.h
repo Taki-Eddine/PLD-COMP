@@ -6,6 +6,8 @@
 #include "IRInstr_add.h"
 #include "IRInstr_copy.h"
 #include "IRInstr_ldconst.h"
+#include "IRInstr_wmem.h"
+#include "IRInstr_rmem.h"
 #include "IRInstr_mult.h"
 #include "IRInstr_sub.h"
 #include "IRInstr_unaryminus.h"

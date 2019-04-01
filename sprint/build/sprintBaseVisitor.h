@@ -43,11 +43,15 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitDeclaration(sprintParser::DeclarationContext *ctx) override {
+  virtual antlrcpp::Any visitDECLARATION(sprintParser::DECLARATIONContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitASSIGNMENT(sprintParser::ASSIGNMENTContext *ctx) override {
+  virtual antlrcpp::Any visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNMENTContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -83,6 +87,14 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitInitializedArrDec(sprintParser::InitializedArrDecContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitNonInitArrDec(sprintParser::NonInitArrDecContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitArguments(sprintParser::ArgumentsContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -96,6 +108,14 @@ public:
   }
 
   virtual antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -140,10 +160,6 @@ public:
   }
 
   virtual antlrcpp::Any visitCMPEqNeq(sprintParser::CMPEqNeqContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType(sprintParser::TypeContext *ctx) override {
     return visitChildren(ctx);
   }
 
