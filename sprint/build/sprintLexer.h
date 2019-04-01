@@ -16,8 +16,8 @@ public:
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
     T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, TYPE = 19, ID = 20, 
     INT = 21, PLUS_MINUS = 22, LT_GT = 23, EQ_NEQ = 24, LETTER = 25, DIGIT = 26, 
-    UNDER_SCORE = 27, INLINE_COMMENT = 28, MULTILINE_COMMENT = 29, INCLUDE = 30, 
-    WS = 31
+    UNDER_SCORE = 27, CHAR = 28, INLINE_COMMENT = 29, MULTILINE_COMMENT = 30, 
+    INCLUDE = 31, WS = 32
   };
 
   sprintLexer(antlr4::CharStream *input);

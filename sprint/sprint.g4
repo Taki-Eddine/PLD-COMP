@@ -55,6 +55,7 @@ expr :    call #CALL_EXPR
         | assignment #ASSIGNMENT_EXPR
         | ID #VAR_EXPR
         | INT #NUM_EXPR
+        | CHAR #CHAR_EXPR
         ;
 
 boolE:  '!' boolE #NOT
@@ -74,7 +75,7 @@ EQ_NEQ : '==' | '!=';
 LETTER : [a-zA-Z];
 DIGIT : [0-9];
 UNDER_SCORE : '_';
-
+CHAR : '\'' (DIGIT | LETTER | [!"#$%&()*+,-./:;<=>?@^_`{}~ ] |'\\n'|'\\r'|'\\t'| '\\\'' | '\\\\' | '[' | ']' | '|') '\'';
 
 INLINE_COMMENT : '//'(.)*? [\r\n] -> skip;
 MULTILINE_COMMENT: '/*' (.)*? '*/' -> skip;

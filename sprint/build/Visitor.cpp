@@ -163,6 +163,17 @@ antlrcpp::Any Visitor::visitNUM_EXPR(sprintParser::NUM_EXPRContext *ctx){
     return temp_num;
 };
 
+antlrcpp::Any Visitor::visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *ctx){
+    string temp_num = cfg -> create_new_tempvar();
+    string chr = ctx -> CHAR() -> getText();
+    int value = char_value(chr); 
+    cout << value << endl;
+    current_BB->add_IRInstr(new IRInstr_ldconst(current_BB,
+    temp_num,to_string(value)));
+        
+    return temp_num;
+};
+
 antlrcpp::Any Visitor::visitMULT_EXPR(sprintParser::MULT_EXPRContext *ctx) {
     string left = visit(ctx->expr(0));
     string right = visit(ctx->expr(1));
@@ -510,3 +521,25 @@ antlrcpp::Any Visitor::visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx)
     current_BB = continueBB;
     return nullptr; 
 };
+
+
+
+//-------------------*HELPERS*---------------------------------------------------
+int Visitor::char_value(string &chr){
+    if (chr[1] != '\\'){
+        return chr[1];
+    }
+    else{
+        switch (chr[2])
+        {
+            case 'n':
+                return 10;        
+            case 'r':
+                return 13;
+            case 't':
+                return 9;
+            default:
+                return chr[2]; 
+        }
+    }
+}

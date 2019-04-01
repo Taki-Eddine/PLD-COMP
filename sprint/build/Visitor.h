@@ -18,6 +18,7 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitNonInitArrDec(sprintParser::NonInitArrDecContext *ctx) override;
     antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override;
     antlrcpp::Any visitNUM_EXPR(sprintParser::NUM_EXPRContext *ctx) override;
+    antlrcpp::Any visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *ctx) override;
     antlrcpp::Any visitRet(sprintParser::RetContext *ctx) override;
     antlrcpp::Any visitMULT_EXPR(sprintParser::MULT_EXPRContext *ctx) override;
     antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *ctx) override;
@@ -40,6 +41,8 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitIfElseIfElse(sprintParser::IfElseIfElseContext *ctx) override;
     antlrcpp::Any visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx) override;
     antlrcpp::Any visitCALL(sprintParser::CALLContext *ctx) override;
+    //----------------HELPERS-------------
+    int char_value(string &chr);
     //--------||
     CFG * cfg;
     BasicBlock * current_BB;

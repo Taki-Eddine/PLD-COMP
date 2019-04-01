@@ -111,6 +111,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
