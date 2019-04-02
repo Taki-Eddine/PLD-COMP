@@ -25,12 +25,13 @@ antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext
         for (unsigned int idx = 0; idx < paramsCtx.size(); idx++){
             string paramName = paramsCtx[idx] -> ID() -> getText();
             string typeToken = paramsCtx[idx] -> TYPE() -> getText();
+            //cout << paramName << endl;
             types type;
             if (typeToken == "int"){
                 type = types::INT;
             }
             formalParams.push_back(paramName);
-            cfg -> add_simpleVar_to_symbol_table(paramName, type);
+            //cfg -> add_simpleVar_to_symbol_table(paramName, type);
         }          
     }
     cfg -> setFormalParams(formalParams);

@@ -24,6 +24,7 @@ class CFG {
 	void add_BB(BasicBlock* bb);
 	// symbol table methods
 	void add_simpleVar_to_symbol_table(string name, types type);
+	void add_simpleVar_to_symbol_table(int offset, string name, types type);
 	void add_arr_to_symbol_table(string name, types type, int numberOfElmnts);
 	types getType(string name);
 	string create_new_tempvar();

@@ -27,9 +27,22 @@ void CFG::add_BB(BasicBlock* bb){
 
 
 void CFG::setFormalParams(vector<string> formalParams){
-    for (unsigned int idx=0; idx<formalParams.size(); idx++){
+    unsigned int registerNb = formalParams.size();
+    int offset = -8;
+    if(registerNb>6)
+        registerNb=6;
+    for (unsigned int idx=0; idx<registerNb; idx++){
+        types type = types::INT; // to change after
 		this -> formalParams.push_back(formalParams[idx]);
+        this -> add_simpleVar_to_symbol_table(formalParams[idx], type);
 	}
+    for(unsigned int idx=6; idx<formalParams.size(); idx++){
+        types type = types::INT; // to change after
+        offset -= 8; // to change after
+        cout<<"Offset: "<<offset<<" for "<<formalParams[idx]<<endl;
+        this -> formalParams.push_back(formalParams[idx]);
+        this -> add_simpleVar_to_symbol_table(offset, formalParams[idx], type);
+    }
 }
 
 void CFG::add_simpleVar_to_symbol_table(string name, types type){
@@ -43,6 +56,11 @@ void CFG::add_simpleVar_to_symbol_table(string name, types type){
     Symbol* symbol = new Symbol(name, lastOffset, type);
     table.insert(make_pair(name, symbol));
 };
+
+void CFG::add_simpleVar_to_symbol_table(int offset, string name, types type){
+    Symbol* symbol = new Symbol(name, offset, type);
+    table.insert(make_pair(name, symbol));
+}
 
 void CFG::add_arr_to_symbol_table(string name, types type, int numberOfElmnts){
     switch (type)
@@ -92,7 +110,10 @@ void CFG::gen_asm_prologue(ostream& o){
 
     //-----------------------------------------------------
     string regs[6] = {"edi","esi","edx","ecx","r8d","r9d"};
-    for (unsigned int idx = 0; idx < formalParams.size(); idx++){
+    unsigned int registerNb = formalParams.size();
+    if(registerNb>6)
+        registerNb=6;
+    for (unsigned int idx = 0; idx < registerNb; idx++){
         int paramOffset = get_var_index(formalParams[idx]);
         o << "movl %" << regs[idx] << ", " << -paramOffset << "(%rbp)" << endl;
         
@@ -113,6 +134,7 @@ void CFG::gen_asm(ostream& o){
     for (unsigned int i = 0; i < bbs.size(); i++){
         bbs[i] -> gen_asm(o);
     }
+
     this -> gen_asm_epilogue(o);
 
 }
