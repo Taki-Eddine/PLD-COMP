@@ -31,7 +31,7 @@ class CFG {
 	int get_var_index(string name);
 	bool isInit(string name);
 	void setInit(string name);
-	void setFormalParams(vector<string> formalParams);
+	void setFormalParams(vector<string> formalParams, vector<types> formalParamsTypes);
 	// basic block management
 	string new_BB_name();
 	string cfgName;

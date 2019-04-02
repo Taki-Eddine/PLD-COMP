@@ -15,26 +15,24 @@ IRInstr_call::~IRInstr_call(){}
 
 void IRInstr_call::gen_asm(ostream &o)
 {
-	int size = m_ops.size();
-	if (size!=0){
-		int registerNb = size;
-		int argOffset;
-		if (registerNb>6)
-			registerNb=6;
-		string regs[registerNb] = {"edi","esi","edx","ecx","r8d","r9d"};
-		for (int idx = size-1; idx >= 6; idx--){
-			argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
-			o << "movl " << -argOffset << "(%rbp), %eax" <<endl;
-			o << "pushq %rax" << endl;
-		}
-		for (int idx = 0; idx < registerNb; idx++){
-			argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
-			o << "movl " << -argOffset << "(%rbp), %" << regs[idx] << endl;
-		}
+	int numberOfArgs = m_ops.size();
+	int numberOfRegisters = numberOfArgs >= 6 ? 6 : numberOfArgs;
+	int argOffset;
+	int destOffset = m_bb -> cfg -> get_var_index(m_destination);
+	string regs[6] = {"edi","esi","edx","ecx","r8d","r9d"};
+	
+	for (int idx = numberOfArgs - 1; idx >= 6; idx--){
+		argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
+		o << "movl " << -argOffset << "(%rbp), %eax" <<endl;
+		o << "pushq %rax" << endl;
+	}
+
+	for (int idx = 0; idx < numberOfRegisters; idx++){
+		argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
+		o << "movl " << -argOffset << "(%rbp), %" << regs[idx] << endl;
 	}
 
 	o << "call " << m_funName << endl;
-	int destOffset = m_bb -> cfg -> get_var_index(m_destination);
 	o << "mov %eax, " << -destOffset << "(%rbp)" << endl;
 }
 

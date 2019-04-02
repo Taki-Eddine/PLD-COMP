@@ -20,6 +20,8 @@ antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext
     cfg -> add_BB(current_BB);
     //-------------------------------------------------------------
     vector<string> formalParams;
+    vector<types> formalParamsTypes;
+
     if (ctx -> formalParameters() != nullptr){
         std::vector<sprintParser::ParameterContext*> paramsCtx = ctx -> formalParameters() -> parameter();
         for (unsigned int idx = 0; idx < paramsCtx.size(); idx++){
@@ -30,9 +32,10 @@ antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext
                 type = types::INT;
             }
             formalParams.push_back(paramName);
+            formalParamsTypes.push_back(type);
         }          
     }
-    cfg -> setFormalParams(formalParams);
+    cfg -> setFormalParams(formalParams, formalParamsTypes);
     //-------------------------------------------------------------
     visitChildren(ctx);
     //-------------------------------------------------------------

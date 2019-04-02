@@ -26,21 +26,20 @@ void CFG::add_BB(BasicBlock* bb){
 };
 
 
-void CFG::setFormalParams(vector<string> formalParams){
-    unsigned int registerNb = formalParams.size();
-    int offset = -8;
-    if(registerNb>6)
-        registerNb=6;
-    for (unsigned int idx=0; idx<registerNb; idx++){
-        types type = types::INT; // to change after
+void CFG::setFormalParams(vector<string> formalParams, vector<types> formalParamsTypes){
+    unsigned int numberOfParams = formalParams.size();
+    unsigned int numberOfRegisters = numberOfParams >= 6 ? 6 : numberOfParams;
+    int offset = -16;
+
+    for (unsigned int idx=0; idx < numberOfRegisters; idx++){
 		this -> formalParams.push_back(formalParams[idx]);
-        this -> add_simpleVar_to_symbol_table(formalParams[idx], type);
+        this -> add_simpleVar_to_symbol_table(formalParams[idx], formalParamsTypes[idx]);
 	}
-    for(unsigned int idx=6; idx<formalParams.size(); idx++){
-        types type = types::INT; // to change after
-        offset -= 8; // to change after
+
+    for(unsigned int idx = 6; idx<formalParams.size(); idx++){
         this -> formalParams.push_back(formalParams[idx]);
-        this -> add_simpleVar_to_symbol_table(offset, formalParams[idx], type);
+        this -> add_simpleVar_to_symbol_table(offset, formalParams[idx], formalParamsTypes[idx]);
+        offset -= 8;
     }
 }
 
@@ -105,14 +104,13 @@ void CFG::gen_asm_prologue(ostream& o){
     o << cfgName << ":" << endl;
     o << "pushq %rbp" << endl;
     o << "movq  %rsp, %rbp" << endl;
-    o << "subq  $" << lastOffset + 16 - (lastOffset % 16) << ",  %rsp" <<endl;
+    o << "subq  $" << lastOffset + (16 - (lastOffset % 16)) % 16 << ",  %rsp" <<endl;
 
     //-----------------------------------------------------
     string regs[6] = {"edi","esi","edx","ecx","r8d","r9d"};
-    unsigned int registerNb = formalParams.size();
-    if(registerNb>6)
-        registerNb=6;
-    for (unsigned int idx = 0; idx < registerNb; idx++){
+    unsigned int numberOfParams = formalParams.size();
+    unsigned int numberOfRegs = numberOfParams >= 6 ? 6 : numberOfParams;
+    for (unsigned int idx = 0; idx < numberOfRegs; idx++){
         int paramOffset = get_var_index(formalParams[idx]);
         o << "movl %" << regs[idx] << ", " << -paramOffset << "(%rbp)" << endl;
         
