@@ -1,5 +1,5 @@
 
-// Generated from sprint.g4 by ANTLR 4.7.2
+// Generated from sprint.g4 by ANTLR 4.6
 
 #pragma once
 
@@ -15,9 +15,9 @@ public:
     T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
     T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
     T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, TYPE = 20, 
-    ID = 21, INT = 22, PLUS_MINUS = 23, LT_GT = 24, EQ_NEQ = 25, LETTER = 26, 
-    DIGIT = 27, UNDER_SCORE = 28, CHAR = 29, INLINE_COMMENT = 30, MULTILINE_COMMENT = 31, 
-    INCLUDE = 32, WS = 33
+    ID = 21, INT = 22, PLUS_MINUS = 23, OR_XOR_AND = 24, LT_GT = 25, EQ_NEQ = 26, 
+    LETTER = 27, DIGIT = 28, UNDER_SCORE = 29, CHAR = 30, INLINE_COMMENT = 31, 
+    MULTILINE_COMMENT = 32, INCLUDE = 33, WS = 34
   };
 
   sprintLexer(antlr4::CharStream *input);
@@ -26,7 +26,6 @@ public:
   virtual std::string getGrammarFileName() const override;
   virtual const std::vector<std::string>& getRuleNames() const override;
 
-  virtual const std::vector<std::string>& getChannelNames() const override;
   virtual const std::vector<std::string>& getModeNames() const override;
   virtual const std::vector<std::string>& getTokenNames() const override; // deprecated, use vocabulary instead
   virtual antlr4::dfa::Vocabulary& getVocabulary() const override;
@@ -39,7 +38,6 @@ private:
   static antlr4::atn::PredictionContextCache _sharedContextCache;
   static std::vector<std::string> _ruleNames;
   static std::vector<std::string> _tokenNames;
-  static std::vector<std::string> _channelNames;
   static std::vector<std::string> _modeNames;
 
   static std::vector<std::string> _literalNames;

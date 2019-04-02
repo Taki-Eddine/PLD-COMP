@@ -94,6 +94,27 @@ antlrcpp::Any Visitor::visitNonInitDec(sprintParser::NonInitDecContext *ctx){
     return left;
 };
 
+antlrcpp::Any Visitor::visitOR_XOR_AND_EXPR(sprintParser::OR_XOR_AND_EXPRContext *ctx){
+    string left = visit(ctx->expr(0));
+    string right = visit(ctx->expr(1));
+
+    string actual_var = cfg -> create_new_tempvar();
+    string opperation_type = ctx -> OR_XOR_AND() -> getText();
+    if(opperation_type=="&"){
+        current_BB->add_IRInstr(new IRInstr_binaryAnd(current_BB,
+            actual_var,left,right));
+    } else if (opperation_type=="|"){
+        current_BB->add_IRInstr(new IRInstr_binaryOr(current_BB,
+            actual_var,left,right));   
+    } else {
+        current_BB->add_IRInstr(new IRInstr_binaryXor(current_BB,
+            actual_var,left,right));   
+    }
+
+    
+    return actual_var;
+}
+
 antlrcpp::Any Visitor::visitNonInitArrDec(sprintParser::NonInitArrDecContext *ctx){
     sprintParser::DECLARATIONContext* parent = dynamic_cast<sprintParser::DECLARATIONContext*> (ctx -> parent);
     string typeToken = parent -> TYPE() -> getText();

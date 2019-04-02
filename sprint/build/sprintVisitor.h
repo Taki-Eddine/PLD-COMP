@@ -1,5 +1,5 @@
 
-// Generated from sprint.g4 by ANTLR 4.7.2
+// Generated from sprint.g4 by ANTLR 4.6
 
 #pragma once
 
@@ -80,6 +80,8 @@ public:
     virtual antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitASSIGNMENT_EXPR(sprintParser::ASSIGNMENT_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitOR_XOR_AND_EXPR(sprintParser::OR_XOR_AND_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitCALL_EXPR(sprintParser::CALL_EXPRContext *context) = 0;
 

@@ -1,5 +1,5 @@
 
-// Generated from sprint.g4 by ANTLR 4.7.2
+// Generated from sprint.g4 by ANTLR 4.6
 
 #pragma once
 
@@ -136,6 +136,10 @@ public:
   }
 
   virtual antlrcpp::Any visitASSIGNMENT_EXPR(sprintParser::ASSIGNMENT_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitOR_XOR_AND_EXPR(sprintParser::OR_XOR_AND_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 

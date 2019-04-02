@@ -62,6 +62,7 @@ expr :    call #CALL_EXPR
         | PLUS_MINUS expr #UNARY_EXPR
         | expr '*' expr #MULT_EXPR
         | expr PLUS_MINUS expr #ADD_MINUS_EXPR 
+        | expr OR_XOR_AND expr #OR_XOR_AND_EXPR
         | assignment #ASSIGNMENT_EXPR
         | ID #VAR_EXPR
         | INT #NUM_EXPR
@@ -80,6 +81,7 @@ TYPE : 'int';
 ID  : LETTER (LETTER|DIGIT|UNDER_SCORE)*;
 INT : DIGIT+;
 PLUS_MINUS : '+' | '-';
+OR_XOR_AND : '&' | '|' | '^';
 LT_GT : '<' | '<=' | '>' | '>=';
 EQ_NEQ : '==' | '!=';
 LETTER : [a-zA-Z];
