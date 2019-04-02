@@ -207,6 +207,37 @@ antlrcpp::Any Visitor::visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *
 
 };
 
+antlrcpp::Any Visitor::visitBITWISE_AND_EXPR(sprintParser::BITWISE_AND_EXPRContext *ctx){
+    string left = visit(ctx->expr(0));
+    string right = visit(ctx->expr(1));
+
+    string actual_var = cfg -> create_new_tempvar();
+  
+    current_BB->add_IRInstr(new IRInstr_binaryAnd(current_BB,
+        actual_var,left,right));
+    return actual_var;
+};
+antlrcpp::Any Visitor::visitBITWISE_XOR_EXPR(sprintParser::BITWISE_XOR_EXPRContext *ctx) {
+    string left = visit(ctx->expr(0));
+    string right = visit(ctx->expr(1));
+
+    string actual_var = cfg -> create_new_tempvar();
+  
+    current_BB->add_IRInstr(new IRInstr_binaryXor(current_BB,
+        actual_var,left,right));
+    return actual_var;
+};
+antlrcpp::Any Visitor::visitBITWISE_OR_EXPR(sprintParser::BITWISE_OR_EXPRContext *ctx) {
+    string left = visit(ctx->expr(0));
+    string right = visit(ctx->expr(1));
+
+    string actual_var = cfg -> create_new_tempvar();
+  
+    current_BB->add_IRInstr(new IRInstr_binaryOr(current_BB,
+        actual_var,left,right));
+    return actual_var;
+};
+
 antlrcpp::Any Visitor::visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx){
 
 

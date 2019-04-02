@@ -71,8 +71,6 @@ public:
 
     virtual antlrcpp::Any visitNUM_EXPR(sprintParser::NUM_EXPRContext *context) = 0;
 
-    virtual antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *context) = 0;
-
     virtual antlrcpp::Any visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *context) = 0;
@@ -81,11 +79,19 @@ public:
 
     virtual antlrcpp::Any visitASSIGNMENT_EXPR(sprintParser::ASSIGNMENT_EXPRContext *context) = 0;
 
+    virtual antlrcpp::Any visitBITWISE_OR_EXPR(sprintParser::BITWISE_OR_EXPRContext *context) = 0;
+
     virtual antlrcpp::Any visitCALL_EXPR(sprintParser::CALL_EXPRContext *context) = 0;
 
-    virtual antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *context) = 0;
-
     virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitBITWISE_XOR_EXPR(sprintParser::BITWISE_XOR_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitBITWISE_AND_EXPR(sprintParser::BITWISE_AND_EXPRContext *context) = 0;
+
+    virtual antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitNOT(sprintParser::NOTContext *context) = 0;
 
