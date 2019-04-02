@@ -35,7 +35,7 @@ void CFG::setFormalParams(vector<string> formalParams){
 void CFG::add_simpleVar_to_symbol_table(string name, types type){
     switch (type)
     {
-        case types::INT : 
+        case types::INT :
             lastOffset += 4;
         break;
     }
@@ -95,9 +95,9 @@ void CFG::gen_asm_prologue(ostream& o){
     for (unsigned int idx = 0; idx < formalParams.size(); idx++){
         int paramOffset = get_var_index(formalParams[idx]);
         o << "movl %" << regs[idx] << ", " << -paramOffset << "(%rbp)" << endl;
-        
+
     }
-    
+
 
 };
 
@@ -123,6 +123,3 @@ void CFG::print(ostream& o){
     }
 
 }
-
-
-

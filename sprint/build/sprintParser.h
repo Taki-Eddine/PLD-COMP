@@ -12,20 +12,20 @@
 class  sprintParser : public antlr4::Parser {
 public:
   enum {
-    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
-    T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, 
-    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, TYPE = 20, 
-    ID = 21, INT = 22, PLUS_MINUS = 23, LT_GT = 24, EQ_NEQ = 25, LETTER = 26, 
-    DIGIT = 27, UNDER_SCORE = 28, CHAR = 29, INLINE_COMMENT = 30, MULTILINE_COMMENT = 31, 
+    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7,
+    T__7 = 8, T__8 = 9, T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14,
+    T__14 = 15, T__15 = 16, T__16 = 17, T__17 = 18, T__18 = 19, TYPE = 20,
+    ID = 21, INT = 22, PLUS_MINUS = 23, LT_GT = 24, EQ_NEQ = 25, LETTER = 26,
+    DIGIT = 27, UNDER_SCORE = 28, CHAR = 29, INLINE_COMMENT = 30, MULTILINE_COMMENT = 31,
     INCLUDE = 32, WS = 33
   };
 
   enum {
-    RulePrg = 0, RuleFuncDeclaration = 1, RuleFormalParameters = 2, RuleParameter = 3, 
-    RuleBlock = 4, RuleStatement = 5, RuleRet = 6, RuleDeclaration = 7, 
-    RuleAssignment = 8, RuleCall = 9, RuleIfStatement = 10, RuleWhileDoStatement = 11, 
-    RuleDoWhileStatement = 12, RuleForStatement = 13, RuleInit_statement = 14, 
-    RuleIteration_expr = 15, RuleVarDeclaration = 16, RuleArguments = 17, 
+    RulePrg = 0, RuleFuncDeclaration = 1, RuleFormalParameters = 2, RuleParameter = 3,
+    RuleBlock = 4, RuleStatement = 5, RuleRet = 6, RuleDeclaration = 7,
+    RuleAssignment = 8, RuleCall = 9, RuleIfStatement = 10, RuleWhileDoStatement = 11,
+    RuleDoWhileStatement = 12, RuleForStatement = 13, RuleInit_statement = 14,
+    RuleIteration_expr = 15, RuleVarDeclaration = 16, RuleArguments = 17,
     RuleExpr = 18, RuleBoolE = 19
   };
 
@@ -58,7 +58,7 @@ public:
   class VarDeclarationContext;
   class ArgumentsContext;
   class ExprContext;
-  class BoolEContext; 
+  class BoolEContext;
 
   class  PrgContext : public antlr4::ParserRuleContext {
   public:
@@ -69,7 +69,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   PrgContext* prg();
@@ -85,7 +85,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   FuncDeclarationContext* funcDeclaration();
@@ -99,7 +99,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   FormalParametersContext* formalParameters();
@@ -113,7 +113,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   ParameterContext* parameter();
@@ -127,7 +127,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   BlockContext* block();
@@ -148,7 +148,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   StatementContext* statement();
@@ -161,7 +161,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   RetContext* ret();
@@ -169,14 +169,14 @@ public:
   class  DeclarationContext : public antlr4::ParserRuleContext {
   public:
     DeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     DeclarationContext() = default;
     void copyFrom(DeclarationContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  DECLARATIONContext : public DeclarationContext {
@@ -195,14 +195,14 @@ public:
   class  AssignmentContext : public antlr4::ParserRuleContext {
   public:
     AssignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     AssignmentContext() = default;
     void copyFrom(AssignmentContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  ARR_ASSIGNMENTContext : public AssignmentContext {
@@ -231,14 +231,14 @@ public:
   class  CallContext : public antlr4::ParserRuleContext {
   public:
     CallContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     CallContext() = default;
     void copyFrom(CallContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  CALLContext : public CallContext {
@@ -256,14 +256,14 @@ public:
   class  IfStatementContext : public antlr4::ParserRuleContext {
   public:
     IfStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     IfStatementContext() = default;
     void copyFrom(IfStatementContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  IfContext : public IfStatementContext {
@@ -304,14 +304,14 @@ public:
   class  WhileDoStatementContext : public antlr4::ParserRuleContext {
   public:
     WhileDoStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     WhileDoStatementContext() = default;
     void copyFrom(WhileDoStatementContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  WhileDoContext : public WhileDoStatementContext {
@@ -329,14 +329,14 @@ public:
   class  DoWhileStatementContext : public antlr4::ParserRuleContext {
   public:
     DoWhileStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     DoWhileStatementContext() = default;
     void copyFrom(DoWhileStatementContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  DoWhileContext : public DoWhileStatementContext {
@@ -354,14 +354,14 @@ public:
   class  ForStatementContext : public antlr4::ParserRuleContext {
   public:
     ForStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     ForStatementContext() = default;
     void copyFrom(ForStatementContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  FORContext : public ForStatementContext {
@@ -387,7 +387,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   Init_statementContext* init_statement();
@@ -395,14 +395,14 @@ public:
   class  Iteration_exprContext : public antlr4::ParserRuleContext {
   public:
     Iteration_exprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     Iteration_exprContext() = default;
     void copyFrom(Iteration_exprContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  ITERATION_EXPRContext : public Iteration_exprContext {
@@ -420,14 +420,14 @@ public:
   class  VarDeclarationContext : public antlr4::ParserRuleContext {
   public:
     VarDeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     VarDeclarationContext() = default;
     void copyFrom(VarDeclarationContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  NonInitDecContext : public VarDeclarationContext {
@@ -482,7 +482,7 @@ public:
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+
   };
 
   ArgumentsContext* arguments();
@@ -490,14 +490,14 @@ public:
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
     ExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     ExprContext() = default;
     void copyFrom(ExprContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  MULT_EXPRContext : public ExprContext {
@@ -600,14 +600,14 @@ public:
   class  BoolEContext : public antlr4::ParserRuleContext {
   public:
     BoolEContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
+
     BoolEContext() = default;
     void copyFrom(BoolEContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
 
-   
+
   };
 
   class  NOTContext : public BoolEContext {
@@ -695,4 +695,3 @@ private:
   };
   static Initializer _init;
 };
-
