@@ -15,14 +15,24 @@ IRInstr_call::~IRInstr_call(){}
 
 void IRInstr_call::gen_asm(ostream &o)
 {
+	int numberOfArgs = m_ops.size();
+	int numberOfRegisters = numberOfArgs >= 6 ? 6 : numberOfArgs;
+	int argOffset;
+	int destOffset = m_bb -> cfg -> get_var_index(m_destination);
 	string regs[6] = {"edi","esi","edx","ecx","r8d","r9d"};
-	for (unsigned int idx = 0; idx < m_ops.size(); idx++){
-        int argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
-        o << "movl " << -argOffset << "(%rbp), %" << regs[idx] << endl;
-    }
+	
+	for (int idx = numberOfArgs - 1; idx >= 6; idx--){
+		argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
+		o << "movl " << -argOffset << "(%rbp), %eax" <<endl;
+		o << "pushq %rax" << endl;
+	}
+
+	for (int idx = 0; idx < numberOfRegisters; idx++){
+		argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
+		o << "movl " << -argOffset << "(%rbp), %" << regs[idx] << endl;
+	}
 
 	o << "call " << m_funName << endl;
-	int destOffset = m_bb -> cfg -> get_var_index(m_destination);
 	o << "mov %eax, " << -destOffset << "(%rbp)" << endl;
 }
 

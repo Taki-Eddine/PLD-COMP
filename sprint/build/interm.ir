@@ -1,30 +1,25 @@
+f_BB_0 {
+!tmp28 <- g + h
+return !tmp28
+jmp: epilog_f
+}
+g_BB_0 {
+!tmp4 <- 2
+return !tmp4
+jmp: epilog_g
+}
 main_BB_0 {
-!tmp8 <- 0
-sum <- !tmp8
-!tmp16 <- 0
-i <- !tmp16
-!tmp24 <- 10
-j <- !tmp24
-jmp: 2
-}
-main_BB_1 {
-!tmp32 <- 1
-!tmp36 <- sum + !tmp32
-sum <- !tmp36
-!tmp40 <- 1
-!tmp44 <- i + !tmp40
-i <- !tmp44
-!tmp48 <- 1
-!tmp52 <- j - !tmp48
-j <- !tmp52
-jmp: 2
-}
-main_BB_2 {
-!tmp28 <- i < j
-jmp True: 1
-jmp False: 3
-}
-main_BB_3 {
-return sum
+!tmp8 <- g()
+i <- !tmp8
+!tmp20 <- 1
+!tmp24 <- 2
+!tmp28 <- 3
+!tmp32 <- 4
+!tmp36 <- 5
+!tmp40 <- 6
+!tmp44 <- 7
+!tmp16 <- f(!tmp20, !tmp24, !tmp28, !tmp32, !tmp36, !tmp40, !tmp44, i)
+x <- !tmp16
+return x
 jmp: epilog_main
 }

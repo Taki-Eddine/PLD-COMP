@@ -24,13 +24,14 @@ class CFG {
 	void add_BB(BasicBlock* bb);
 	// symbol table methods
 	void add_simpleVar_to_symbol_table(string name, types type);
+	void add_simpleVar_to_symbol_table(int offset, string name, types type);
 	void add_arr_to_symbol_table(string name, types type, int numberOfElmnts);
 	types getType(string name);
 	string create_new_tempvar();
 	int get_var_index(string name);
 	bool isInit(string name);
 	void setInit(string name);
-	void setFormalParams(vector<string> formalParams);
+	void setFormalParams(vector<string> formalParams, vector<types> formalParamsTypes);
 	// basic block management
 	string new_BB_name();
 	string cfgName;
