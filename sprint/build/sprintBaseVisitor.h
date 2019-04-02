@@ -119,10 +119,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -139,15 +135,31 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitBITWISE_OR_EXPR(sprintParser::BITWISE_OR_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitCALL_EXPR(sprintParser::CALL_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) override {
+  virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override {
+  virtual antlrcpp::Any visitBITWISE_XOR_EXPR(sprintParser::BITWISE_XOR_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitBITWISE_AND_EXPR(sprintParser::BITWISE_AND_EXPRContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
 

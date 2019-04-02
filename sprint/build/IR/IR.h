@@ -19,4 +19,7 @@
 #include "IRInstr_cmp_ge.h"
 #include "IRInstr_cmp_eq.h"
 #include "IRInstr_cmp_neq.h"
+#include "IRInstr_binaryAnd.h"
+#include "IRInstr_binaryOr.h"
+#include "IRInstr_binaryXor.h"
 #include "Symbol.h"
