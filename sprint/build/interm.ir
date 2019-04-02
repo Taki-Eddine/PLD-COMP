@@ -3,17 +3,23 @@ f_BB_0 {
 return !tmp28
 jmp: epilog_f
 }
+g_BB_0 {
+!tmp4 <- 2
+return !tmp4
+jmp: epilog_g
+}
 main_BB_0 {
-!tmp12 <- 1
-!tmp16 <- 2
-!tmp20 <- 3
-!tmp24 <- 4
-!tmp28 <- 5
-!tmp32 <- 6
-!tmp36 <- 7
-!tmp40 <- 8
-!tmp8 <- f(!tmp12, !tmp16, !tmp20, !tmp24, !tmp28, !tmp32, !tmp36, !tmp40)
-x <- !tmp8
+!tmp8 <- g()
+i <- !tmp8
+!tmp20 <- 1
+!tmp24 <- 2
+!tmp28 <- 3
+!tmp32 <- 4
+!tmp36 <- 5
+!tmp40 <- 6
+!tmp44 <- 7
+!tmp16 <- f(!tmp20, !tmp24, !tmp28, !tmp32, !tmp36, !tmp40, !tmp44, i)
+x <- !tmp16
 return x
 jmp: epilog_main
 }

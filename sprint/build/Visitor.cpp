@@ -25,13 +25,11 @@ antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext
         for (unsigned int idx = 0; idx < paramsCtx.size(); idx++){
             string paramName = paramsCtx[idx] -> ID() -> getText();
             string typeToken = paramsCtx[idx] -> TYPE() -> getText();
-            //cout << paramName << endl;
             types type;
             if (typeToken == "int"){
                 type = types::INT;
             }
             formalParams.push_back(paramName);
-            //cfg -> add_simpleVar_to_symbol_table(paramName, type);
         }          
     }
     cfg -> setFormalParams(formalParams);
@@ -45,12 +43,14 @@ antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext
 };
 
 antlrcpp::Any Visitor::visitCALL(sprintParser::CALLContext *ctx) {
-    vector<sprintParser::ExprContext *> vectExpr = ctx->arguments()->expr();
+    vector<string> ops;
     string label = ctx->ID()->getText();
     string destination = cfg -> create_new_tempvar();
-    vector<string> ops;
-    for (unsigned int i=0; i<vectExpr.size(); i++){
-        ops.push_back(visit(vectExpr[i]));
+    if (ctx->arguments() != nullptr){
+        vector<sprintParser::ExprContext *> vectExpr = ctx->arguments()->expr();
+        for (unsigned int i=0; i<vectExpr.size(); i++){
+            ops.push_back(visit(vectExpr[i]));
+        }
     }
     current_BB->add_IRInstr(new IRInstr_call(current_BB, label, 
         destination, ops));
@@ -167,8 +167,7 @@ antlrcpp::Any Visitor::visitNUM_EXPR(sprintParser::NUM_EXPRContext *ctx){
 antlrcpp::Any Visitor::visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *ctx){
     string temp_num = cfg -> create_new_tempvar();
     string chr = ctx -> CHAR() -> getText();
-    int value = char_value(chr); 
-    cout << value << endl;
+    int value = char_value(chr);
     current_BB->add_IRInstr(new IRInstr_ldconst(current_BB,
     temp_num,to_string(value)));
         

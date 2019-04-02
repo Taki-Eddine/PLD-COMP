@@ -39,7 +39,6 @@ void CFG::setFormalParams(vector<string> formalParams){
     for(unsigned int idx=6; idx<formalParams.size(); idx++){
         types type = types::INT; // to change after
         offset -= 8; // to change after
-        cout<<"Offset: "<<offset<<" for "<<formalParams[idx]<<endl;
         this -> formalParams.push_back(formalParams[idx]);
         this -> add_simpleVar_to_symbol_table(offset, formalParams[idx], type);
     }
@@ -106,7 +105,7 @@ void CFG::gen_asm_prologue(ostream& o){
     o << cfgName << ":" << endl;
     o << "pushq %rbp" << endl;
     o << "movq  %rsp, %rbp" << endl;
-    o << "subq  $" << lastOffset + (-lastOffset % 16) << ",  %rsp" <<endl;
+    o << "subq  $" << lastOffset + 16 - (lastOffset % 16) << ",  %rsp" <<endl;
 
     //-----------------------------------------------------
     string regs[6] = {"edi","esi","edx","ecx","r8d","r9d"};
