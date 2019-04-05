@@ -123,6 +123,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitBITWISE_SHIFT(sprintParser::BITWISE_SHIFTContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *ctx) override {
     return visitChildren(ctx);
   }
