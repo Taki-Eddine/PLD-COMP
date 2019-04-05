@@ -279,13 +279,39 @@ antlrcpp::Any Visitor::visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) {
 antlrcpp::Any Visitor::visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNMENTContext *ctx){
     string left = ctx -> ID() -> getText();
     string right = visit(ctx -> expr());
-    current_BB->add_IRInstr(new IRInstr_copy(current_BB,left,right));
+    string assignment = ctx -> EQUAL_ASSIGN() == nullptr ?
+            ctx -> OP_ASSIGN() -> getText() : ctx -> EQUAL_ASSIGN() -> getText();
+    
+    if(assignment == "+="){
+        current_BB -> add_IRInstr(new IRInstr_add(current_BB, left, left, right));
+    }
+    else if (assignment == "-="){
+        current_BB -> add_IRInstr(new IRInstr_sub(current_BB, left, left, right));
+    }
+    else if (assignment == "*="){
+        current_BB -> add_IRInstr(new IRInstr_mult(current_BB, left, left, right));
+    }
+    else if (assignment == "&="){
+        current_BB -> add_IRInstr(new IRInstr_binaryAnd(current_BB, left, left, right));
+    }
+    else if (assignment == "|="){
+        current_BB -> add_IRInstr(new IRInstr_binaryOr(current_BB, left, left, right));
+    }
+    else if (assignment == "^="){
+        current_BB -> add_IRInstr(new IRInstr_binaryXor(current_BB, left, left, right));
+    }
+    else{
+        current_BB->add_IRInstr(new IRInstr_copy(current_BB,left,right));
+    }
+
     return left;
 };
 
 antlrcpp::Any Visitor::visitASSIGNMENT_EXPR(sprintParser::ASSIGNMENT_EXPRContext *ctx) {
   return visit(ctx -> assignment());  
 };
+
+//-------------------------------------------------------------------------------------
 
 antlrcpp::Any Visitor::visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *ctx){
   
@@ -304,11 +330,46 @@ antlrcpp::Any Visitor::visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *
     current_BB -> add_IRInstr(new IRInstr_ldconst(current_BB, offset, to_string(idOffset)));
     current_BB -> add_IRInstr(new IRInstr_add(current_BB, tempo, offset, tempo));
     //------------------------------------------------------------------------------------
-    string src = visit(ctx -> expr(1));
-    current_BB -> add_IRInstr(new IRInstr_wmem(current_BB, tempo, src));
-    return src;
     
-}
+    string src = visit(ctx -> expr(1));
+    string assignment = ctx -> EQUAL_ASSIGN() == nullptr ?
+            ctx -> OP_ASSIGN() -> getText() : ctx -> EQUAL_ASSIGN() -> getText();
+
+    if (assignment == "="){
+        current_BB -> add_IRInstr(new IRInstr_wmem(current_BB, tempo, src));
+        return src;
+    }
+    else{
+        string tempo_dest = cfg -> create_new_tempvar();
+        current_BB -> add_IRInstr(new IRInstr_rmem(current_BB, tempo, tempo_dest));
+        //------------------------------------------------------------------------------------
+        if(assignment == "+="){
+        current_BB -> add_IRInstr(new IRInstr_add(current_BB, tempo_dest, tempo_dest, src));
+        }
+        else if (assignment == "-="){
+            current_BB -> add_IRInstr(new IRInstr_sub(current_BB, tempo_dest, tempo_dest, src));
+        }
+        else if (assignment == "*="){
+            current_BB -> add_IRInstr(new IRInstr_mult(current_BB, tempo_dest, tempo_dest, src));
+        }
+        else if (assignment == "&="){
+            current_BB -> add_IRInstr(new IRInstr_binaryAnd(current_BB, tempo_dest, tempo_dest, src));
+        }
+        else if (assignment == "|="){
+            current_BB -> add_IRInstr(new IRInstr_binaryOr(current_BB, tempo_dest, tempo_dest, src));
+        }
+        else if (assignment == "^="){
+            current_BB -> add_IRInstr(new IRInstr_binaryXor(current_BB, tempo_dest, tempo_dest, src));
+        }
+        current_BB -> add_IRInstr(new IRInstr_wmem(current_BB, tempo, tempo_dest));
+        return tempo_dest;
+ 
+    }
+       
+};
+    //-------------------------------------------------------------------------------------
+
+
 antlrcpp::Any Visitor::visitCMPLtGt(sprintParser::CMPLtGtContext *ctx){
     string boolVal = cfg -> create_new_tempvar(); 
     string left = visit(ctx -> expr(0));

@@ -26,8 +26,8 @@ ret : 'return' expr;
 declaration: TYPE varDeclaration (',' varDeclaration)* #DECLARATION
              ;
 
-assignment:  ID '=' expr #SCALAR_ASSIGNMENT
-            |ID '[' expr ']' '=' expr #ARR_ASSIGNMENT;
+assignment:  ID (EQUAL_ASSIGN|OP_ASSIGN) expr #SCALAR_ASSIGNMENT
+            |ID '[' expr ']' (EQUAL_ASSIGN|OP_ASSIGN) expr #ARR_ASSIGNMENT;
         
 
 call : ID '(' arguments? ')' #CALL;
@@ -49,9 +49,9 @@ init_statement : declaration
 
 iteration_expr : assignment (',' assignment)* #ITERATION_EXPR;
 
-varDeclaration : ID '=' expr #InitializedDec
+varDeclaration : ID EQUAL_ASSIGN expr #InitializedDec
                 | ID #nonInitDec
-                | ID '[' (INT)? ']' '=' ('{' expr (',' expr)* '}'| '{' '}') #InitializedArrDec
+                | ID '[' (INT)? ']' EQUAL_ASSIGN ('{' expr (',' expr)* '}'| '{' '}') #InitializedArrDec
                 | ID '[' INT ']' #nonInitArrDec
                 ;
 arguments : expr (',' expr)*;
@@ -84,6 +84,8 @@ ID  : LETTER (LETTER|DIGIT|UNDER_SCORE)*;
 INT : DIGIT+;
 PLUS_MINUS : '+' | '-';
 LT_GT : '<' | '<=' | '>' | '>=';
+EQUAL_ASSIGN : '=';
+OP_ASSIGN: ('+='|'-='|'*='|'^='|'&='|'|=');
 EQ_NEQ : '==' | '!=';
 LETTER : [a-zA-Z];
 DIGIT : [0-9];
