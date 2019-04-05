@@ -22,4 +22,6 @@
 #include "IRInstr_binaryAnd.h"
 #include "IRInstr_binaryOr.h"
 #include "IRInstr_binaryXor.h"
+#include "IRInstr_shift_right.h"
+#include "IRInstr_shift_left.h"
 #include "Symbol.h"
