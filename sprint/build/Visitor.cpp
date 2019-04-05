@@ -49,6 +49,9 @@ antlrcpp::Any Visitor::visitCALL(sprintParser::CALLContext *ctx) {
     vector<string> ops;
     string label = ctx->ID()->getText();
     string destination = cfg -> create_new_tempvar();
+    if(label=="putchar" || label=="getchar"){
+        label=label+"@PLT";
+    }
     if (ctx->arguments() != nullptr){
         vector<sprintParser::ExprContext *> vectExpr = ctx->arguments()->expr();
         for (unsigned int i=0; i<vectExpr.size(); i++){
