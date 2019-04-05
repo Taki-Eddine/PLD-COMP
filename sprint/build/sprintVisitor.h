@@ -73,6 +73,8 @@ public:
 
     virtual antlrcpp::Any visitCHAR_EXPR(sprintParser::CHAR_EXPRContext *context) = 0;
 
+    virtual antlrcpp::Any visitBITWISE_SHIFT(sprintParser::BITWISE_SHIFTContext *context) = 0;
+
     virtual antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *context) = 0;
 
     virtual antlrcpp::Any visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *context) = 0;

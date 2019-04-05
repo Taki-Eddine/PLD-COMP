@@ -1,10 +1,9 @@
 main_BB_0 {
-!tmp8 <- getchar@PLT()
-i <- !tmp8
-!tmp12 <- 1
-i <- i + !tmp12
-!tmp16 <- putchar@PLT(i)
-!tmp20 <- 0
-return !tmp20
+!tmp8 <- 12
+x <- !tmp8
+!tmp16 <- 2
+!tmp20 <- x >> !tmp16
+i <- !tmp20
+return i
 jmp: epilog_main
 }

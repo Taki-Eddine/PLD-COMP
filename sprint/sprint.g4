@@ -61,11 +61,12 @@ expr :    call #CALL_EXPR
         | '(' expr ')' #PAREN_EXPR  
         | PLUS_MINUS expr #UNARY_EXPR
         | expr '*' expr #MULT_EXPR
-        | expr PLUS_MINUS expr #ADD_MINUS_EXPR 
-        | assignment #ASSIGNMENT_EXPR
+        | expr PLUS_MINUS expr #ADD_MINUS_EXPR
+        | expr SHIFT_R_L expr #BITWISE_SHIFT 
         | expr '&' expr #BITWISE_AND_EXPR
         | expr '^' expr #BITWISE_XOR_EXPR
         | expr '|' expr #BITWISE_OR_EXPR
+        | assignment #ASSIGNMENT_EXPR
         | ID #VAR_EXPR
         | INT #NUM_EXPR
         | CHAR #CHAR_EXPR
@@ -83,6 +84,7 @@ TYPE : 'int';
 ID  : LETTER (LETTER|DIGIT|UNDER_SCORE)*;
 INT : DIGIT+;
 PLUS_MINUS : '+' | '-';
+SHIFT_R_L : '>>' | '<<';
 LT_GT : '<' | '<=' | '>' | '>=';
 EQUAL_ASSIGN : '=';
 OP_ASSIGN: ('+='|'-='|'*='|'^='|'&='|'|=');

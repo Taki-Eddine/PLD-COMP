@@ -241,6 +241,22 @@ antlrcpp::Any Visitor::visitBITWISE_OR_EXPR(sprintParser::BITWISE_OR_EXPRContext
     return actual_var;
 };
 
+antlrcpp::Any Visitor::visitBITWISE_SHIFT(sprintParser::BITWISE_SHIFTContext *ctx){
+    string left = visit(ctx->expr(0));
+    string right = visit(ctx->expr(1));
+
+    string actual_var = cfg -> create_new_tempvar();
+    
+    if(ctx->SHIFT_R_L()->getText()=="<<"){
+        current_BB->add_IRInstr(new IRInstr_shift_left(current_BB,
+            actual_var,left,right));
+    } else {
+        current_BB->add_IRInstr(new IRInstr_shift_right(current_BB,
+            actual_var,left,right));
+    }
+    return actual_var;
+};
+
 antlrcpp::Any Visitor::visitUNARY_EXPR(sprintParser::UNARY_EXPRContext *ctx){
 
 

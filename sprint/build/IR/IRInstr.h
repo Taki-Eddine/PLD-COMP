@@ -25,7 +25,9 @@ typedef enum {
 		cmp_ge,
 		cmp_eq,
 		cmp_neq,
-		ret
+		ret,
+		shift_left,
+		shift_right
 	} iri_type;
 	
 class IRInstr {
