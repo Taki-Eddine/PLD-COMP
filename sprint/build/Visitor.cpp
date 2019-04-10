@@ -13,9 +13,22 @@ antlrcpp::Any Visitor::visitPrg(sprintParser::PrgContext *ctx){
     return nullptr;
 }
 
+
+antlrcpp::Any Visitor::visitBlock(sprintParser::BlockContext *ctx) {
+    //cout << "befor enter scope" << endl << flush;
+    cfg -> enter_new_scope();
+    //cout << "after enter scope" << endl << flush;
+    visitChildren(ctx);
+    //cout << "befor exit scope" << endl << flush;
+    cfg -> exit_scope();
+    return nullptr;
+};
+
 antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext *ctx){
+    
     string funcName = ctx -> ID() -> getText();
     cfg =  new CFG(funcName);
+    cfg -> enter_new_scope();
     current_BB = new BasicBlock(cfg, cfg -> new_BB_name());
     cfg -> add_BB(current_BB);
     //-------------------------------------------------------------
@@ -41,8 +54,10 @@ antlrcpp::Any Visitor::visitFuncDeclaration(sprintParser::FuncDeclarationContext
     //-------------------------------------------------------------
     cfg -> gen_asm(assembly);
     cfg -> print(interm);
+    cfg -> exit_scope();
+
     delete(cfg);
-    return nullptr;    
+    return nullptr;  
 };
 
 antlrcpp::Any Visitor::visitCALL(sprintParser::CALLContext *ctx) {
@@ -191,7 +206,6 @@ antlrcpp::Any Visitor::visitMULT_EXPR(sprintParser::MULT_EXPRContext *ctx) {
 };
 
 antlrcpp::Any Visitor::visitADD_MINUS_EXPR(sprintParser::ADD_MINUS_EXPRContext *ctx){
-   
     string left = visit(ctx->expr(0));
     string right = visit(ctx->expr(1));
 
@@ -296,6 +310,7 @@ antlrcpp::Any Visitor::visitPAREN_EXPR(sprintParser::PAREN_EXPRContext *ctx) {
 };
 
 antlrcpp::Any Visitor::visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNMENTContext *ctx){
+
     string left = ctx -> ID() -> getText();
     string right = visit(ctx -> expr());
     string assignment = ctx -> EQUAL_ASSIGN() == nullptr ?

@@ -5,14 +5,15 @@ IRInstr_unaryminus::IRInstr_unaryminus(BasicBlock* bb_, string dest, string sour
 {
 	m_dest = dest;
 	m_source = source;
+  dest_offset = m_bb->cfg->get_var_index(m_dest);
+	source_offset = m_bb->cfg->get_var_index(m_source);
 }
 
 IRInstr_unaryminus::~IRInstr_unaryminus(){}
 
 void IRInstr_unaryminus::gen_asm(ostream &o)
 {
-	int dest_offset = m_bb->cfg->get_var_index(m_dest);
-	int source_offset = m_bb->cfg->get_var_index(m_source);
+	
 
   o << "movl " << -source_offset << "(%rbp), %eax" << endl;
   o << "negl %eax"<< endl;

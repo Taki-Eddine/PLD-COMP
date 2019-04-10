@@ -10,14 +10,14 @@ CFG::CFG(string cfgName){
 };
 
 CFG::~CFG(){
-    for (unsigned int i=0; i<bbs.size(); i++){
+    /*for (unsigned int i=0; i<bbs.size(); i++){
         delete(bbs[i]);
     }
     unordered_map<string, Symbol*>::iterator it;
     for (it=table.begin(); it!=table.end(); it++){
         delete(it->second);
     }
-    table.clear();
+    table.clear();*/
 }
 
 
@@ -25,6 +25,18 @@ void CFG::add_BB(BasicBlock* bb){
     bbs.push_back(bb);
 };
 
+void CFG::enter_new_scope(){
+    //cout << "before push!!" << endl << std::flush;
+    tables.push_back(new unordered_map<string, Symbol*>());
+    //cout << "after push" << endl << std::flush;
+
+    //cout << tables.size() << endl << flush;
+
+}
+
+void CFG::exit_scope(){
+    tables.pop_back();
+}
 
 void CFG::setFormalParams(vector<string> formalParams, vector<types> formalParamsTypes){
     unsigned int numberOfParams = formalParams.size();
@@ -52,12 +64,13 @@ void CFG::add_simpleVar_to_symbol_table(string name, types type){
     }
 
     Symbol* symbol = new Symbol(name, lastOffset, type);
-    table.insert(make_pair(name, symbol));
+
+    tables.back() -> insert(make_pair(name, symbol));
 };
 
 void CFG::add_simpleVar_to_symbol_table(int offset, string name, types type){
     Symbol* symbol = new Symbol(name, offset, type);
-    table.insert(make_pair(name, symbol));
+    tables.back() -> insert(make_pair(name, symbol));
 }
 
 void CFG::add_arr_to_symbol_table(string name, types type, int numberOfElmnts){
@@ -67,7 +80,7 @@ void CFG::add_arr_to_symbol_table(string name, types type, int numberOfElmnts){
         lastOffset += 4 * numberOfElmnts;
     }
     Symbol* symbol = new Symbol(name, lastOffset, type);
-    table.insert(make_pair(name, symbol));
+    tables.back() -> insert(make_pair(name, symbol));
 
 };
 
@@ -75,17 +88,19 @@ string CFG::create_new_tempvar(){
     lastOffset += 4;
     string name = "!tmp" + to_string(lastOffset);
     Symbol* symbol = new Symbol(name, lastOffset, types::INT);
-    table.insert(make_pair(name, symbol));
+    tables.back() -> insert(make_pair(name, symbol));
     return name;
 };
 
 int CFG::get_var_index(string name){
-    if (table.find(name) != table.end()){
-        return (table[name]) -> getOffset();
+   
+    for (int idx = tables.size() - 1; idx >= 0; idx--){
+        if (tables[idx] -> find(name) != tables[idx] -> end()){
+            return tables[idx] -> at(name) -> getOffset(); 
+        }
     }
-    else{
-        return -1;
-    }
+
+    return -1;
 };
 
 string CFG::new_BB_name(){
@@ -93,7 +108,11 @@ string CFG::new_BB_name(){
 }
 
 types CFG::getType(string name){
-    return table[name] -> getType();
+    for (int idx = tables.size() - 1; idx >= 0; idx--){
+        if (tables[idx] -> find(name) != tables[idx] -> end()){
+            return tables[idx] -> at(name) -> getType(); 
+        }
+    }
 }
 
 

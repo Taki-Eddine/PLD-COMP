@@ -16,4 +16,7 @@ private:
   string m_dest;
   string m_op1;
   string m_op2;
+  int l_offset;
+  int r_offset;
+  int dest_offset;
 };

@@ -2,7 +2,7 @@ grammar sprint;
 
 
 prg : funcDeclaration+;
-funcDeclaration : TYPE ID '(' formalParameters? ')' block;
+funcDeclaration : TYPE ID '(' formalParameters? ')' '{' statement* '}';
 
 formalParameters : parameter (',' parameter)*;
 

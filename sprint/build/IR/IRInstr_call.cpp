@@ -8,7 +8,10 @@ IRInstr_call::IRInstr_call(BasicBlock* bb_, string funName,
 	m_destination = destination;
 	for (unsigned int i=0; i<ops.size(); i++){
 		m_ops.push_back(ops[i]);
+		offsets.push_back(m_bb -> cfg -> get_var_index(ops[i]));
 	}
+
+	destOffset = m_bb -> cfg -> get_var_index(m_destination);
 }
 
 IRInstr_call::~IRInstr_call(){}
@@ -18,17 +21,16 @@ void IRInstr_call::gen_asm(ostream &o)
 	int numberOfArgs = m_ops.size();
 	int numberOfRegisters = numberOfArgs >= 6 ? 6 : numberOfArgs;
 	int argOffset;
-	int destOffset = m_bb -> cfg -> get_var_index(m_destination);
 	string regs[6] = {"edi","esi","edx","ecx","r8d","r9d"};
 	
 	for (int idx = numberOfArgs - 1; idx >= 6; idx--){
-		argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
+		argOffset = offsets[idx];
 		o << "movl " << -argOffset << "(%rbp), %eax" <<endl;
 		o << "pushq %rax" << endl;
 	}
 
 	for (int idx = 0; idx < numberOfRegisters; idx++){
-		argOffset = m_bb -> cfg -> get_var_index(m_ops[idx]);
+		argOffset = offsets[idx];
 		o << "movl " << -argOffset << "(%rbp), %" << regs[idx] << endl;
 	}
 
@@ -46,3 +48,4 @@ void IRInstr_call::print(ostream &o)
 	}
 	o << ")" << endl;
 }
+

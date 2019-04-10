@@ -13,4 +13,6 @@ public:
 private:
         string m_dest;
         string m_source;
+        int dest_offset;
+        int source_offset;
 };

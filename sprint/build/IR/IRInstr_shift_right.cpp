@@ -6,15 +6,16 @@ IRInstr_shift_right::IRInstr_shift_right(BasicBlock* bb_, string dest, string op
 	m_dest = dest;
 	m_op1 = op1;
 	m_op2 = op2;
+	l_offset = m_bb->cfg->get_var_index(m_op1);
+	r_offset = m_bb->cfg->get_var_index(m_op2);
+	dest_offset = m_bb->cfg->get_var_index(m_dest);
 }
 
 IRInstr_shift_right::~IRInstr_shift_right(){}
 
 void IRInstr_shift_right::gen_asm(ostream &o)
 {
-	int l_offset = m_bb->cfg->get_var_index(m_op1);
-	int r_offset = m_bb->cfg->get_var_index(m_op2);
-	int dest_offset = m_bb->cfg->get_var_index(m_dest);
+
 
 	o << "movl " << -l_offset << "(%rbp),  %eax" << endl;
 	o << "movb " << -r_offset << "(%rbp), %cl" << endl;
