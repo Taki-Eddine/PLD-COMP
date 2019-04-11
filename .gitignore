@@ -4,4 +4,7 @@ buildJava/
 **.s
 prg
 **.o
+**.out
+**.ir
+**.txt
 **.jar
