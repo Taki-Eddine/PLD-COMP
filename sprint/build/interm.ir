@@ -1,51 +1,46 @@
 main_BB_0 {
-!tmp8 <- 21
-a <- !tmp8
-!tmp16 <- 18
-b <- !tmp16
-!tmp24 <- 0
-!tmp20 <- a == !tmp24
-jmp True: 4
-jmp False: 1
-}
-main_BB_1 {
-jmp: 5
-}
-main_BB_2 {
-!tmp36 <- 0
-return !tmp36
+!tmp28 <- 1
+!tmp24 <- 20
+[ !tmp24 ] <- !tmp28
+!tmp32 <- 2
+!tmp24 <- 24
+[ !tmp24 ] <- !tmp32
+!tmp36 <- 3
+!tmp24 <- 28
+[ !tmp24 ] <- !tmp36
+!tmp40 <- 4
+!tmp24 <- 32
+[ !tmp24 ] <- !tmp40
+!tmp44 <- 5
+!tmp24 <- 36
+[ !tmp24 ] <- !tmp44
+!tmp56 <- 0
+idx <- !tmp56
+!tmp64 <- 5
+arr_size <- !tmp64
+!tmp72 <- 0
+sum <- !tmp72
 jmp: 1
 }
-main_BB_4 {
-!tmp32 <- 0
-!tmp28 <- b == !tmp32
+main_BB_1 {
+!tmp76 <- idx < arr_size
 jmp True: 2
-jmp False: 1
+jmp False: 3
 }
-main_BB_5 {
-!tmp40 <- a != b
-jmp True: 6
-jmp False: 7
+main_BB_2 {
+!tmp80 <- 4
+!tmp80 <- !tmp80 * idx
+!tmp84 <- 20
+!tmp80 <- !tmp84 + !tmp80
+!tmp88 <- [ !tmp80 ]
+!tmp92 <- sum + !tmp88
+sum <- !tmp92
+!tmp96 <- 1
+!tmp100 <- idx + !tmp96
+idx <- !tmp100
+jmp: 1
 }
-main_BB_6 {
-!tmp44 <- a < b
-jmp True: 9
-jmp False: 10
-}
-main_BB_7 {
-return a
+main_BB_3 {
+return sum
 jmp: epilog_main
-}
-main_BB_8 {
-jmp: 5
-}
-main_BB_9 {
-!tmp48 <- b - a
-b <- !tmp48
-jmp: 8
-}
-main_BB_10 {
-!tmp52 <- a - b
-a <- !tmp52
-jmp: 8
 }
