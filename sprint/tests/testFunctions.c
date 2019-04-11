@@ -5,5 +5,5 @@ int sum(int i){
 int main(){
     int x = 5,y;
     y = sum(sum(x));
-return y;
+    return y; // 20
 }

@@ -7,7 +7,7 @@ int g(){
 }
 
 int main(){
-    int i = g();
-    int x = f(1,2,3,4,5,6,7,i);
-    return x;
+    int i = g(); // 2
+    int x = f(1,2,3,4,5,6,7,i); // 7+2=9
+    return x; // 9
 }

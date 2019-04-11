@@ -1,5 +1,5 @@
 int main(){
-    int x = 12;
-    int i = x >> 2;
-    return i;
+    int x = 12; // 1100
+    int i = x >> 2; // 11 -> 3
+    return i; 
 }
