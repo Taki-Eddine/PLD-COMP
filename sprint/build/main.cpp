@@ -5,6 +5,7 @@
 #include "sprintLexer.h"
 #include "sprintParser.h"
 #include "Visitor.h"
+#include "ErrorsChecker.h"
 
 using namespace antlr4;
 
@@ -53,9 +54,15 @@ int main(int argc, const char* argv[]) {
   if(parser.getNumberOfSyntaxErrors() != 0){
     cerr << "[-] Program is syntactically incorrect, no file has been generated" << endl;
   }
-  else{   
-    Visitor visitor;
-    visitor.visit(tree);
+  else{
+    ErrorsChecker errorsChecker;
+    errorsChecker.visit(tree);
+    if (errorsChecker.error == true){
+      cerr << "[-] Program is semantically incorrect, no file has been generated" << endl;
+    }else{
+      Visitor visitor;
+      visitor.visit(tree);
+    }
   }
   return 0;
 };
