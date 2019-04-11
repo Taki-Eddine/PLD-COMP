@@ -4,6 +4,7 @@
 #include "sprintLexer.h"
 #include "sprintParser.h"
 #include "Visitor.h"
+#include "ErrorsChecker.h"
 
 using namespace antlr4;
 
@@ -18,8 +19,10 @@ int main(int argc, const char* argv[]) {
     cerr << "[-] Program is syntactically incorrect, no file has been generated" << endl;
   }
   else{   
-      Visitor visitor;
-      visitor.visit(tree);
+    ErrorsChecker errorsChecker;
+    errorsChecker.visit(tree);
+    //Visitor visitor;
+    //visitor.visit(tree);
   }
 return 0;
 };
