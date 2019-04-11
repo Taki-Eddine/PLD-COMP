@@ -16,7 +16,10 @@ public:
     antlrcpp::Any visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx) override;
     antlrcpp::Any visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNMENTContext *ctx) override;
     antlrcpp::Any visitCALL(sprintParser::CALLContext *ctx) override;
-
+    antlrcpp::Any visitInitializedArrDec(sprintParser::InitializedArrDecContext *ctx) override;
+    antlrcpp::Any visitNonInitArrDec(sprintParser::NonInitArrDecContext *ctx) override;
+    antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *ctx) override;
+    antlrcpp::Any visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *ctx) override;
 //-----------------------------------------------------
 protected:
     vector<unordered_map<string, Symbol*>*> tables;
@@ -26,10 +29,11 @@ protected:
     //------------------------------------------------------------
     void enter_new_scope();
     void exit_scope();
-    void add_simpleVar_to_symbol_table(string name, bool initialized);
+    void add_simpleVar_to_symbol_table(string name, bool initialized, types type);
     bool isDeclared(string name);
     bool isDeclaredInCurrentScope(string name);
     bool isInitialized(string name);
+    types getType(string name);
     void setInitialized(string name);
     //------------------------------------------------------------
 };

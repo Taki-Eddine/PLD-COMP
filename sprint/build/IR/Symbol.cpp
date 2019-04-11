@@ -7,9 +7,10 @@ Symbol::Symbol(std::string name, int offset, types type)
     this -> name = name;
 };
 
-Symbol::Symbol(std::string name, bool initialized){
+Symbol::Symbol(std::string name, bool initialized, types type){
     this -> name = name;
     this -> initialized = initialized;
+    this -> type = type;
 }
 
 int Symbol::getOffset(){

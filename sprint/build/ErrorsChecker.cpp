@@ -15,10 +15,10 @@ void ErrorsChecker::enter_new_scope(){
 
 void ErrorsChecker::exit_scope(){
     tables.pop_back();
-}
+};
 
-void ErrorsChecker::add_simpleVar_to_symbol_table(string name, bool initialized){
-    Symbol* symbol = new Symbol(name, initialized);
+void ErrorsChecker::add_simpleVar_to_symbol_table(string name, bool initialized, types type){
+    Symbol* symbol = new Symbol(name, initialized, type);
     tables.back() -> insert(make_pair(name, symbol));
 };
 
@@ -47,6 +47,16 @@ bool ErrorsChecker::isInitialized(string name){
     return false; 
 };
 
+types ErrorsChecker::getType(string name){
+    for (int idx = tables.size() - 1; idx >= 0; idx--){
+        if (tables[idx] -> find(name) != tables[idx] -> end()){
+            return tables[idx] -> at(name) -> getType(); 
+        }
+    }
+    
+    return (types)0; 
+};
+
 void ErrorsChecker::setInitialized(string name){
     for (int idx = tables.size() - 1; idx >= 0; idx--){
         if (tables[idx] -> find(name) != tables[idx] -> end()){
@@ -66,7 +76,7 @@ antlrcpp::Any ErrorsChecker::visitInitializedDec(sprintParser::InitializedDecCon
         error = true;
     }
     else{
-        add_simpleVar_to_symbol_table(id, true);
+        add_simpleVar_to_symbol_table(id, true, types::INT);
     }
 
     return nullptr;
@@ -81,7 +91,7 @@ antlrcpp::Any ErrorsChecker::visitNonInitDec(sprintParser::NonInitDecContext *ct
         error = true;
     }
     else{
-        add_simpleVar_to_symbol_table(id, false);
+        add_simpleVar_to_symbol_table(id, false, types::INT);
     }
 
     return nullptr;
@@ -96,8 +106,18 @@ antlrcpp::Any ErrorsChecker::visitFuncDeclaration(sprintParser::FuncDeclarationC
         std::vector<sprintParser::ParameterContext*> paramsCtx = ctx -> formalParameters() -> parameter();
         for (unsigned int idx = 0; idx < paramsCtx.size(); idx++){
             string paramName = paramsCtx[idx] -> ID() -> getText();
-            add_simpleVar_to_symbol_table(paramName, true);
+            if (isDeclaredInCurrentScope(paramName)){
+                int line = ctx -> getStart() -> getLine();
+                cerr << "[-] Error (Line " << line << ") Parameter name " << paramName << " is not unique" << endl;
+                error = true;
+            }
+            add_simpleVar_to_symbol_table(paramName, true, types::INT);
         }          
+    }
+    if (functions.find(funcName) != functions.end()){
+        int line = ctx -> getStart() -> getLine();
+        cerr << "[-] Error (Line " << line << ") Function " << funcName << " is already defined" << endl;
+        error = true;
     }
     functions.insert(make_pair(funcName, numberOfParams));
     visitChildren(ctx);
@@ -124,11 +144,31 @@ antlrcpp::Any ErrorsChecker::visitVAR_EXPR(sprintParser::VAR_EXPRContext *ctx){
         cerr << "[-] Error (Line " << line << "): Undefined variable " << id << endl;
         error = true;
     }
+    else if (getType(id) == types::ARR){
+        cerr << "[-] Error (Line " << line << "): Type mismatch (Array instead of int) for " << id << endl;
+        error = true;
+    }
     else if (!isInitialized(id)){
         cerr << "[!] Warning (Line " << line << "): Uninitialized variable " << id << endl;
     }
     return nullptr;
 };
+
+antlrcpp::Any ErrorsChecker::visitARR_EXPR(sprintParser::ARR_EXPRContext *ctx){
+    string id = ctx -> ID()-> getText();
+    int line = ctx -> getStart() -> getLine();
+
+    if (!isDeclared(id)){
+        cerr << "[-] Error (Line " << line << "): Undefined array name " << id << endl;
+        error = true;
+    }
+    else if (getType(id) != types::ARR){
+       cerr << "[-] Error (Line " << line << "): Type mismatch (int instead of array) for " << id << endl;
+        error = true; 
+    }
+
+    return nullptr;
+}
 
 antlrcpp::Any ErrorsChecker::visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNMENTContext *ctx){
     visit(ctx -> expr());
@@ -139,6 +179,10 @@ antlrcpp::Any ErrorsChecker::visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNM
     if (!isDeclared(id)){
         cerr << "[-] Error (Line " << line << "): Undefined variable " << id << endl;
         error = true;
+    }
+    else if (getType(id) == types::ARR){
+        cerr << "[-] Error (Line " << line << "): Type mismatch (Array instead of int) for " << id << endl;
+        error = true; 
     }
     else{
         if(ctx -> EQUAL_ASSIGN() != nullptr){
@@ -151,6 +195,24 @@ antlrcpp::Any ErrorsChecker::visitSCALAR_ASSIGNMENT(sprintParser::SCALAR_ASSIGNM
     return nullptr;
 }
 
+antlrcpp::Any ErrorsChecker::visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *ctx){
+    visit(ctx -> expr(0));
+    visit(ctx -> expr(1));
+
+    string id = ctx -> ID() -> getText();
+    int line = ctx -> getStart() -> getLine();
+
+    if (!isDeclared(id)){
+        cerr << "[-] Error (Line " << line << "): Undefined Array name " << id << endl;
+        error = true;
+    }
+    else if (getType(id) != types::ARR){
+        cerr << "[-] Error (Line " << line << "): Type mismatch (int instead of array) for " << id << endl;
+        error = true; 
+    }
+
+    return nullptr;
+}
 antlrcpp::Any ErrorsChecker::visitCALL(sprintParser::CALLContext *ctx) {
     int numberOfArgs = 0;
     if (ctx -> arguments() != nullptr){
@@ -162,40 +224,66 @@ antlrcpp::Any ErrorsChecker::visitCALL(sprintParser::CALLContext *ctx) {
     int line = ctx -> getStart() -> getLine();
     if (functions.find(funcName) == functions.end()){
         cerr << "[-] Error (Line " << line << "): Undefined function " << funcName << endl;
+        error = true;
     }else if (numberOfArgs != functions[funcName]){
         cerr << "[-] Error (Line " << line << "): Incorrect number of parameters in function " << funcName << endl;
+        error = true;
     }
 
     return nullptr;
 }
 
-/*antlrcpp::Any ErrorsChecker::visitAFFECT_STMT(sprintParser::AFFECT_STMTContext *ctx){
-    visit(ctx -> expr());
-    string left = ctx -> ID() -> getText();
-    int offset = cfg -> get_var_index(left);
+antlrcpp::Any ErrorsChecker::visitInitializedArrDec(sprintParser::InitializedArrDecContext *ctx){
+    string id = ctx -> ID() -> getText();
     int line = ctx -> getStart() -> getLine();
-    if (offset == -1){
-        cerr << "[-] Error (Line " << line << "): Undefined variable " << left << endl;
+    if (isDeclaredInCurrentScope(id)){
+        int line = ctx -> getStart() -> getLine();
+        cerr << "[-] Error (Line " << line << ") Array " << id << " is already declared in this scope" << endl;
         error = true;
-    }else{
-        cfg -> setInit(left);
+    }
+    else{
+        add_simpleVar_to_symbol_table(id, true, types::ARR);
     }
 
-    return left;
-};
+    if (ctx -> INT() != nullptr){
+        int numberOfElements =  stoi(ctx -> INT() -> getText());
+        if (numberOfElements == 0){
+            cerr << "[-] Error (Line " << line << "): Zero length arrays are not allowed" << endl;
+            error = true;
+        }else if (ctx -> expr().size() > (unsigned int) numberOfElements){
+            cerr << "[-] Error (Line " << line << "): too many initializers for int [" << 
+                ctx -> INT() -> getText() << "]" << endl;
+            error = true;
+        }
+    }
+    for (unsigned int idx = 0; idx < ctx -> expr().size(); idx++){
+        visit(ctx -> expr(idx));
+    }
+    return nullptr;
 
-antlrcpp::Any ErrorsChecker::visitAFFECT_EXPR(sprintParser::AFFECT_EXPRContext *ctx){
-    visit(ctx -> expr());
-    string left = ctx -> ID() -> getText();
-    int offset = cfg -> get_var_index(left);
+    
+
+}
+
+antlrcpp::Any ErrorsChecker::visitNonInitArrDec(sprintParser::NonInitArrDecContext *ctx) {
+    string id = ctx -> ID() -> getText();
     int line = ctx -> getStart() -> getLine();
-    if (offset == -1){
-        cerr << "[-] Error (Line " << line << "): Undefined variable " << left << endl;
+    if (isDeclaredInCurrentScope(id)){
+        int line = ctx -> getStart() -> getLine();
+        cerr << "[-] Error (Line " << line << ") Array " << id << " is already declared in this scope" << endl;
         error = true;
-    }else{
-        cfg -> setInit(left);
+    }
+    else{
+        add_simpleVar_to_symbol_table(id, true, types::ARR);
     }
 
-    return left;
-};
-*/
+    int numberOfElements =  stoi(ctx -> INT() -> getText());
+    if (numberOfElements == 0){
+        cerr << "[-] Error (Line " << line << "): Zero length arrays are not allowed" << endl;
+        error = true;
+    }
+    
+    
+
+    return nullptr;
+}
