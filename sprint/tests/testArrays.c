@@ -6,5 +6,5 @@ int main(){
         idx = idx + 1;
     }
 
-    return sum;
+    return sum; // 15
 }

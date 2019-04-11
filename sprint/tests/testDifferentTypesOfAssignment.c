@@ -10,6 +10,6 @@ int main(){
         sum += arr[idx];
     }
 
-    return sum;
+    return sum; // 20
   
 }

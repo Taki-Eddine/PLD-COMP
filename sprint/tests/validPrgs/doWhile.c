@@ -14,5 +14,5 @@ int main(){
         n = n + 1;
     }while(n <= N);
     
-    return result;
+    return result; // 120
 }

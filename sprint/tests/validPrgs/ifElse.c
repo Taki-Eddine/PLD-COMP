@@ -7,5 +7,5 @@ int main(){
     else{
         b = 13;
     }
-    return b;
+    return b; // 13
 }

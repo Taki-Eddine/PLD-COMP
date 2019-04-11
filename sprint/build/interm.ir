@@ -1,25 +1,51 @@
-dbl_BB_0 {
-!tmp8 <- 2
-!tmp12 <- x * !tmp8
-return !tmp12
-jmp: epilog_dbl
-}
 main_BB_0 {
-!tmp8 <- 0
-i <- !tmp8
-!tmp20 <- 0
-!tmp16 <- i == !tmp20
-jmp True: 2
+!tmp8 <- 21
+a <- !tmp8
+!tmp16 <- 18
+b <- !tmp16
+!tmp24 <- 0
+!tmp20 <- a == !tmp24
+jmp True: 4
 jmp False: 1
 }
 main_BB_1 {
-return result
-jmp: epilog_main
+jmp: 5
 }
 main_BB_2 {
-!tmp28 <- 5
-i <- !tmp28
-!tmp32 <- dbl(i)
-result <- !tmp32
+!tmp36 <- 0
+return !tmp36
 jmp: 1
+}
+main_BB_4 {
+!tmp32 <- 0
+!tmp28 <- b == !tmp32
+jmp True: 2
+jmp False: 1
+}
+main_BB_5 {
+!tmp40 <- a != b
+jmp True: 6
+jmp False: 7
+}
+main_BB_6 {
+!tmp44 <- a < b
+jmp True: 9
+jmp False: 10
+}
+main_BB_7 {
+return a
+jmp: epilog_main
+}
+main_BB_8 {
+jmp: 5
+}
+main_BB_9 {
+!tmp48 <- b - a
+b <- !tmp48
+jmp: 8
+}
+main_BB_10 {
+!tmp52 <- a - b
+a <- !tmp52
+jmp: 8
 }
