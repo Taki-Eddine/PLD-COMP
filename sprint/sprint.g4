@@ -26,7 +26,7 @@ ret : 'return' expr;
 declaration: TYPE varDeclaration (',' varDeclaration)* #DECLARATION
              ;
 
-assignment:  ID (EQUAL_ASSIGN|OP_ASSIGN) expr #SCALAR_ASSIGNMENT
+assignment:  ID (EQUAL_ASSIGN|OP_ASSIGN) expr #SCALAR_ASSIGNMENT 
             |ID '[' expr ']' (EQUAL_ASSIGN|OP_ASSIGN) expr #ARR_ASSIGNMENT;
         
 
