@@ -1,9 +1,25 @@
+dbl_BB_0 {
+!tmp8 <- 2
+!tmp12 <- x * !tmp8
+return !tmp12
+jmp: epilog_dbl
+}
 main_BB_0 {
-!tmp8 <- 12
-x <- !tmp8
-!tmp16 <- 2
-!tmp20 <- x >> !tmp16
-i <- !tmp20
-return i
+!tmp8 <- 0
+i <- !tmp8
+!tmp20 <- 0
+!tmp16 <- i == !tmp20
+jmp True: 2
+jmp False: 1
+}
+main_BB_1 {
+return result
 jmp: epilog_main
+}
+main_BB_2 {
+!tmp28 <- 5
+i <- !tmp28
+!tmp32 <- dbl(i)
+result <- !tmp32
+jmp: 1
 }

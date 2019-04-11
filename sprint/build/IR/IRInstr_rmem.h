@@ -14,4 +14,6 @@ public:
 private:
       string m_addr;
       string m_dest;
+      int addr_offset;
+      int dest_offset;
 };

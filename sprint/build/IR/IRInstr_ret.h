@@ -12,4 +12,5 @@ public:
 
 private:
     string m_source;
+    int source_offset;
 };

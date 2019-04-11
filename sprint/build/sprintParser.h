@@ -81,8 +81,9 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TYPE();
     antlr4::tree::TerminalNode *ID();
-    BlockContext *block();
     FormalParametersContext *formalParameters();
+    std::vector<StatementContext *> statement();
+    StatementContext* statement(size_t i);
 
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;

@@ -48,6 +48,7 @@ class Visitor : public sprintBaseVisitor {
     antlrcpp::Any visitBITWISE_XOR_EXPR(sprintParser::BITWISE_XOR_EXPRContext *ctx) override;
     antlrcpp::Any visitBITWISE_OR_EXPR(sprintParser::BITWISE_OR_EXPRContext *ctx) override;
     antlrcpp::Any visitBITWISE_SHIFT(sprintParser::BITWISE_SHIFTContext *ctx) override;
+    antlrcpp::Any visitBlock(sprintParser::BlockContext *ctx) override;
     //----------------HELPERS-------------
     int char_value(string &chr);
     //--------||

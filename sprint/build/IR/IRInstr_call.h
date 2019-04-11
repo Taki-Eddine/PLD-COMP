@@ -16,4 +16,6 @@ public:
     string m_funName;
     string m_destination;
     vector<string> m_ops;
+    vector<int> offsets;
+    int destOffset;
 };

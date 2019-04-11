@@ -22,6 +22,7 @@ class CFG {
 	void print(ostream& o);
 	void gen_asm_epilogue(ostream& o);
 	void add_BB(BasicBlock* bb);
+
 	// symbol table methods
 	void add_simpleVar_to_symbol_table(string name, types type);
 	void add_simpleVar_to_symbol_table(int offset, string name, types type);
@@ -32,11 +33,13 @@ class CFG {
 	bool isInit(string name);
 	void setInit(string name);
 	void setFormalParams(vector<string> formalParams, vector<types> formalParamsTypes);
+	void enter_new_scope();
+	void exit_scope();
 	// basic block management
 	string new_BB_name();
 	string cfgName;
  protected:
-	unordered_map<string, Symbol*> table;
+	vector<unordered_map<string, Symbol*>*> tables;
 	int nextBBnumber; /**< just for naming */	
 	int lastOffset;
 	vector <BasicBlock*> bbs; /**< all the basic blocks of this CFG*/
