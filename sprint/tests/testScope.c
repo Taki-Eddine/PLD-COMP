@@ -9,5 +9,5 @@ int main(){
         result = dbl(i);
     }
 
-    return result;
+    return result; // 10
 }
