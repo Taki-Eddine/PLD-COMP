@@ -1,3 +1,0 @@
-function names duplicated;
-2 parameters with the same name;
-arr assignment;
