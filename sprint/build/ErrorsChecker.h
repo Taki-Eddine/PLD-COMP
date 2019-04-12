@@ -21,10 +21,10 @@ public:
     antlrcpp::Any visitARR_EXPR(sprintParser::ARR_EXPRContext *ctx) override;
     antlrcpp::Any visitARR_ASSIGNMENT(sprintParser::ARR_ASSIGNMENTContext *ctx) override;
 //-----------------------------------------------------
+    bool error;
 protected:
     vector<unordered_map<string, Symbol*>*> tables;
     unordered_map<string, int> functions;
-    bool error;
     int lastOffset;
     //------------------------------------------------------------
     void enter_new_scope();
@@ -35,5 +35,6 @@ protected:
     bool isInitialized(string name);
     types getType(string name);
     void setInitialized(string name);
+
     //------------------------------------------------------------
 };
